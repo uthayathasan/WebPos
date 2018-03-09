@@ -4,3 +4,4 @@ node_modules
 obj
 .angular-cli.json
 karma.conf.js
+wwwroot
