@@ -89,9 +89,9 @@ export class Repository {
         }
     
     
-    fullscreen(){
+    ChangeScreen(){
         let elem = document.getElementById("pos"); 
-        if(!this.isFullScreen()){
+        if(!document.webkitIsFullScreen){
             if (elem.requestFullscreen) {
                 elem.requestFullscreen();
             } else if (elem.webkitRequestFullscreen) {
@@ -103,13 +103,13 @@ export class Repository {
         }
 
     }
-    isFullScreen()
-    {
-        if(document.webkitIsFullScreen){
-            return true;
-        }else{
-            return false;
-        }
+    exitFullScreen(){
+        document.webkitExitFullscreen();
+    }
+    
+    makeFullScreen(){
+        let elem = document.getElementById("pos"); 
+        elem.webkitRequestFullscreen();
     }
     device:Device;
     staffs:Staff[];

@@ -1116,7 +1116,7 @@ var AppComponent = /** @class */ (function () {
         configurable: true
     });
     AppComponent.prototype.fullscreen = function () {
-        this.repo.fullscreen();
+        this.repo.ChangeScreen();
     };
     AppComponent.prototype.gohome = function () {
         this.router.navigateByUrl("");
@@ -1301,7 +1301,7 @@ var AuthenticationComponent = /** @class */ (function () {
             this.showError = true;
         }
         else {
-            this.repo.fullscreen();
+            this.repo.makeFullScreen();
         }
     };
     Object.defineProperty(AuthenticationComponent.prototype, "Device", {
@@ -1527,9 +1527,7 @@ var VbrComponent = /** @class */ (function () {
         this.authService.userId = "";
         this.authService.password = "";
         this.router.navigateByUrl("login");
-        if (this.repo.isFullScreen) {
-            this.repo.fullscreen();
-        }
+        this.repo.exitFullScreen();
     };
     VbrComponent.prototype.goToTill = function () {
         this.router.navigateByUrl("till");
@@ -1791,9 +1789,9 @@ var Repository = /** @class */ (function () {
             return response.headers.get("Content-Length") != "0" ? response.json() : null;
         });
     };
-    Repository.prototype.fullscreen = function () {
+    Repository.prototype.ChangeScreen = function () {
         var elem = document.getElementById("pos");
-        if (!this.isFullScreen()) {
+        if (!document.webkitIsFullScreen) {
             if (elem.requestFullscreen) {
                 elem.requestFullscreen();
             }
@@ -1805,13 +1803,12 @@ var Repository = /** @class */ (function () {
             document.webkitExitFullscreen();
         }
     };
-    Repository.prototype.isFullScreen = function () {
-        if (document.webkitIsFullScreen) {
-            return true;
-        }
-        else {
-            return false;
-        }
+    Repository.prototype.exitFullScreen = function () {
+        document.webkitExitFullscreen();
+    };
+    Repository.prototype.makeFullScreen = function () {
+        var elem = document.getElementById("pos");
+        elem.webkitRequestFullscreen();
     };
     Object.defineProperty(Repository.prototype, "filter", {
         get: function () {

@@ -22,7 +22,7 @@ import{Device} from "../models/device.model";
             }
             else
             {
-                this.repo.fullscreen();
+                this.repo.makeFullScreen();
             }
         }
         

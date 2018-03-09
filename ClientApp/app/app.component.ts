@@ -35,7 +35,7 @@ export class AppComponent {
     return this.repo.device;
   }
   fullscreen(){
-   this.repo.fullscreen();
+   this.repo.ChangeScreen();
   }
   gohome(){
     this.router.navigateByUrl("");
