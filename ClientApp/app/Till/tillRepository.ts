@@ -23,8 +23,6 @@ const functionKeysUrl="/api/functionKeys";
 export class TillRepository {
 
     constructor(private http: Http,private repo:Repository){}
-    
-    
     getItem(id: string) {
         let url=itemsUrl+ "/" + id;
         url +="?customerId="+this.repo.filter.customerId;

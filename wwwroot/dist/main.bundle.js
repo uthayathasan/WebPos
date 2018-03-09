@@ -23,7 +23,7 @@ webpackEmptyAsyncContext.id = "./ClientApp/$$_lazy_route_resource lazy recursive
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Cart; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_repository__ = __webpack_require__("./ClientApp/app/models/repository.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tillRepository__ = __webpack_require__("./ClientApp/app/Till/tillRepository.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_menuLine_model__ = __webpack_require__("./ClientApp/app/models/menuLine.model.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_functionKey_model__ = __webpack_require__("./ClientApp/app/models/functionKey.model.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -40,8 +40,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var Cart = /** @class */ (function () {
-    function Cart(repo) {
-        this.repo = repo;
+    function Cart(trepo) {
+        this.trepo = trepo;
         this.displayLines = new Array();
         this.paid = 0;
         this.change = 0;
@@ -61,17 +61,17 @@ var Cart = /** @class */ (function () {
         if (this.menuLine == null) {
             this.menuLine = new __WEBPACK_IMPORTED_MODULE_2__models_menuLine_model__["a" /* MenuLine */]();
         }
-        this.repo.getMenuHeaders();
-        this.repo.getMenuLines(this.menuHeaderId);
-        this.repo.getFunctionKeys();
+        this.trepo.getMenuHeaders();
+        this.trepo.getMenuLines(this.menuHeaderId);
+        this.trepo.getFunctionKeys();
         if (this.functionKey == null) {
             this.functionKey = new __WEBPACK_IMPORTED_MODULE_3__models_functionKey_model__["a" /* FunctionKey */]();
         }
         this.mod = "START";
     }
     Cart.prototype.getItemCount = function () {
-        if (this.repo.eposTransLines != null && this.repo.eposTransLines.length > 0) {
-            return this.repo.eposTransLines.filter(function (l) { return ((!l.lineStatus) && (l.entryType == 0)); }).length;
+        if (this.trepo.eposTransLines != null && this.trepo.eposTransLines.length > 0) {
+            return this.trepo.eposTransLines.filter(function (l) { return ((!l.lineStatus) && (l.entryType == 0)); }).length;
         }
         else {
             return 0;
@@ -79,8 +79,8 @@ var Cart = /** @class */ (function () {
     };
     Cart.prototype.getPurchaseTotalIncDiscount = function () {
         try {
-            if (this.repo.eposTransLines != null && this.repo.eposTransLines.length > 0) {
-                return this.repo.eposTransLines.filter(function (l) { return ((!l.lineStatus) && (l.entryType == 0)); })
+            if (this.trepo.eposTransLines != null && this.trepo.eposTransLines.length > 0) {
+                return this.trepo.eposTransLines.filter(function (l) { return ((!l.lineStatus) && (l.entryType == 0)); })
                     .map(function (e) { return e.amount; }).reduce(function (s, u) { return s + u + 0; });
             }
             else {
@@ -93,8 +93,8 @@ var Cart = /** @class */ (function () {
     };
     Cart.prototype.getPurchaseTotalExcDiscount = function () {
         try {
-            if (this.repo.eposTransLines != null && this.repo.eposTransLines.length > 0) {
-                return this.repo.eposTransLines.filter(function (l) { return ((!l.lineStatus) && (l.entryType == 0)); })
+            if (this.trepo.eposTransLines != null && this.trepo.eposTransLines.length > 0) {
+                return this.trepo.eposTransLines.filter(function (l) { return ((!l.lineStatus) && (l.entryType == 0)); })
                     .map(function (e) { return e.netAmount; }).reduce(function (s, u) { return s + u + 0; });
             }
             else {
@@ -107,8 +107,8 @@ var Cart = /** @class */ (function () {
     };
     Cart.prototype.getTotal = function () {
         try {
-            if (this.repo.eposTransLines != null && this.repo.eposTransLines.length > 0) {
-                return this.repo.eposTransLines.filter(function (l) { return ((!l.lineStatus)); })
+            if (this.trepo.eposTransLines != null && this.trepo.eposTransLines.length > 0) {
+                return this.trepo.eposTransLines.filter(function (l) { return ((!l.lineStatus)); })
                     .map(function (e) { return e.netAmount; }).reduce(function (s, u) { return s + u + 0; });
             }
             else {
@@ -121,8 +121,8 @@ var Cart = /** @class */ (function () {
     };
     Cart.prototype.getDiscount = function () {
         try {
-            if (this.repo.eposTransLines != null && this.repo.eposTransLines.length > 0) {
-                return this.repo.eposTransLines.filter(function (l) { return ((!l.lineStatus) && (l.entryType == 0)); })
+            if (this.trepo.eposTransLines != null && this.trepo.eposTransLines.length > 0) {
+                return this.trepo.eposTransLines.filter(function (l) { return ((!l.lineStatus) && (l.entryType == 0)); })
                     .map(function (e) { return e.discountAmount; }).reduce(function (s, u) { return s + u + 0; });
             }
             else {
@@ -135,8 +135,8 @@ var Cart = /** @class */ (function () {
     };
     Cart.prototype.getPaidAmount = function () {
         try {
-            if (this.repo.eposTransLines != null && this.repo.eposTransLines.length > 0) {
-                this.paid = this.repo.eposTransLines.filter(function (l) { return ((!l.lineStatus) && (l.entryType == 2) && (!l.isChange)); })
+            if (this.trepo.eposTransLines != null && this.trepo.eposTransLines.length > 0) {
+                this.paid = this.trepo.eposTransLines.filter(function (l) { return ((!l.lineStatus) && (l.entryType == 2) && (!l.isChange)); })
                     .map(function (e) { return e.netAmount; }).reduce(function (s, u) { return s + u + 0; });
                 return this.paid;
             }
@@ -150,8 +150,8 @@ var Cart = /** @class */ (function () {
     };
     Cart.prototype.getChangeAmount = function () {
         try {
-            if (this.repo.eposTransLines != null && this.repo.eposTransLines.length > 0) {
-                this.change = this.repo.eposTransLines.filter(function (l) { return ((!l.lineStatus) && (l.entryType == 2) && (l.isChange)); })
+            if (this.trepo.eposTransLines != null && this.trepo.eposTransLines.length > 0) {
+                this.change = this.trepo.eposTransLines.filter(function (l) { return ((!l.lineStatus) && (l.entryType == 2) && (l.isChange)); })
                     .map(function (e) { return e.netAmount; }).reduce(function (s, u) { return s + u + 0; });
                 return this.change;
             }
@@ -175,7 +175,7 @@ var Cart = /** @class */ (function () {
     });
     Cart = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__models_repository__["a" /* Repository */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__tillRepository__["a" /* TillRepository */]])
     ], Cart);
     return Cart;
 }());
@@ -324,8 +324,8 @@ module.exports = "<div class=\"row w-100 m-0 p-0\" style=\"min-height:200px\">\r
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FunctionKeyComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_repository__ = __webpack_require__("./ClientApp/app/models/repository.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cart__ = __webpack_require__("./ClientApp/app/Till/cart.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cart__ = __webpack_require__("./ClientApp/app/Till/cart.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tillRepository__ = __webpack_require__("./ClientApp/app/Till/tillRepository.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -339,20 +339,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var FunctionKeyComponent = /** @class */ (function () {
-    function FunctionKeyComponent(repo, cart) {
-        this.repo = repo;
+    function FunctionKeyComponent(trepo, cart) {
+        this.trepo = trepo;
         this.cart = cart;
     }
     FunctionKeyComponent.prototype.ngOnInit = function () { };
     Object.defineProperty(FunctionKeyComponent.prototype, "functionKeys1", {
         get: function () {
             var _this = this;
-            if (this.repo.functionKeys != null) {
-                return this.repo.functionKeys.filter(function (m) { return m.mod.toUpperCase() == _this.cart.mod; })
+            if (this.trepo.functionKeys != null) {
+                return this.trepo.functionKeys.filter(function (m) { return m.mod.toUpperCase() == _this.cart.mod; })
                     .filter(function (l) { return l.index % 3 == 1; });
             }
             else {
-                this.repo.functionKeys;
+                this.trepo.functionKeys;
             }
         },
         enumerable: true,
@@ -361,12 +361,12 @@ var FunctionKeyComponent = /** @class */ (function () {
     Object.defineProperty(FunctionKeyComponent.prototype, "functionKeys2", {
         get: function () {
             var _this = this;
-            if (this.repo.functionKeys != null) {
-                return this.repo.functionKeys.filter(function (m) { return m.mod.toUpperCase() == _this.cart.mod; })
+            if (this.trepo.functionKeys != null) {
+                return this.trepo.functionKeys.filter(function (m) { return m.mod.toUpperCase() == _this.cart.mod; })
                     .filter(function (l) { return l.index % 3 == 2; });
             }
             else {
-                this.repo.functionKeys;
+                this.trepo.functionKeys;
             }
         },
         enumerable: true,
@@ -375,12 +375,12 @@ var FunctionKeyComponent = /** @class */ (function () {
     Object.defineProperty(FunctionKeyComponent.prototype, "functionKeys3", {
         get: function () {
             var _this = this;
-            if (this.repo.functionKeys != null) {
-                return this.repo.functionKeys.filter(function (m) { return m.mod.toUpperCase() == _this.cart.mod; })
+            if (this.trepo.functionKeys != null) {
+                return this.trepo.functionKeys.filter(function (m) { return m.mod.toUpperCase() == _this.cart.mod; })
                     .filter(function (l) { return l.index % 3 == 0; });
             }
             else {
-                this.repo.functionKeys;
+                this.trepo.functionKeys;
             }
         },
         enumerable: true,
@@ -401,7 +401,7 @@ var FunctionKeyComponent = /** @class */ (function () {
             selector: "function-key",
             template: __webpack_require__("./ClientApp/app/Till/functionKey.component.html")
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__models_repository__["a" /* Repository */], __WEBPACK_IMPORTED_MODULE_2__cart__["a" /* Cart */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__tillRepository__["a" /* TillRepository */], __WEBPACK_IMPORTED_MODULE_1__cart__["a" /* Cart */]])
     ], FunctionKeyComponent);
     return FunctionKeyComponent;
 }());
@@ -423,7 +423,7 @@ module.exports = "<table class=\"table table-striped\">\r\n    <tr><th colspan=\
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ItemComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_repository__ = __webpack_require__("./ClientApp/app/models/repository.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tillRepository__ = __webpack_require__("./ClientApp/app/Till/tillRepository.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -438,15 +438,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var ItemComponent = /** @class */ (function () {
-    function ItemComponent(repo, router, activeRoute) {
-        this.repo = repo;
+    function ItemComponent(trepo, router, activeRoute) {
+        this.trepo = trepo;
         this.router = router;
         this.activeRoute = activeRoute;
     }
     ItemComponent.prototype.ngOnInit = function () {
         var id = this.activeRoute.snapshot.params["id"];
         if (id) {
-            this.repo.getItem(id);
+            this.trepo.getItem(id);
         }
         else {
             this.router.navigateByUrl("/");
@@ -454,7 +454,7 @@ var ItemComponent = /** @class */ (function () {
     };
     Object.defineProperty(ItemComponent.prototype, "item", {
         get: function () {
-            return this.repo.item;
+            return this.trepo.item;
         },
         enumerable: true,
         configurable: true
@@ -464,7 +464,7 @@ var ItemComponent = /** @class */ (function () {
             selector: "item-details",
             template: __webpack_require__("./ClientApp/app/Till/item.component.html")
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__models_repository__["a" /* Repository */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__tillRepository__["a" /* TillRepository */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */]])
     ], ItemComponent);
     return ItemComponent;
 }());
@@ -486,7 +486,7 @@ module.exports = "<div class=\"row w-100 m-0 p-0\" style=\"min-height:400px;max-
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return JournalComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_repository__ = __webpack_require__("./ClientApp/app/models/repository.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tillRepository__ = __webpack_require__("./ClientApp/app/Till/tillRepository.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cart__ = __webpack_require__("./ClientApp/app/Till/cart.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -501,14 +501,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var JournalComponent = /** @class */ (function () {
-    function JournalComponent(repo, cart) {
-        this.repo = repo;
+    function JournalComponent(trepo, cart) {
+        this.trepo = trepo;
         this.cart = cart;
     }
     JournalComponent.prototype.ngOnInit = function () {
         this.cart.slipNo = 1204594;
-        this.repo.getEposTransaction(this.cart.slipNo);
-        this.repo.getEposTransLines(this.cart.slipNo);
+        this.trepo.getEposTransaction(this.cart.slipNo);
+        this.trepo.getEposTransLines(this.cart.slipNo);
     };
     JournalComponent.prototype.onKey = function (event) {
         if (event.keyCode == 13) {
@@ -535,7 +535,7 @@ var JournalComponent = /** @class */ (function () {
     });
     Object.defineProperty(JournalComponent.prototype, "eposTranslines", {
         get: function () {
-            return this.repo.eposTransLines;
+            return this.trepo.eposTransLines;
         },
         enumerable: true,
         configurable: true
@@ -565,7 +565,7 @@ var JournalComponent = /** @class */ (function () {
             selector: "journal-lines",
             template: __webpack_require__("./ClientApp/app/Till/journal.component.html")
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__models_repository__["a" /* Repository */], __WEBPACK_IMPORTED_MODULE_2__cart__["a" /* Cart */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__tillRepository__["a" /* TillRepository */], __WEBPACK_IMPORTED_MODULE_2__cart__["a" /* Cart */]])
     ], JournalComponent);
     return JournalComponent;
 }());
@@ -587,7 +587,7 @@ module.exports = "<div class=\"row w-100 m-0 p-0\" style=\"min-height:450px\">\r
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MenuBtnComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_repository__ = __webpack_require__("./ClientApp/app/models/repository.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tillRepository__ = __webpack_require__("./ClientApp/app/Till/tillRepository.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cart__ = __webpack_require__("./ClientApp/app/Till/cart.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -602,8 +602,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var MenuBtnComponent = /** @class */ (function () {
-    function MenuBtnComponent(repo, cart) {
-        this.repo = repo;
+    function MenuBtnComponent(trepo, cart) {
+        this.trepo = trepo;
         this.cart = cart;
     }
     MenuBtnComponent.prototype.ngOnInit = function () {
@@ -626,11 +626,11 @@ var MenuBtnComponent = /** @class */ (function () {
     Object.defineProperty(MenuBtnComponent.prototype, "menuLines1", {
         get: function () {
             var pageIndex = (this.cart.menuLineCurrentPage - 1) * this.linesPerPage;
-            if (this.repo.menuLines != null) {
-                return this.repo.menuLines.filter(function (l) { return l.keyId % 2 == 1; }).slice(pageIndex, pageIndex + this.linesPerPage);
+            if (this.trepo.menuLines != null) {
+                return this.trepo.menuLines.filter(function (l) { return l.keyId % 2 == 1; }).slice(pageIndex, pageIndex + this.linesPerPage);
             }
             else {
-                this.repo.menuLines;
+                this.trepo.menuLines;
             }
         },
         enumerable: true,
@@ -639,11 +639,11 @@ var MenuBtnComponent = /** @class */ (function () {
     Object.defineProperty(MenuBtnComponent.prototype, "menuLines2", {
         get: function () {
             var pageIndex = (this.cart.menuLineCurrentPage - 1) * this.linesPerPage;
-            if (this.repo.menuLines != null) {
-                return this.repo.menuLines.filter(function (l) { return l.keyId % 2 == 0; }).slice(pageIndex, pageIndex + this.linesPerPage);
+            if (this.trepo.menuLines != null) {
+                return this.trepo.menuLines.filter(function (l) { return l.keyId % 2 == 0; }).slice(pageIndex, pageIndex + this.linesPerPage);
             }
             else {
-                this.repo.menuLines;
+                this.trepo.menuLines;
             }
         },
         enumerable: true,
@@ -652,11 +652,11 @@ var MenuBtnComponent = /** @class */ (function () {
     Object.defineProperty(MenuBtnComponent.prototype, "menuHeaders", {
         get: function () {
             var pageIndex = (this.cart.menuHeaderCurrentPage - 1) * this.linesPerPage;
-            if (this.repo.menuHeaders != null) {
-                return this.repo.menuHeaders.slice(pageIndex, pageIndex + this.linesPerPage);
+            if (this.trepo.menuHeaders != null) {
+                return this.trepo.menuHeaders.slice(pageIndex, pageIndex + this.linesPerPage);
             }
             else {
-                return this.repo.menuHeaders;
+                return this.trepo.menuHeaders;
             }
         },
         enumerable: true,
@@ -664,8 +664,8 @@ var MenuBtnComponent = /** @class */ (function () {
     });
     Object.defineProperty(MenuBtnComponent.prototype, "TotalMenuHeaderPages", {
         get: function () {
-            if (this.repo.menuHeaders != null) {
-                return (Math.ceil(this.repo.menuHeaders.length / this.linesPerPage));
+            if (this.trepo.menuHeaders != null) {
+                return (Math.ceil(this.trepo.menuHeaders.length / this.linesPerPage));
             }
             else {
                 return 0;
@@ -676,9 +676,9 @@ var MenuBtnComponent = /** @class */ (function () {
     });
     Object.defineProperty(MenuBtnComponent.prototype, "MenuLinePages", {
         get: function () {
-            if (this.repo.menuLines != null) {
+            if (this.trepo.menuLines != null) {
                 var btnPerPage = this.linesPerPage * 2;
-                return Array(Math.ceil(this.repo.menuLines.length / btnPerPage)).fill(0).map(function (x, i) { return i + 1; });
+                return Array(Math.ceil(this.trepo.menuLines.length / btnPerPage)).fill(0).map(function (x, i) { return i + 1; });
             }
             else {
                 return [];
@@ -724,25 +724,25 @@ var MenuBtnComponent = /** @class */ (function () {
         this.cart.menuLine = line;
         if (line.keyCommand == 1) {
             this.cart.menuHeaderId = line.keyValue;
-            this.repo.getMenuLines(line.keyValue);
+            this.trepo.getMenuLines(line.keyValue);
             this.cart.menuLineCurrentPage = 1;
         }
         else {
-            this.repo.eposTransLines.length = 0;
-            this.repo.getEposTransLines(1206740);
+            this.trepo.eposTransLines.length = 0;
+            this.trepo.getEposTransLines(1206740);
         }
     };
     MenuBtnComponent.prototype.setMenuHeaderId = function (id) {
         this.cart.menuHeaderId = id;
         this.cart.menuLineCurrentPage = 1;
-        this.repo.getMenuLines(id);
+        this.trepo.getMenuLines(id);
     };
     MenuBtnComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: "menu-btn",
             template: __webpack_require__("./ClientApp/app/Till/menuBtn.component.html")
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__models_repository__["a" /* Repository */], __WEBPACK_IMPORTED_MODULE_2__cart__["a" /* Cart */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__tillRepository__["a" /* TillRepository */], __WEBPACK_IMPORTED_MODULE_2__cart__["a" /* Cart */]])
     ], MenuBtnComponent);
     return MenuBtnComponent;
 }());
@@ -840,8 +840,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var TillComponent = /** @class */ (function () {
     function TillComponent() {
     }
-    TillComponent.prototype.ngOnInit = function () {
-    };
+    TillComponent.prototype.ngOnInit = function () { };
     TillComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'till-component',
@@ -862,15 +861,16 @@ var TillComponent = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TillModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__("./node_modules/@angular/platform-browser/esm5/platform-browser.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__menuBtn_component__ = __webpack_require__("./ClientApp/app/Till/menuBtn.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__journal_component__ = __webpack_require__("./ClientApp/app/Till/journal.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__item_component__ = __webpack_require__("./ClientApp/app/Till/item.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__till_component__ = __webpack_require__("./ClientApp/app/Till/till.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__details_component__ = __webpack_require__("./ClientApp/app/Till/details.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__number_component__ = __webpack_require__("./ClientApp/app/Till/number.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__functionKey_component__ = __webpack_require__("./ClientApp/app/Till/functionKey.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__time_component__ = __webpack_require__("./ClientApp/app/Till/time.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__cart__ = __webpack_require__("./ClientApp/app/Till/cart.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tillRepository__ = __webpack_require__("./ClientApp/app/Till/tillRepository.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__cart__ = __webpack_require__("./ClientApp/app/Till/cart.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__menuBtn_component__ = __webpack_require__("./ClientApp/app/Till/menuBtn.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__journal_component__ = __webpack_require__("./ClientApp/app/Till/journal.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__item_component__ = __webpack_require__("./ClientApp/app/Till/item.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__till_component__ = __webpack_require__("./ClientApp/app/Till/till.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__details_component__ = __webpack_require__("./ClientApp/app/Till/details.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__number_component__ = __webpack_require__("./ClientApp/app/Till/number.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__functionKey_component__ = __webpack_require__("./ClientApp/app/Till/functionKey.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__time_component__ = __webpack_require__("./ClientApp/app/Till/time.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -888,18 +888,111 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var TillModule = /** @class */ (function () {
     function TillModule() {
     }
     TillModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
-            declarations: [__WEBPACK_IMPORTED_MODULE_2__menuBtn_component__["a" /* MenuBtnComponent */], __WEBPACK_IMPORTED_MODULE_3__journal_component__["a" /* JournalComponent */], __WEBPACK_IMPORTED_MODULE_5__till_component__["a" /* TillComponent */], __WEBPACK_IMPORTED_MODULE_4__item_component__["a" /* ItemComponent */], __WEBPACK_IMPORTED_MODULE_6__details_component__["a" /* DetailsComponent */],
-                __WEBPACK_IMPORTED_MODULE_7__number_component__["a" /* NumberComponent */], __WEBPACK_IMPORTED_MODULE_8__functionKey_component__["a" /* FunctionKeyComponent */], __WEBPACK_IMPORTED_MODULE_9__time_component__["a" /* TimeComponent */]],
+            declarations: [__WEBPACK_IMPORTED_MODULE_4__menuBtn_component__["a" /* MenuBtnComponent */], __WEBPACK_IMPORTED_MODULE_5__journal_component__["a" /* JournalComponent */], __WEBPACK_IMPORTED_MODULE_7__till_component__["a" /* TillComponent */], __WEBPACK_IMPORTED_MODULE_6__item_component__["a" /* ItemComponent */], __WEBPACK_IMPORTED_MODULE_8__details_component__["a" /* DetailsComponent */],
+                __WEBPACK_IMPORTED_MODULE_9__number_component__["a" /* NumberComponent */], __WEBPACK_IMPORTED_MODULE_10__functionKey_component__["a" /* FunctionKeyComponent */], __WEBPACK_IMPORTED_MODULE_11__time_component__["a" /* TimeComponent */]],
             imports: [__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */]],
-            providers: [__WEBPACK_IMPORTED_MODULE_10__cart__["a" /* Cart */]]
+            providers: [__WEBPACK_IMPORTED_MODULE_2__tillRepository__["a" /* TillRepository */], __WEBPACK_IMPORTED_MODULE_3__cart__["a" /* Cart */]]
         })
     ], TillModule);
     return TillModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./ClientApp/app/Till/tillRepository.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TillRepository; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("./node_modules/rxjs/_esm5/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_repository__ = __webpack_require__("./ClientApp/app/models/repository.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var itemsUrl = "/api/items";
+var menuHeadersUrl = "/api/menuHeaders";
+var menuLinesUrl = "/api/menuLines";
+var eposTransactionsUrl = "/api/eposTransactions";
+var eposTransLinesUrl = "/api/eposTransLines";
+var functionKeysUrl = "/api/functionKeys";
+var TillRepository = /** @class */ (function () {
+    function TillRepository(http, repo) {
+        this.http = http;
+        this.repo = repo;
+    }
+    TillRepository.prototype.getItem = function (id) {
+        var _this = this;
+        var url = itemsUrl + "/" + id;
+        url += "?customerId=" + this.repo.filter.customerId;
+        url += "&storeId=" + this.repo.filter.storeId;
+        this.repo.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Get, url)
+            .subscribe(function (response) { return _this.item = response; });
+    };
+    TillRepository.prototype.getMenuLines = function (id) {
+        var _this = this;
+        var url = menuLinesUrl + "/" + id;
+        url += "?customerId=" + this.repo.filter.customerId;
+        url += "&storeId=" + this.repo.filter.storeId;
+        this.repo.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Get, url)
+            .subscribe(function (response) { return _this.menuLines = response; });
+    };
+    TillRepository.prototype.getMenuHeaders = function () {
+        var _this = this;
+        var url = menuHeadersUrl + "?customerId=" + this.repo.filter.customerId;
+        url += "&storeId=" + this.repo.filter.storeId;
+        this.repo.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Get, url)
+            .subscribe(function (response) { return _this.menuHeaders = response; });
+    };
+    TillRepository.prototype.getFunctionKeys = function () {
+        var _this = this;
+        var url = functionKeysUrl + "?customerId=" + this.repo.filter.customerId;
+        url += "&storeId=" + this.repo.filter.storeId;
+        this.repo.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Get, url)
+            .subscribe(function (response) { return _this.functionKeys = response; });
+    };
+    TillRepository.prototype.getEposTransaction = function (id) {
+        var _this = this;
+        var url = eposTransactionsUrl + "/" + id;
+        url += "?customerId=" + this.repo.filter.customerId;
+        url += "&storeId=" + this.repo.filter.storeId;
+        url += "&tillId=" + this.repo.filter.tillId;
+        this.repo.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Get, url)
+            .subscribe(function (response) { return _this.eposTransaction = response; });
+    };
+    TillRepository.prototype.getEposTransLines = function (id) {
+        var _this = this;
+        var url = eposTransLinesUrl + "/" + id;
+        url += "?customerId=" + this.repo.filter.customerId;
+        url += "&storeId=" + this.repo.filter.storeId;
+        url += "&tillId=" + this.repo.filter.tillId;
+        this.repo.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Get, url)
+            .subscribe(function (response) { return _this.eposTransLines = response; });
+    };
+    TillRepository = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_3__models_repository__["a" /* Repository */]])
+    ], TillRepository);
+    return TillRepository;
 }());
 
 
@@ -1620,13 +1713,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var itemsUrl = "/api/items";
-var menuHeadersUrl = "/api/menuHeaders";
-var menuLinesUrl = "/api/menuLines";
-var eposTransactionsUrl = "/api/eposTransactions";
-var eposTransLinesUrl = "/api/eposTransLines";
 var devicesUrl = "/api/devices";
-var functionKeysUrl = "/api/functionKeys";
+var staffUrl = "/api/account/login";
 var Repository = /** @class */ (function () {
     function Repository(http) {
         this.http = http;
@@ -1681,57 +1769,9 @@ var Repository = /** @class */ (function () {
         this.storeSessionData('device', this.device);
         this.device = null;
     };
-    Repository.prototype.getItem = function (id) {
-        var _this = this;
-        var url = itemsUrl + "/" + id;
-        url += "?customerId=" + this.filter.customerId;
-        url += "&storeId=" + this.filter.storeId;
-        this.sendRequest(__WEBPACK_IMPORTED_MODULE_2__angular_http__["d" /* RequestMethod */].Get, url)
-            .subscribe(function (response) { return _this.item = response; });
-    };
-    Repository.prototype.getMenuLines = function (id) {
-        var _this = this;
-        var url = menuLinesUrl + "/" + id;
-        url += "?customerId=" + this.filter.customerId;
-        url += "&storeId=" + this.filter.storeId;
-        this.sendRequest(__WEBPACK_IMPORTED_MODULE_2__angular_http__["d" /* RequestMethod */].Get, url)
-            .subscribe(function (response) { return _this.menuLines = response; });
-    };
-    Repository.prototype.getMenuHeaders = function () {
-        var _this = this;
-        var url = menuHeadersUrl + "?customerId=" + this.filter.customerId;
-        url += "&storeId=" + this.filter.storeId;
-        this.sendRequest(__WEBPACK_IMPORTED_MODULE_2__angular_http__["d" /* RequestMethod */].Get, url)
-            .subscribe(function (response) { return _this.menuHeaders = response; });
-    };
-    Repository.prototype.getFunctionKeys = function () {
-        var _this = this;
-        var url = functionKeysUrl + "?customerId=" + this.filter.customerId;
-        url += "&storeId=" + this.filter.storeId;
-        this.sendRequest(__WEBPACK_IMPORTED_MODULE_2__angular_http__["d" /* RequestMethod */].Get, url)
-            .subscribe(function (response) { return _this.functionKeys = response; });
-    };
-    Repository.prototype.getEposTransaction = function (id) {
-        var _this = this;
-        var url = eposTransactionsUrl + "/" + id;
-        url += "?customerId=" + this.filter.customerId;
-        url += "&storeId=" + this.filter.storeId;
-        url += "&tillId=" + this.filter.tillId;
-        this.sendRequest(__WEBPACK_IMPORTED_MODULE_2__angular_http__["d" /* RequestMethod */].Get, url)
-            .subscribe(function (response) { return _this.eposTransaction = response; });
-    };
-    Repository.prototype.getEposTransLines = function (id) {
-        var _this = this;
-        var url = eposTransLinesUrl + "/" + id;
-        url += "?customerId=" + this.filter.customerId;
-        url += "&storeId=" + this.filter.storeId;
-        url += "&tillId=" + this.filter.tillId;
-        this.sendRequest(__WEBPACK_IMPORTED_MODULE_2__angular_http__["d" /* RequestMethod */].Get, url)
-            .subscribe(function (response) { return _this.eposTransLines = response; });
-    };
     Repository.prototype.getStaffs = function () {
         var _this = this;
-        var url = "/api/account/login";
+        var url = staffUrl;
         url += "?customerId=" + this.filter.customerId;
         url += "&storeId=" + this.filter.storeId;
         this.sendRequest(__WEBPACK_IMPORTED_MODULE_2__angular_http__["d" /* RequestMethod */].Get, url)

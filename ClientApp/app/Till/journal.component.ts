@@ -1,5 +1,5 @@
 import { Component,OnInit } from '@angular/core';
-import { TillRepository } from "./TillRepository";
+import { TillRepository } from "./tillRepository";
 import { EposTransLine } from "../models/eposTransLine.model"
 import { Cart } from './cart';
 
