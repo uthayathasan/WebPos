@@ -153,16 +153,16 @@ namespace WebPos.DataAccess
             Sql +="Till_Id,Total_Cost,Trans_Date,Trans_ID,Unit_Cost, ";
             Sql +="VAT_Amount,VAT_Code,VAT_Rate,IsChange,IsRefund) ";
             Sql +="values ";
-            Sql +="(@Amount,@Barcode,@Bar_Print,@Bar_Printed,@Bar_Printed_Time, ";
-            Sql +="@Department_Id,@Description,@Discount_Amount,@Discountable,@Discount_Percentage, ";
-            Sql +="@Entry_Type,@Free_Text,@IsModifier,@Item_Group,@Item_Sub_Group, ";
-            Sql +="@Kitchen_Print,@Kitchen_Printed,@Kitchen_Printed_Time,@Line_No,@Line_Status, ";
-            Sql +="@LinkedOfferId,@Main_Item_No,@Mandatory,@Net_Amount,@Number, ";
-            Sql +="@OfferID,@OfferQuantity,@OfferTrigger,@OrderType,@Payment_Type, ";
-            Sql +="@Price,@Print_Group,@Quantity,@Scale,@Scanned, ";
-            Sql +="@Served,@Split_Group,@Staff_Id,@Store_ID,@Temp_Item, ";
-            Sql +="@Till_Id,@Total_Cost,@Trans_Date,@Trans_ID,@Unit_Cost, ";
-            Sql +="@VAT_Amount,@VAT_Code,@VAT_Rate,@IsChange,@IsRefund) ";
+            Sql +="(@Amount,@Barcode,@Bar_Print,@Bar_Printed,@Bar_Printed_Time, ";//1 5
+            Sql +="@Department_Id,@Description,@Discount_Amount,@Discountable,@Discount_Percentage, ";//2 5
+            Sql +="@Entry_Type,@Free_Text,@IsModifier,@Item_Group,@Item_Sub_Group, ";//3 5
+            Sql +="@Kitchen_Print,@Kitchen_Printed,@Kitchen_Printed_Time,@Line_No,@Line_Status, ";//4 5
+            Sql +="@LinkedOfferId,@Main_Item_No,@Mandatory,@Net_Amount,@Number, ";//5 5
+            Sql +="@OfferID,@OfferQuantity,@OfferTrigger,@OrderType,@Payment_Type, ";//6 5
+            Sql +="@Price,@Print_Group,@Quantity,@Scale,@Scanned, ";//7 5
+            Sql +="@Served,@Split_Group,@Staff_Id,@Store_ID,@Temp_Item, ";//8 5
+            Sql +="@Till_Id,@Total_Cost,@Trans_Date,@Trans_ID,@Unit_Cost, ";//9 5
+            Sql +="@VAT_Amount,@VAT_Code,@VAT_Rate,@IsChange,@IsRefund) ";//10 5
             #endregion SQL
             #region Execute SQL
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -291,6 +291,260 @@ namespace WebPos.DataAccess
                     command.Parameters.Add(param);
                     #endregion @Item_Sub_Group
                     #endregion Line 3
+                    //@Kitchen_Print,@Kitchen_Printed,@Kitchen_Printed_Time,@Line_No,@Line_Status,
+                    #region Line 4
+                    #region @Kitchen_Print
+                    param  = new SqlParameter();
+                    param.ParameterName="@Kitchen_Print";
+                    param.Value=m.KitchenPrint;
+                    param.DbType=DbType.Boolean;
+                    command.Parameters.Add(param);
+                    #endregion @Kitchen_Print
+                    #region @Kitchen_Printed
+                    param  = new SqlParameter();
+                    param.ParameterName="@Kitchen_Printed";
+                    param.Value=m.KitchenPrinted;
+                    param.DbType=DbType.Boolean;
+                    command.Parameters.Add(param);
+                    #endregion @Kitchen_Printed
+                    #region @Kitchen_Printed_Time
+                    param  = new SqlParameter();
+                    param.ParameterName="@Kitchen_Printed_Time";
+                    param.Value=m.KitchenPrintedTime;
+                    param.DbType=DbType.DateTime;
+                    command.Parameters.Add(param);
+                    #endregion @Kitchen_Printed_Time
+                    #region @Line_No
+                    param  = new SqlParameter();
+                    param.ParameterName="@Line_No";
+                    param.Value=m.LineNo;
+                    param.DbType=DbType.Int32;
+                    command.Parameters.Add(param);
+                    #endregion @Line_No
+                    #region @Line_Status
+                    param  = new SqlParameter();
+                    param.ParameterName="@Line_Status";
+                    param.Value=m.LineStatus;
+                    param.DbType=DbType.Boolean;
+                    command.Parameters.Add(param);
+                    #endregion @Line_Status
+                    #endregion Line 4
+                    //@LinkedOfferId,@Main_Item_No,@Mandatory,@Net_Amount,@Number,
+                    #region Line 5
+                    #region @LinkedOfferId
+                    param  = new SqlParameter();
+                    param.ParameterName="@LinkedOfferId";
+                    param.Value=m.LinkedOfferId;
+                    param.DbType=DbType.Int32;
+                    command.Parameters.Add(param);
+                    #endregion @LinkedOfferId
+                    #region @Main_Item_No
+                    param  = new SqlParameter();
+                    param.ParameterName="@Main_Item_No";
+                    param.Value=m.MainItemNo;
+                    param.DbType=DbType.String;
+                    param.Size=20;
+                    command.Parameters.Add(param);
+                    #endregion @Main_Item_No
+                    #region @Mandatory
+                    param  = new SqlParameter();
+                    param.ParameterName="@Mandatory";
+                    param.Value=m.Mandatory;
+                    param.DbType=DbType.Boolean;
+                    command.Parameters.Add(param);
+                    #endregion @Mandatory
+                    #region @Net_Amount
+                    param  = new SqlParameter();
+                    param.ParameterName="@Net_Amount";
+                    param.Value=m.NetAmount;
+                    param.DbType=DbType.Decimal;
+                    command.Parameters.Add(param);
+                    #endregion @Net_Amount
+                    #region @Number
+                    param  = new SqlParameter();
+                    param.ParameterName="@Number";
+                    param.Value=m.Number;
+                    param.DbType=DbType.String;
+                    param.Size=20;
+                    command.Parameters.Add(param);
+                    #endregion @Number
+                    #endregion Line 5
+                    //@OfferID,@OfferQuantity,@OfferTrigger,@OrderType,@Payment_Type,
+                    #region Line 6
+                    #region @OfferID
+                    param  = new SqlParameter();
+                    param.ParameterName="@OfferID";
+                    param.Value=m.OfferID;
+                    param.DbType=DbType.String;
+                    param.Size=20;
+                    command.Parameters.Add(param);
+                    #endregion @OfferID
+                    #region @OfferQuantity
+                    param  = new SqlParameter();
+                    param.ParameterName="@OfferQuantity";
+                    param.Value=m.OfferQuantity;
+                    param.DbType=DbType.Decimal;
+                    command.Parameters.Add(param);
+                    #endregion @OfferQuantity
+                    #region @OfferTrigger
+                    param  = new SqlParameter();
+                    param.ParameterName="@OfferTrigger";
+                    param.Value=m.OfferTrigger;
+                    param.DbType=DbType.Boolean;
+                    command.Parameters.Add(param);
+                    #endregion @OfferTrigger
+                    #region @OrderType
+                    param  = new SqlParameter();
+                    param.ParameterName="@OrderType";
+                    param.Value=m.OrderType;
+                    param.DbType=DbType.Int32;
+                    command.Parameters.Add(param);
+                    #endregion @OrderType
+                    #region @Payment_Type
+                    param  = new SqlParameter();
+                    param.ParameterName="@Payment_Type";
+                    param.Value=m.PaymentType;
+                    param.DbType=DbType.Int32;
+                    command.Parameters.Add(param);
+                    #endregion @Payment_Type
+                    #endregion Line 6
+                    //@Price,@Print_Group,@Quantity,@Scale,@Scanned, 
+                    #region Line 7
+                    #region @Price
+                    param  = new SqlParameter();
+                    param.ParameterName="@Price";
+                    param.Value=m.Price;
+                    param.DbType=DbType.Decimal;
+                    command.Parameters.Add(param);
+                    #endregion @Price
+                    #region @Print_Group
+                    param  = new SqlParameter();
+                    param.ParameterName="@Print_Group";
+                    param.Value=m.PrintGroup;
+                    param.DbType=DbType.String;
+                    param.Size=10;
+                    command.Parameters.Add(param);
+                    #endregion @Print_Group
+                    #region @Quantity
+                    param  = new SqlParameter();
+                    param.ParameterName="@Quantity";
+                    param.Value=m.Quantity;
+                    param.DbType=DbType.Decimal;
+                    command.Parameters.Add(param);
+                    #endregion @Quantity
+                    #region @Scale
+                    param  = new SqlParameter();
+                    param.ParameterName="@Scale";
+                    param.Value=m.Scale;
+                    param.DbType=DbType.Boolean;
+                    command.Parameters.Add(param);
+                    #endregion @Scale
+                    #region @Scanned
+                    param  = new SqlParameter();
+                    param.ParameterName="@Scanned";
+                    param.Value=m.Scanned;
+                    param.DbType=DbType.Boolean;
+                    command.Parameters.Add(param);
+                    #endregion @Scanned
+                    #endregion Line 7
+                    //@Served,@Split_Group,@Staff_Id,@Store_ID,@Temp_Item,
+                    #region Line 8
+                    #region @Served
+                    param  = new SqlParameter();
+                    param.ParameterName="@Served";
+                    param.Value=m.Served;
+                    param.DbType=DbType.Boolean;
+                    command.Parameters.Add(param);
+                    #endregion @Served
+                    #region @Split_Group
+                    param  = new SqlParameter();
+                    param.ParameterName="@Split_Group";
+                    param.Value=m.SplitGroup;
+                    param.DbType=DbType.Boolean;
+                    command.Parameters.Add(param);
+                    #endregion @Split_Group
+                    #region @Staff_Id
+                    param  = new SqlParameter();
+                    param.ParameterName="@Staff_Id";
+                    param.Value=m.StaffId;
+                    param.DbType=DbType.String;
+                    param.Size=20;
+                    command.Parameters.Add(param);
+                    #endregion @Staff_Id
+                    #region @Store_ID
+                    param  = new SqlParameter();
+                    param.ParameterName="@Store_ID";
+                    param.Value=m.StoreId;
+                    param.DbType=DbType.String;
+                    param.Size=20;
+                    command.Parameters.Add(param);
+                    #endregion @Store_ID
+                    #region @Temp_Item
+                    param  = new SqlParameter();
+                    param.ParameterName="@Temp_Item";
+                    param.Value=m.TempItem;
+                    param.DbType=DbType.Boolean;
+                    command.Parameters.Add(param);
+                    #endregion @Temp_Item
+                    #endregion Line 8
+                    //@Till_Id,@Total_Cost,@Trans_Date,@Trans_ID,@Unit_Cost,
+                    #region Line 9
+                    #region @Till_Id
+                    param  = new SqlParameter();
+                    param.ParameterName="@Till_Id";
+                    param.Value=m.TillId;
+                    param.DbType=DbType.String;
+                    param.Size=20;
+                    command.Parameters.Add(param);
+                    #endregion @Till_Id
+                    #region @Total_Cost
+                    param  = new SqlParameter();
+                    param.ParameterName="@Total_Cost";
+                    param.Value=m.TotalCost;
+                    param.DbType=DbType.Decimal;
+                    command.Parameters.Add(param);
+                    #endregion @Total_Cost
+                    #region @Trans_Date
+                    param  = new SqlParameter();
+                    param.ParameterName="@Trans_Date";
+                    param.Value=m.TransDate;
+                    param.DbType=DbType.DateTime;
+                    command.Parameters.Add(param);
+                    #endregion @Trans_Date
+                    #region @Trans_ID
+                    param  = new SqlParameter();
+                    param.ParameterName="@Trans_ID";
+                    param.Value=m.TransId;
+                    param.DbType=DbType.Int32;
+                    command.Parameters.Add(param);
+                    #endregion @Trans_ID
+                    #region @Unit_Cost
+                    param  = new SqlParameter();
+                    param.ParameterName="@Unit_Cost";
+                    param.Value=m.UnitCost;
+                    param.DbType=DbType.Decimal;
+                    command.Parameters.Add(param);
+                    #endregion @Unit_Cost
+                    #endregion Line 9
+                    //@VAT_Amount,@VAT_Code,@VAT_Rate,@IsChange,@IsRefund
+                    #region Line 10
+                    #region @VAT_Amount
+                    param  = new SqlParameter();
+                    param.ParameterName="@VAT_Amount";
+                    param.Value=m.VatAmount;
+                    param.DbType=DbType.Decimal;
+                    command.Parameters.Add(param);
+                    #endregion @VAT_Amount
+                    #region @VAT_Code
+                    param =new SqlParameter();
+                    param.ParameterName="@VAT_Code";
+                    param.Value=m.VatCode;
+                    param.DbType=DbType.String;
+                    param.Size=20;
+                    command.Parameters.Add(param);
+                    #endregion @VAT_Code
+                    
+                    #endregion Line 10
                     #endregion Param
                 }
             }
