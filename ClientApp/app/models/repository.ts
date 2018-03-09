@@ -72,7 +72,6 @@ export class Repository {
         this.sendRequest(RequestMethod.Get, url)
         .subscribe(response =>this.staffs = response);   
     }    
-
     storeSessionData(dataType: string, data: any) {
         return this.sendRequest(RequestMethod.Post, "/api/session/" + dataType, data)
         .subscribe(response => { });
