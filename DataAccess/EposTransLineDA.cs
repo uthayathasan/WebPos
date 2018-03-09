@@ -544,6 +544,7 @@ namespace WebPos.DataAccess
                     command.Parameters.Add(param);
                     #endregion @VAT_Code
                     
+                    
                     #endregion Line 10
                     #endregion Param
                 }
