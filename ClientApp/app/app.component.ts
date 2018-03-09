@@ -34,7 +34,7 @@ export class AppComponent {
   get Device():Device{
     return this.repo.device;
   }
-  fullscreen(){
+  changeScreen(){
    this.repo.ChangeScreen();
   }
   gohome(){

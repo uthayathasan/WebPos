@@ -86,8 +86,6 @@ export class Repository {
                 return response.headers.get("Content-Length") != "0"? response.json() : null;
             });
         }
-    
-    
     ChangeScreen(){
         let elem = document.getElementById("pos"); 
         if(!document.webkitIsFullScreen){
@@ -100,7 +98,6 @@ export class Repository {
         {
             document.webkitExitFullscreen();
         }
-
     }
     exitFullScreen(){
         document.webkitExitFullscreen();
