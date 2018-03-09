@@ -1,9 +1,3 @@
-import { Item } from "./item.model";
-import { MenuHeader } from "./menuHeader.model";
-import { MenuLine } from "./menuLine.model";
-import {FunctionKey} from "./functionKey.model";
-import{ EposTransaction } from "./eposTransaction.model";
-import{EposTransLine} from "./eposTransLine.model";
 import{Staff} from "./staff.model";
 import{Device} from "./device.model";
 
@@ -13,14 +7,8 @@ import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import { Filter } from "./configClasses.repository";
 
-
-const itemsUrl = "/api/items";
-const menuHeadersUrl="/api/menuHeaders";
-const menuLinesUrl="/api/menuLines";
-const eposTransactionsUrl="/api/eposTransactions";
-const eposTransLinesUrl="/api/eposTransLines";
 const devicesUrl="/api/devices";
-const functionKeysUrl="/api/functionKeys";
+const staffUrl="/api/account/login";
 
 @Injectable()
 export class Repository {
@@ -77,53 +65,8 @@ export class Repository {
         this.storeSessionData('device',this.device);
         this.device=null;
     }
-    getItem(id: string) {
-        let url=itemsUrl+ "/" + id;
-        url +="?customerId="+this.filter.customerId;
-        url +="&storeId="+this.filter.storeId;
-        this.sendRequest(RequestMethod.Get, url)
-        .subscribe(response => this.item = response);
-        }
-
-    getMenuLines(id: string){
-        let url=menuLinesUrl+"/"+id;
-        url +="?customerId="+this.filter.customerId;
-        url +="&storeId="+this.filter.storeId;
-        this.sendRequest(RequestMethod.Get, url)
-        .subscribe(response =>this.menuLines = response);
-    }
-    getMenuHeaders(){
-        let url=menuHeadersUrl+"?customerId="+this.filter.customerId;
-        url +="&storeId="+this.filter.storeId;
-        this.sendRequest(RequestMethod.Get, url)
-        .subscribe(response =>this.menuHeaders = response);
-    }
-    getFunctionKeys(){
-        let url=functionKeysUrl+"?customerId="+this.filter.customerId;
-        url +="&storeId="+this.filter.storeId;
-        this.sendRequest(RequestMethod.Get, url)
-        .subscribe(response=>this.functionKeys=response);
-
-    }
-    getEposTransaction(id:number){
-        let url=eposTransactionsUrl+"/"+id;
-        url +="?customerId="+this.filter.customerId;
-        url +="&storeId="+this.filter.storeId;
-        url +="&tillId="+this.filter.tillId;
-        this.sendRequest(RequestMethod.Get, url)
-        .subscribe(response =>this.eposTransaction = response);
-    }
-    getEposTransLines(id:number){
-        let url=eposTransLinesUrl+"/"+id;
-        url +="?customerId="+this.filter.customerId;
-        url +="&storeId="+this.filter.storeId;
-        url +="&tillId="+this.filter.tillId;
-        this.sendRequest(RequestMethod.Get, url)
-        .subscribe(response =>this.eposTransLines = response);
-    }
-
     getStaffs(){
-        let url="/api/account/login";
+        let url=staffUrl;
         url +="?customerId="+this.filter.customerId;
         url +="&storeId="+this.filter.storeId;
         this.sendRequest(RequestMethod.Get, url)
@@ -138,7 +81,7 @@ export class Repository {
         return this.sendRequest(RequestMethod.Get, "/api/session/" + dataType);
     }
 
-    private sendRequest(verb: RequestMethod, url: string,data?: any): Observable<any> {
+    public sendRequest(verb: RequestMethod, url: string,data?: any): Observable<any> {
         return this.http.request(new Request({
             method: verb, url: url, body: data})).map(response =>{
                 return response.headers.get("Content-Length") != "0"? response.json() : null;
@@ -168,15 +111,7 @@ export class Repository {
             return false;
         }
     }
-
-    
     device:Device;
-    item:Item;
-    menuHeaders:MenuHeader[];
-    menuLines:MenuLine[];
-    functionKeys:FunctionKey[];
-    eposTransaction:EposTransaction;
-    eposTransLines:EposTransLine[];
     staffs:Staff[];
     logedInStaff:Staff;
 

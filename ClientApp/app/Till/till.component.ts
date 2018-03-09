@@ -4,7 +4,5 @@ import { Component,OnInit  } from '@angular/core';
     templateUrl: './till.component.html'
   })
 export class TillComponent{
-  ngOnInit(){
-   
-  }
+  ngOnInit(){}
 }

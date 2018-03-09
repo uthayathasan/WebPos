@@ -1,11 +1,11 @@
 import { Injectable} from "@angular/core";
 import{EposTransLine} from "../models/eposTransLine.model";
-import {Repository} from "../models/repository";
+import{TillRepository} from "./tillRepository";
 import {MenuLine} from "../models/menuLine.model";
 import { FunctionKey } from "../models/functionKey.model";
 @Injectable()
 export class Cart{
-    constructor(private repo: Repository){
+    constructor(private trepo:TillRepository){
         this.paid=0;
         this.change=0;
         this.qty=0;
@@ -27,11 +27,11 @@ export class Cart{
         if(this.menuLine==null){
             this.menuLine=new MenuLine();
         }
-        this.repo.getMenuHeaders();
-        this.repo.getMenuLines(this.menuHeaderId);
+        this.trepo.getMenuHeaders();
+        this.trepo.getMenuLines(this.menuHeaderId);
 
 
-        this.repo.getFunctionKeys();
+        this.trepo.getFunctionKeys();
         if(this.functionKey==null){
             this.functionKey=new FunctionKey();
         }
@@ -64,16 +64,16 @@ export class Cart{
     
     
     getItemCount():number{
-        if(this.repo.eposTransLines!=null&&this.repo.eposTransLines.length>0){
-            return this.repo.eposTransLines.filter(l=>((!l.lineStatus)&&(l.entryType==0))).length;
+        if(this.trepo.eposTransLines!=null&&this.trepo.eposTransLines.length>0){
+            return this.trepo.eposTransLines.filter(l=>((!l.lineStatus)&&(l.entryType==0))).length;
         }else{
             return 0;
         }
     }   
     getPurchaseTotalIncDiscount():number{
         try{
-            if(this.repo.eposTransLines!=null&&this.repo.eposTransLines.length>0){
-                return this.repo.eposTransLines.filter(l=>((!l.lineStatus)&&(l.entryType==0)))
+            if(this.trepo.eposTransLines!=null&&this.trepo.eposTransLines.length>0){
+                return this.trepo.eposTransLines.filter(l=>((!l.lineStatus)&&(l.entryType==0)))
                     .map(e=>e.amount).reduce((s,u)=>s+u+0);
             }else{
                 return 0;
@@ -84,8 +84,8 @@ export class Cart{
     }
     getPurchaseTotalExcDiscount():number{
         try{
-            if(this.repo.eposTransLines!=null&&this.repo.eposTransLines.length>0){
-                return this.repo.eposTransLines.filter(l=>((!l.lineStatus)&&(l.entryType==0)))
+            if(this.trepo.eposTransLines!=null&&this.trepo.eposTransLines.length>0){
+                return this.trepo.eposTransLines.filter(l=>((!l.lineStatus)&&(l.entryType==0)))
                         .map(e=>e.netAmount).reduce((s,u)=>s+u+0);
             }else{
                 return 0;
@@ -96,8 +96,8 @@ export class Cart{
     }
     getTotal():number{
         try{
-            if(this.repo.eposTransLines!=null&&this.repo.eposTransLines.length>0){
-                return this.repo.eposTransLines.filter(l=>((!l.lineStatus)))
+            if(this.trepo.eposTransLines!=null&&this.trepo.eposTransLines.length>0){
+                return this.trepo.eposTransLines.filter(l=>((!l.lineStatus)))
                         .map(e=>e.netAmount).reduce((s,u)=>s+u+0);
             }
             else{
@@ -109,8 +109,8 @@ export class Cart{
     }
     getDiscount():number{
         try{
-            if(this.repo.eposTransLines!=null&&this.repo.eposTransLines.length>0){
-                return this.repo.eposTransLines.filter(l=>((!l.lineStatus)&&(l.entryType==0)))
+            if(this.trepo.eposTransLines!=null&&this.trepo.eposTransLines.length>0){
+                return this.trepo.eposTransLines.filter(l=>((!l.lineStatus)&&(l.entryType==0)))
                         .map(e=>e.discountAmount).reduce((s,u)=>s+u+0);
             }else{
                 return 0;
@@ -121,8 +121,8 @@ export class Cart{
     }
     getPaidAmount():number{
         try{
-            if(this.repo.eposTransLines!=null&&this.repo.eposTransLines.length>0){
-                this.paid= this.repo.eposTransLines.filter(l=>((!l.lineStatus)&&(l.entryType==2)&&(!l.isChange)))
+            if(this.trepo.eposTransLines!=null&&this.trepo.eposTransLines.length>0){
+                this.paid= this.trepo.eposTransLines.filter(l=>((!l.lineStatus)&&(l.entryType==2)&&(!l.isChange)))
                         .map(e=>e.netAmount).reduce((s,u)=>s+u+0);
                         return this.paid;
             }else{
@@ -134,8 +134,8 @@ export class Cart{
     }
     getChangeAmount():number{
         try{
-            if(this.repo.eposTransLines!=null&&this.repo.eposTransLines.length>0){
-                this.change= this.repo.eposTransLines.filter(l=>((!l.lineStatus)&&(l.entryType==2)&&(l.isChange)))
+            if(this.trepo.eposTransLines!=null&&this.trepo.eposTransLines.length>0){
+                this.change= this.trepo.eposTransLines.filter(l=>((!l.lineStatus)&&(l.entryType==2)&&(l.isChange)))
                         .map(e=>e.netAmount).reduce((s,u)=>s+u+0);
                         return this.change;
             }else{

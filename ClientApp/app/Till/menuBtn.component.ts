@@ -1,5 +1,5 @@
 import { Component,OnInit } from '@angular/core';
-import { Repository } from "../models/repository";
+import { TillRepository } from "./tillRepository";
 import{Cart} from "./cart"
 import { MenuLine } from "../models/menuLine.model";
 import { MenuHeader } from "../models/menuHeader.model";
@@ -8,7 +8,7 @@ import { MenuHeader } from "../models/menuHeader.model";
     templateUrl: "./menuBtn.component.html"
 })
 export class MenuBtnComponent {
-    constructor(private repo: Repository,private cart:Cart) {}
+    constructor(private trepo: TillRepository,private cart:Cart) {}
     ngOnInit(){
         this.linesPerPage=9;
     }
@@ -25,41 +25,41 @@ export class MenuBtnComponent {
 
     get menuLines1(): MenuLine[]{
         let pageIndex=(this.cart.menuLineCurrentPage-1)*this.linesPerPage;
-        if( this.repo.menuLines!=null){
-            return this.repo.menuLines.filter(l=>l.keyId%2==1).slice(pageIndex,pageIndex+this.linesPerPage);
+        if( this.trepo.menuLines!=null){
+            return this.trepo.menuLines.filter(l=>l.keyId%2==1).slice(pageIndex,pageIndex+this.linesPerPage);
         }else{
-            this.repo.menuLines;
+            this.trepo.menuLines;
         }
     }
     get menuLines2(): MenuLine[]{
         let pageIndex=(this.cart.menuLineCurrentPage-1)*this.linesPerPage;
-        if(this.repo.menuLines!=null){
-            return this.repo.menuLines.filter(l=>l.keyId%2==0).slice(pageIndex,pageIndex+this.linesPerPage);
+        if(this.trepo.menuLines!=null){
+            return this.trepo.menuLines.filter(l=>l.keyId%2==0).slice(pageIndex,pageIndex+this.linesPerPage);
         }else{
-            this.repo.menuLines;
+            this.trepo.menuLines;
         }
     }
     get menuHeaders(): MenuHeader[]{
         let pageIndex=(this.cart.menuHeaderCurrentPage-1)*this.linesPerPage;
-        if(this.repo.menuHeaders!=null){
-            return this.repo.menuHeaders.slice(pageIndex,pageIndex+this.linesPerPage);
+        if(this.trepo.menuHeaders!=null){
+            return this.trepo.menuHeaders.slice(pageIndex,pageIndex+this.linesPerPage);
         }
         else
         {
-            return this.repo.menuHeaders;
+            return this.trepo.menuHeaders;
         }
     }
     get  TotalMenuHeaderPages(): number{
-        if(this.repo.menuHeaders!=null){
-            return (Math.ceil(this.repo.menuHeaders.length/this.linesPerPage));
+        if(this.trepo.menuHeaders!=null){
+            return (Math.ceil(this.trepo.menuHeaders.length/this.linesPerPage));
         }else{
             return 0;
         }
     }
     get MenuLinePages():number[]{
-        if(this.repo.menuLines!=null){
+        if(this.trepo.menuLines!=null){
             let btnPerPage=this.linesPerPage*2;
-            return Array(Math.ceil(this.repo.menuLines.length/btnPerPage)).fill(0).map((x, i) => i + 1);
+            return Array(Math.ceil(this.trepo.menuLines.length/btnPerPage)).fill(0).map((x, i) => i + 1);
         }else{
             return [];
         }
@@ -96,18 +96,18 @@ export class MenuBtnComponent {
         if(line.keyCommand==1)
         {
             this.cart.menuHeaderId=line.keyValue;
-            this.repo.getMenuLines(line.keyValue);
+            this.trepo.getMenuLines(line.keyValue);
             this.cart.menuLineCurrentPage=1;
         }
         else{
-            this.repo.eposTransLines.length=0;
-            this.repo.getEposTransLines(1206740);
+            this.trepo.eposTransLines.length=0;
+            this.trepo.getEposTransLines(1206740);
         }
     }
     setMenuHeaderId(id:string){
         this.cart.menuHeaderId=id;
         this.cart.menuLineCurrentPage=1;
-        this.repo.getMenuLines(id);
+        this.trepo.getMenuLines(id);
     }
 
 }

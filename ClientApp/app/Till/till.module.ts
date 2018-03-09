@@ -9,10 +9,11 @@ import{NumberComponent} from "./number.component";
 import {FunctionKeyComponent} from "./functionKey.component";
 import{TimeComponent} from "./time.component";
 import{Cart} from './cart'
+import{TillRepository} from './tillRepository';
 @NgModule({
     declarations: [MenuBtnComponent,JournalComponent,TillComponent,ItemComponent,DetailsComponent,
                     NumberComponent,FunctionKeyComponent,TimeComponent],
     imports: [BrowserModule],
-    providers: [Cart]
+    providers: [Cart,TillRepository]
     })
 export class TillModule{}

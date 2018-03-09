@@ -1,5 +1,5 @@
 import { Component,OnInit } from '@angular/core';
-import { Repository } from "../models/repository";
+import { TillRepository } from "./tillRepository";
 import { Item } from "../models/item.model"
 import { Router, ActivatedRoute } from "@angular/router";
 @Component({
@@ -7,16 +7,16 @@ import { Router, ActivatedRoute } from "@angular/router";
     templateUrl: "./item.component.html"
 })
 export class ItemComponent{
-    constructor(private repo: Repository,private router: Router,private activeRoute: ActivatedRoute) {}
+    constructor(private trepo: TillRepository,private router: Router,private activeRoute: ActivatedRoute) {}
     ngOnInit(){
         let id=this.activeRoute.snapshot.params["id"];
         if(id){
-            this.repo.getItem(id);
+            this.trepo.getItem(id);
         }else{
             this.router.navigateByUrl("/");
         }
     }
     get item():Item{
-        return this.repo.item;
+        return this.trepo.item;
     }
 }

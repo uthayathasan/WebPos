@@ -1,5 +1,5 @@
 import { Component,OnInit } from '@angular/core';
-import { Repository } from "../models/repository";
+import { TillRepository } from "./TillRepository";
 import { EposTransLine } from "../models/eposTransLine.model"
 import { Cart } from './cart';
 
@@ -8,12 +8,12 @@ import { Cart } from './cart';
     templateUrl: "./journal.component.html"
 })
 export class JournalComponent{
-    constructor(private repo: Repository,private cart:Cart) {}
+    constructor(private trepo: TillRepository,private cart:Cart) {}
     inputValue:any;
     ngOnInit(){
         this.cart.slipNo=1204594;
-        this.repo.getEposTransaction(this.cart.slipNo);
-        this.repo.getEposTransLines(this.cart.slipNo);
+        this.trepo.getEposTransaction(this.cart.slipNo);
+        this.trepo.getEposTransLines(this.cart.slipNo);
     }
 
     onKey(event:KeyboardEvent){
@@ -37,7 +37,7 @@ export class JournalComponent{
     }
 
     get eposTranslines():EposTransLine[]{
-        return this.repo.eposTransLines;
+        return this.trepo.eposTransLines;
     }
 
     get qty():number{
