@@ -3,5 +3,4 @@ bin
 node_modules
 obj
 .angular-cli.json
-appsettings.json
 karma.conf.js
