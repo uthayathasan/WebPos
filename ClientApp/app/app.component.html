@@ -1,0 +1,26 @@
+
+<div class="px-2 m-0 w-100 h-100" id="pos">
+        <div class="navbar navbar-expand-xs bg-info navbar-dark m-0 p-0" style="max-height:30px">
+                <table class="table m-0 p-0">
+                        <tr class="m-0 p-0">
+                                <td class="m-0 p-0">
+                                        <a class="navbar-brand" href="#">{{Device?.storeName||'VBR'}}</a>
+                                </td>
+                                <td class="m-0 p-0  text-left">
+                                                <button class="btn btn-sm btn-success" (click)="gohome()">
+                                                        <i class="fa fa-home fa-lg"></i>
+                                                </button>
+                                        </td>
+                                <td class="m-0 p-0  text-right">
+                                        <button class="btn btn-sm btn-success" (click)="fullscreen()">
+                                                <i class="fa fa-window-restore fa-lg"></i>
+                                        </button>
+                                </td>
+                                <td class="m-0 p-0 text-right">
+                                        <a class="navbar-brand" href="#">{{Device?.customerId}}</a>
+                                </td>
+                        </tr>
+                </table>  
+        </div>
+        <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,40 @@
+<div class="row w-100 m-0 p-0" style="min-height:200px">
+    <div class="col-sm-6 offset-sm-3">
+        <table class="table table-sm table-striped">
+            <tr><th>Store Name</th><td>{{Device?.storeName}}</td></tr>
+            <tr><th>Device Id</th><td>{{Device?.deviceId}}</td></tr>
+            <tr><th>Customer Id</th><td>{{Device?.customerId}}</td></tr>
+            <tr><th>Store ID</th><td>{{Device?.storeId}}</td></tr>
+            <tr><th>Till Id</th><td>{{Device?.tillId}}</td></tr>
+        </table>
+    </div>
+</div>
+<div class="row w-100 m-0 p-0">
+    <div class="col-sm-6 offset-sm-3">
+        <h6 *ngIf="showError" class="p-2 bg-warning text-white">
+            Invalid username or password
+        </h6>
+        <form novalidate #authForm="ngForm" class="m-1 p-1">
+            <div class="form-group">
+                <label>UserId:</label>
+                <input #name="ngModel" name="name" class="form-control"
+                [(ngModel)]="UserId" required />
+                <div *ngIf="name.invalid" class="text-danger">
+                    Please enter your user name
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Password:</label>
+                <input type="password" #password="ngModel" name="password"
+                    class="form-control" [(ngModel)]="Password" required />
+                <div *ngIf="password.invalid" class="text-danger">
+                    Please enter your password
+                </div>
+            </div>
+                <div class="col text-center pt-2">
+                    <button type="button" class="btn btn-primary" [disabled]="authForm.invalid"
+                    (click)="login()">Login</button>
+                </div>
+        </form>
+    </div>
+</div>

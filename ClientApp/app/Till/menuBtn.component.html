@@ -1,0 +1,86 @@
+<div class="row w-100 m-0 p-0" style="min-height:450px">
+    <div class="col m-0 p-0">
+        <table class="table m-0 p-0">
+            <tr *ngFor="let menuLine1 of menuLines1" class="m-0 p-0">
+                <td class="m-0 p-0">
+                        <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
+                        style="min-height:50px"
+                        [style.background]="menuLine==menuLine1 ?'black':menuLine1.htmlColour"
+                        (click)="setMenuLine(menuLine1)">
+                                {{menuLine1.description}}
+                        </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col m-0 p-0">
+        <table class="table m-0 p-0">
+            <tr *ngFor="let menuLine2 of menuLines2" class="m-0 p-0">
+                <td class="m-0 p-0">
+                    <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
+                        style="min-height:50px"
+                        [style.background]="menuLine==menuLine2 ?'black':menuLine2.htmlColour"
+                        (click)="setMenuLine(menuLine2)">
+                            {{menuLine2.description}}
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col m-0 p-0">
+        <table class="table m-0 p-0">
+            <tr *ngFor="let menuHeader of menuHeaders" class="m-0 p-0">
+                <td class="m-0 p-0">
+                    <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
+                        style="min-height:50px"
+                        [style.background]="menuHeaderId==menuHeader.menuId?'black':menuHeader.htmlColour"
+                        (click)="setMenuHeaderId(menuHeader.menuId)">
+                            {{menuHeader.description}}
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>  
+</div>
+<div class="row m-0 p-0">
+    <div class="col m-0 p-0">
+        <div *ngIf="MenuLinePages.length > 1" class="text-left my-1">
+            <button *ngFor="let page of MenuLinePages" class="btn btn-outline-primary btn-sm mx-1"
+                [class.active]="CurrentMenuLinePage == page"
+                (click)="ChangeMenuLinePage(page)">
+                    {{page}}
+            </button>
+        </div>
+    </div>
+    
+    <div class="col text-right my-1">
+        <div class="btn-group m-0 p-0">
+            <button type="button" class="btn btn-success btn-sm mx-1">
+                <i class="fa fa-cutlery fa-lg"></i>
+            </button>
+            <button type="button" class="btn btn-success btn-sm mx-1">
+                <i class="fa fa-beer fa-lg"></i>
+            </button>
+            <button type="button" class="btn btn-success btn-sm mx-1"
+                (click)="setMenuHeaderId('MAIN')">
+                <i class="fa fa-refresh fa-lg"></i>
+            </button>
+        </div>
+    </div>
+    <div class="col m-0 p-0">
+        <div *ngIf="TotalMenuHeaderPages > 1" class="text-center my-1">
+            <button type="button" class="btn btn-warning btn-sm"
+                (click)="ChangeMenuHeaderPageBack()">
+                    <i class="fa fa-arrow-circle-left fa-lg"></i>
+            </button>
+            <button type="button" class="btn btn-success btn-sm">
+                <span class="badge badge-light">{{CurrentMenuHeaderPage}}</span>of
+                <span class="badge badge-light">{{TotalMenuHeaderPages}}</span>
+            </button>
+            <button type="button" class="btn btn-warning btn-sm"
+                (click)="ChangeMenuHeaderPageNext()">
+                    <i class="fa fa-arrow-circle-right fa-lg"></i>
+            </button>
+        </div>
+    </div>
+</div>

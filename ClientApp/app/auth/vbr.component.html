@@ -1,0 +1,69 @@
+<div class="row w-100 m-0 p-0" style="min-height:200px"></div>
+<div class="row w-100 m-0 p-0">
+        <div class="col-sm-6 offset-sm-3">
+                <div *ngIf="Device==null; else deviceDetails">
+                        <h6 class="text-center bg-warning text-white p-2">DEVICE ID</h6>
+                        <form novalidate #authForm="ngForm" class="m-1 p-1">
+                                <div class="form-group">
+                                        <input #deviceId="ngModel" name="deviceId" class="form-control"
+                                        [(ngModel)]="id" required />
+                                        <div *ngIf="deviceId.invalid" class="text-danger">
+                                                Please enter your device Id
+                                        </div>
+                                </div>
+                                <div class="text-center pt-2">
+                                        <button type="button" class="btn btn-primary" [disabled]="authForm.invalid"
+                                        (click)="apply()">Apply</button>
+                                </div>
+                        </form>
+                </div>
+                <ng-template #deviceDetails>
+                        <div *ngIf="!Authenticated; else selectBtn">
+                                <table class="table table-sm table-striped">
+                                        <tr><th>Store Name</th><td>{{Device?.storeName}}</td></tr>
+                                        <tr><th>Device Id</th><td>{{Device?.deviceId}}</td></tr>
+                                        <tr><th>Customer Id</th><td>{{Device?.customerId}}</td></tr>
+                                        <tr><th>Store ID</th><td>{{Device?.storeId}}</td></tr>
+                                        <tr><th>Till Id</th><td>{{Device?.tillId}}</td></tr>
+                                        <tr>
+                                                <td class="text-left">
+                                                        <button type="button" class="btn btn-danger" (click)="claerDevice()">Clear</button>
+                                                </td>
+                                                <td class="text-right">
+                                                        <button type="button" class="btn btn-primary" (click)="login()">LogIn</button>
+                                                </td>
+                                        </tr>
+                                </table>
+                        </div>
+                        <ng-template #selectBtn>
+                                <table class="table table-sm table-striped">
+                                        <tr><th colspan=2>Store Name</th><td>{{Device?.storeName}}</td></tr>
+                                        <tr><th colspan=2>Device Id</th><td>{{Device?.deviceId}}</td></tr>
+                                        <tr><th colspan=2>Customer Id</th><td>{{Device?.customerId}}</td></tr>
+                                        <tr><th colspan=2>Store ID</th><td>{{Device?.storeId}}</td></tr>
+                                        <tr><th colspan=2>Till Id</th><td>{{Device?.tillId}}</td></tr>
+                                        <tr><th colspan=2>UserId</th><td>{{LogedInStaff?.userId}}</td></tr>
+                                        <tr><th colspan=2>User Name</th><td>{{LogedInStaff?.name}}</td></tr>
+                                        <tr>
+                                                <td class="text-left m-0 p-0">
+                                                        <button class="btn btn-danger" (click)="logOut()">
+                                                                Logout
+                                                        </button>    
+                                                </td>
+
+                                                <td class="text-center">
+                                                        <button class="btn btn-success" (click)="goToTill()">
+                                                                TILL
+                                                        </button>
+                                                </td>
+                                                <td class="text-right">
+                                                        <button class="btn btn-info">
+                                                                BackOffice
+                                                        </button>    
+                                                </td>
+                                        </tr>
+                                </table>
+                        </ng-template>
+                </ng-template>
+        </div>
+</div>

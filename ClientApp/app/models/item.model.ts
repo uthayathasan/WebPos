@@ -1,0 +1,47 @@
+export class Item {
+    constructor(
+        public barPrint?: boolean,
+        public barcode?:string,
+        public blocked?:boolean,
+        public deliveryPrice?:number,
+        public department?:string,
+        public description?:string,
+        public discountAllowed?:boolean,
+        public inventory?:number,
+        public isSubItem?:boolean,
+        public itemGroup?:string,
+
+        public itemNo?:string,
+        public itemSubGroup?:string,
+        public kitchenPrint?:boolean,
+        public lastModified?:Date,
+        public lastSalesDate?:Date,
+        public maintain?:boolean,
+        public margin?:number,
+        public outerEAN?:string,
+        public packCost?:number,
+        public packDescription?:string,
+
+        public packQuantity?:number,
+        public packUnitOfMeasure?:string,
+        public peakPrice?:number,
+        public price?:number,
+        public priceEntry?:boolean,
+        public printGroup?:string,
+        public quantityEntry?:boolean,
+        public reOrderPoint?:number,
+        public reOrderQuantity?:number,
+        public rrp?:number,
+
+        public scale?:boolean,
+        public subMenuAvailable?:boolean,
+        public takeawayPrice?:number,
+        public totalVolumeOrWeight?:number,
+        public unitCost?:number,
+        public unitVolumeOrWeight?:number,
+        public vatCode?:string,
+        public vendorItemNo?:string,
+        public vendorNo?:string,
+        public WetStock?:boolean
+    ){}
+}

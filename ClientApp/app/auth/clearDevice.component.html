@@ -1,0 +1,21 @@
+<div class="row w-100 m-0 p-0" style="min-height:200px"></div>
+<div class="row w-100 m-0 p-0">
+        <div class="col-sm-6 offset-sm-3">
+            <h6  class="p-2 bg-danger text-white">Delete device details?</h6>
+            <table class="table table-sm table-striped">
+                <tr><th>Store Name</th><td>{{Device?.storeName}}</td></tr>
+                <tr><th>Device Id</th><td>{{Device?.deviceId}}</td></tr>
+                <tr><th>Customer Id</th><td>{{Device?.customerId}}</td></tr>
+                <tr><th>Store ID</th><td>{{Device?.storeId}}</td></tr>
+                <tr><th>Till Id</th><td>{{Device?.tillId}}</td></tr>
+                <tr>
+                    <td class="text-left">
+                        <button type="button" class="btn btn-danger" (click)="claerDevice()">Delete</button>
+                    </td>
+                    <td class="text-right">
+                        <button type="button" class="btn btn-success" routerLink="">Back</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+</div>
