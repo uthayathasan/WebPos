@@ -8,6 +8,7 @@ namespace WebPos.DataAccess
      {
          public List<EposTransLine> GetTransLinesByTransId(string  connectionString,string CustomerId,string StoreId,string TillId, int TransId)
          {
+            
             List<EposTransLine> lm=new List<EposTransLine>();
             string Sql="";
             #region  SQL
@@ -139,6 +140,7 @@ namespace WebPos.DataAccess
 
          public int InsertTransLine(string  connectionString,string CustomerId,string StoreId,string TillId,EposTransLine m)
          {
+            int result=0;
             string Sql="";
             #region SQL
             Sql +="insert into " +CustomerId+"_"+StoreId+"_"+TillId+"_"+"EPOS_Trans_Line ";
@@ -543,14 +545,34 @@ namespace WebPos.DataAccess
                     param.Size=20;
                     command.Parameters.Add(param);
                     #endregion @VAT_Code
-                    
-                    
+                    #region @VAT_Rate
+                    param =new SqlParameter();
+                    param.ParameterName="@VAT_Rate";
+                    param.Value=m.VatRate;
+                    param.DbType=DbType.Decimal;
+                    command.Parameters.Add(param);
+                    #endregion @VAT_Rate
+                    #region @IsChange
+                    param =new SqlParameter();
+                    param.ParameterName="@IsChange";
+                    param.Value=m.IsChange;
+                    param.DbType=DbType.Boolean;
+                    command.Parameters.Add(param);
+                    #endregion @IsChange
+                    #region @IsRefund
+                    param =new SqlParameter();
+                    param.ParameterName="@IsRefund";
+                    param.Value=m.IsRefund;
+                    param.DbType=DbType.Boolean;
+                    command.Parameters.Add(param);
+                    #endregion @IsRefund
                     #endregion Line 10
                     #endregion Param
+                    result=command.ExecuteNonQuery();
                 }
             }
             #endregion Execute SQL
-            return 1;
+            return result;
          }
      }
 }
