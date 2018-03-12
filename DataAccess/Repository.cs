@@ -44,12 +44,19 @@ namespace WebPos.DataAccess
             EposTransactionDA eposTransactionDa=new EposTransactionDA();
             return eposTransactionDa.GetTranactionBySlipNo(ConnectionString,CustomerId,StoreId,TillId,SlipNo);
         }
+        #endregion EposTransaction
+        #region EposTransLine
         public List<EposTransLine> GetTransLinesByTransId(string CustomerId,string StoreId,string TillId,int TransId)
         {
             EposTransLineDA eposTransLineDa=new EposTransLineDA();
             return eposTransLineDa.GetTransLinesByTransId(ConnectionString,CustomerId,StoreId,TillId,TransId);
         }
-        #endregion EposTransaction
+        public int InsertTransLine(EposTransLine m,string CustomerId,string StoreId,string TillId)
+        {
+            EposTransLineDA eposTransLineDa=new EposTransLineDA();
+            return eposTransLineDa.InsertTransLine(ConnectionString,CustomerId,StoreId,TillId,m);
+        }
+        #endregion EposTransLine
 
         #region Staff
         public List<Staff> GetStaffDetails(string CustomerId,string StoreId)

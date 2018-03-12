@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { TillRepository } from "./tillRepository";
-import{Cart} from "./cart"
+import{Cart} from "./cart";
+import{EposTransactionRepository} from "./epostransactionRepository";
 import { MenuLine } from "../models/menuLine.model";
 import { MenuHeader } from "../models/menuHeader.model";
 @Component({
@@ -8,7 +9,7 @@ import { MenuHeader } from "../models/menuHeader.model";
     templateUrl: "./menuBtn.component.html"
 })
 export class MenuBtnComponent {
-    constructor(private trepo: TillRepository,private cart:Cart) {}
+    constructor(private trepo: TillRepository,private cart:Cart,private eRepo:EposTransactionRepository) {}
     ngOnInit(){
         this.linesPerPage=9;
     }
@@ -100,8 +101,7 @@ export class MenuBtnComponent {
             this.cart.menuLineCurrentPage=1;
         }
         else{
-            this.trepo.eposTransLines.length=0;
-            this.trepo.getEposTransLines(1206740);
+            this.eRepo.insertTransLineFromItemNo(line.keyValue);
         }
     }
     setMenuHeaderId(id:string){

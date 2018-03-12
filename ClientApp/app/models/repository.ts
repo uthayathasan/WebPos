@@ -16,6 +16,13 @@ export class Repository {
     private filterObject = new Filter();
 
     constructor(private http: Http){}
+
+    get currentDateTime():string{
+        let d=new Date(Date.now());
+        let ds=d.getFullYear().toString()+"="+(d.getMonth()+1).toString()+"-"+d.getDate().toString()+" ";
+        ds=ds+ d.getHours().toString()+":"+d.getMinutes().toString()+":"+d.getSeconds().toString();
+        return ds;
+    }
     
     setDevice(response:any){
         if(response!=null){

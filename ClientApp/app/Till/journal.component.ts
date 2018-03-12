@@ -11,7 +11,7 @@ export class JournalComponent{
     constructor(private trepo: TillRepository,private cart:Cart) {}
     inputValue:any;
     ngOnInit(){
-        this.cart.slipNo=1204594;
+        this.cart.slipNo=1206740;
         this.trepo.getEposTransaction(this.cart.slipNo);
         this.trepo.getEposTransLines(this.cart.slipNo);
     }

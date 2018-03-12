@@ -39,7 +39,7 @@ export class Cart{
     }
     displayLines: Array<string>=new Array<string>();
 
-
+    orderTypeId?:number;
     orderType?:string;
     orderId?:number;
     seates?:string;
@@ -61,12 +61,27 @@ export class Cart{
     mod?:string;
     functionKey?:FunctionKey;
 
-    
+    getMaxLineNo():number{
+        try{
+            if(this.trepo.eposTransLines!=null&&this.trepo.eposTransLines.length>0){
+                return this.trepo.eposTransLines.reduce((oa,u)=>Math.max(oa,u.lineNo),0);
+            }else{
+                return 0;
+            }
+        }catch{
+            return 0;
+        }
+    }
     
     getItemCount():number{
-        if(this.trepo.eposTransLines!=null&&this.trepo.eposTransLines.length>0){
-            return this.trepo.eposTransLines.filter(l=>((!l.lineStatus)&&(l.entryType==0))).length;
-        }else{
+        try{
+            if(this.trepo.eposTransLines!=null&&this.trepo.eposTransLines.length>0){
+                return this.trepo.eposTransLines.filter(l=>((!l.lineStatus)&&(l.entryType==0)))
+                .map(q=>q.quantity).reduce((s,u)=>s+u+0);
+            }else{
+                return 0;
+            }
+        }catch{
             return 0;
         }
     }   

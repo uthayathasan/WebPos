@@ -25,5 +25,16 @@ namespace WebPos.Controllers
                 return new List<EposTransLine>();
             }
         }
+        [HttpPost]
+        public IActionResult InsertTransLine([FromBody] EposTransLine m,string customerId,string storeId,string tillId)
+        {
+            if(ModelState.IsValid){
+                int result = repo.InsertTransLine(m,customerId,storeId,tillId);
+                return Ok(result);
+            }
+            else{
+                return BadRequest(ModelState);
+            }
+        }
     }
 }

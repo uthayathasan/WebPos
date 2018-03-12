@@ -7,11 +7,10 @@ import{EposTransLine} from "../models/eposTransLine.model";
 
 
 import { Injectable } from "@angular/core";
-import { Http, RequestMethod, Request, Response } from "@angular/http";
+import { RequestMethod, Request, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import{Repository} from "../models/repository";
-
 const itemsUrl = "/api/items";
 const menuHeadersUrl="/api/menuHeaders";
 const menuLinesUrl="/api/menuLines";
@@ -22,7 +21,7 @@ const functionKeysUrl="/api/functionKeys";
 @Injectable()
 export class TillRepository {
 
-    constructor(private http: Http,private repo:Repository){}
+    constructor(private repo:Repository){}
     getItem(id: string) {
         let url=itemsUrl+ "/" + id;
         url +="?customerId="+this.repo.filter.customerId;
@@ -67,6 +66,16 @@ export class TillRepository {
         this.repo.sendRequest(RequestMethod.Get, url)
         .subscribe(response =>this.eposTransLines = response);
     }
+    insertEposTransLine(line:EposTransLine){
+        let result=0;
+        let url=eposTransLinesUrl;
+        url +="?customerId="+this.repo.filter.customerId;
+        url +="&storeId="+this.repo.filter.storeId;
+        url +="&tillId="+this.repo.filter.tillId;
+        this.repo.sendRequest(RequestMethod.Post, url, line).subscribe(response => {
+            result = response;});
+    }
+   
 
     item:Item;
     menuHeaders:MenuHeader[];
