@@ -10,7 +10,7 @@ namespace WebPos.Models
         public string Floor{get;set;}="";
         public int Id{get;set;}=0;
         public int InfoItem{get;set;}=0;
-        public DateTime? InvoicedDate{get;set;}
+        public string InvoicedDate{get;set;}=ConstValues.MinDate;
         public bool InvoicePrinted{get;set;}=false;
         public string LoyaltyCard{get;set;}="";
         public string MembershipNo{get;set;}="";
@@ -25,7 +25,7 @@ namespace WebPos.Models
         public int TableId{get;set;}=0;
         public string TableName{get;set;}="";
         public string TillId{get;set;}="";
-        public DateTime? TransDate{get;set;}
+        public string TransDate{get;set;}=ConstValues.MinDate;
         public int TransType{get;set;}=0;
         public string TransactionText{get;set;}="";
     }

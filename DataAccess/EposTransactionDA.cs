@@ -47,7 +47,7 @@ namespace WebPos.DataAccess
                         #endregion Line 1
                         //Invoiced_Date,InvoicePrinted,Loyalty_Card,Membership_No,Order_No,
                         #region Line 2
-                        try{m.InvoicedDate=reader.GetDateTime(6);}catch{}
+                        try{m.InvoicedDate=reader.GetDateTime(6).ToString("yyyy-mm-dd hh:mm:ss");}catch{}
                         try{m.InvoicePrinted=reader.GetBoolean(7);}catch{}
                         try{m.LoyaltyCard=reader.GetString(8);}catch{}
                         try{m.MembershipNo=reader.GetString(9);}catch{}
@@ -68,7 +68,7 @@ namespace WebPos.DataAccess
                         try{m.TableId=reader.GetInt32(18);}catch{}
                         try{m.TableName=reader.GetString(19);}catch{}
                         try{m.TillId=reader.GetString(20);}catch{}
-                        try{m.TransDate=reader.GetDateTime(21);}catch{}
+                        try{m.TransDate=reader.GetDateTime(21).ToString("yyyy-mm-dd hh:mm:ss");}catch{}
                         try{m.TransType=reader.GetInt32(22);}catch{}
                         try{m.TransactionText=reader.GetString(23);}catch{}
                         #endregion Line 4

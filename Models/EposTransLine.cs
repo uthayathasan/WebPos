@@ -8,7 +8,7 @@ namespace WebPos.Models
         public string Barcode{get;set;}="";
         public bool BarPrint{get;set;}=false;
         public bool BarPrinted{get;set;}=false;
-        public DateTime? BarPrintedTime{get;set;}
+        public string BarPrintedTime{get;set;}=ConstValues.MinDate;
         public string DepartmentId{get;set;}="";
         public string Description{get;set;}="";
         public decimal DiscountAmount{get;set;}=0;
@@ -24,7 +24,7 @@ namespace WebPos.Models
         public string ItemSubGroup{get;set;}="";
         public bool KitchenPrint{get;set;}=false;
         public bool KitchenPrinted{get;set;}=false;
-        public DateTime? KitchenPrintedTime{get;set;}
+        public string KitchenPrintedTime{get;set;}=ConstValues.MinDate;
         public int LineNo{get;set;}=0;
         public bool LineStatus{get;set;}=false;
         public int LinkedOfferId{get;set;}=0;
@@ -49,7 +49,7 @@ namespace WebPos.Models
         public bool TempItem{get;set;}=false;
         public string TillId{get;set;}="";
         public decimal TotalCost{get;set;}=0;
-        public DateTime TransDate{get;set;}
+        public string TransDate{get;set;}=ConstValues.MinDate;
         public int TransId{get;set;}=0;
         public decimal UnitCost{get;set;}=0;
         public decimal VatAmount{get;set;}=0;

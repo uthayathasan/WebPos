@@ -55,13 +55,12 @@ export class EposTransactionRepository{
                         m.storeId=this.repo.device.storeId;
                         m.tillId=this.repo.device.tillId;
                         m.totalCost=this.tRepo.item.unitCost*this.cart.qty;
-                        console.log(this.repo.currentDateTime);
-                        m.transDate= new Date(this.repo.currentDateTime);
+                        m.transDate= this.repo.currentDateTime;
                         m.transId=this.cart.slipNo;
                         m.unitCost=this.tRepo.item.unitCost;
                         m.vatCode=this.tRepo.item.vatCode;
-                        m.barPrintedTime= new Date("1900-01-01");
-                        m.kitchenPrintedTime= new Date("1900-01-01");
+                        m.barPrintedTime= this.repo.minDate;
+                        m.kitchenPrintedTime=this.repo.minDate;                        
                         let result=0;
                         let url=eposTransLinesUrl;
                         url +="?customerId="+this.repo.filter.customerId;

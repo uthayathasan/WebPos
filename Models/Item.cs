@@ -19,8 +19,8 @@ namespace  WebPos.Models{
         public string ItemNo{get;set;}="";
         public string ItemSubGroup{get;set;}="";
         public bool KitchenPrint{get;set;}=false;
-        public DateTime? LastModified{get;set;}
-        public DateTime? LastSalesDate{get;set;}
+        public string LastModified{get;set;}=ConstValues.MinDate;
+        public string LastSalesDate{get;set;}=ConstValues.MinDate;
         public bool Maintain{get;set;}=false;
         public decimal Margin{get;set;}=0;
         public string OuterEAN{get;set;}="";

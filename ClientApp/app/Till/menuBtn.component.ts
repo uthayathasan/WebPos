@@ -94,14 +94,16 @@ export class MenuBtnComponent {
     setMenuLine(line:MenuLine)
     {
         this.cart.menuLine=line;
-        if(line.keyCommand==1)
+        if((line.keyCommand==1)&&(line.keyValue.trim()!=""))
         {
             this.cart.menuHeaderId=line.keyValue;
             this.trepo.getMenuLines(line.keyValue);
             this.cart.menuLineCurrentPage=1;
         }
         else{
-            this.eRepo.insertTransLineFromItemNo(line.keyValue);
+            if(line.keyValue.trim()!=""){
+                this.eRepo.insertTransLineFromItemNo(line.keyValue);
+            }
         }
     }
     setMenuHeaderId(id:string){

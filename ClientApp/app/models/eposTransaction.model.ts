@@ -6,7 +6,7 @@ export class EposTransaction{
         public floor?:string,
         public id?:number,
         public infoItem?:number,
-        public invoicedDate?:Date,
+        public invoicedDate?:string,
         public invoicePrinted?:boolean,
         public loyaltyCard?:string,
         public membershipNo?:string,
@@ -21,7 +21,7 @@ export class EposTransaction{
         public tableId?:number,
         public tableName?:string,
         public tillId?:string,
-        public transDate?:Date,
+        public transDate?:string,
         public transType?:number,
         public transactionText?:string
     ){}

@@ -19,11 +19,13 @@ export class Repository {
 
     get currentDateTime():string{
         let d=new Date(Date.now());
-        let ds=d.getFullYear().toString()+"="+(d.getMonth()+1).toString()+"-"+d.getDate().toString()+" ";
+        let ds=d.getFullYear().toString()+"-"+(d.getMonth()+1).toString()+"-"+d.getDate().toString()+" ";
         ds=ds+ d.getHours().toString()+":"+d.getMinutes().toString()+":"+d.getSeconds().toString();
         return ds;
     }
-    
+    get minDate():string{
+        return "1900-01-01 00:00:00";
+    }
     setDevice(response:any){
         if(response!=null){
             if(response.DeviceId!="")
