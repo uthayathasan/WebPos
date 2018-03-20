@@ -6,10 +6,19 @@ namespace WebPos.DataAccess
 {
     public class EposTransactionDA
     {
-       /* public int Inserttransaction(string  connectionString,string CustomerId,string StoreId,string TillId,EposTransaction m)
+        public int InsertTransaction(string  connectionString,string CustomerId,string StoreId,string TillId,EposTransaction m)
         {
+            int SlipNo=0;
             string Sql="";
             #region SQL
+            Sql +="declare @Slip_No int ";
+            Sql +="set @Slip_No=(select TOP 1 Last_No_Used from "+CustomerId+"_"+StoreId+"_"+TillId+"_"+"No_Series) ";
+            Sql +="if(@Slip_No is null) ";
+            Sql +="begin ";
+            Sql +="set @Slip_No=1000000 ";
+            Sql +="end ";
+            Sql +="set @Slip_No=@Slip_No+1 ";
+
             Sql +="insert into "+CustomerId+"_"+StoreId+"_"+TillId+"_"+"EPOS_Transaction ";
             Sql +="(Counter_Print,Customer_Id,Delivery_ID,[Floor], ";
             Sql +="InfoItem,Invoiced_Date,InvoicePrinted,Loyalty_Card,Membership_No, ";
@@ -22,6 +31,10 @@ namespace WebPos.DataAccess
             Sql +="@Order_No,@Order_Type,@Order_Type_Text,@Seats,@Slip_No, ";
             Sql +="@Staff_Id,@Store_Id,@Takeaway_Id,@Table_ID,@Table_Name, ";
             Sql +="@Till_ID,@Trans_Date,@Trans_Type,@TransactionText) ";
+
+            Sql +="update "+CustomerId+"_"+StoreId+"_"+TillId+"_"+"No_Series ";
+            Sql +="set Last_No_Used = @Slip_No ";
+            Sql +="select @Slip_No ";
             #endregion SQL
             #region Execute SQL
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -135,22 +148,98 @@ namespace WebPos.DataAccess
                     command.Parameters.Add(param);
                     #endregion @Seats
                     #region @Slip_No
+                    /*
                     param  = new SqlParameter();
                     param.ParameterName="@Slip_No";
                     param.Value=m.SlipNo;
                     param.DbType=DbType.Int32;
                     command.Parameters.Add(param);
+                    */
                     #endregion @Slip_No
                     #endregion Line 3
                     //@Staff_Id,@Store_Id,@Takeaway_Id,@Table_ID,@Table_Name,
                     #region Line 4
-                    
+                    #region @Staff_Id
+                    param  = new SqlParameter();
+                    param.ParameterName="@Staff_Id";
+                    param.Value=m.StaffId;
+                    param.DbType=DbType.String;
+                    param.Size=20;
+                    command.Parameters.Add(param);
+                    #endregion @Staff_Id
+                    #region @Store_Id
+                    param  = new SqlParameter();
+                    param.ParameterName="@Store_Id";
+                    param.Value=m.StoreId;
+                    param.DbType=DbType.String;
+                    param.Size=20;
+                    command.Parameters.Add(param);
+                    #endregion @Store_Id
+                    #region @Takeaway_Id
+                    param  = new SqlParameter();
+                    param.ParameterName="@Takeaway_Id";
+                    param.Value=m.TakeawayId;
+                    param.DbType=DbType.Int32;
+                    command.Parameters.Add(param);
+                    #endregion @Takeaway_Id
+                    #region @Table_ID
+                    param  = new SqlParameter();
+                    param.ParameterName="@Table_ID";
+                    param.Value=m.TableId;
+                    param.DbType=DbType.Int32;
+                    command.Parameters.Add(param);
+                    #endregion @Table_ID
+                    #region @Table_Name
+                    param  = new SqlParameter();
+                    param.ParameterName="@Table_Name";
+                    param.Value=m.TableName;
+                    param.DbType=DbType.String;
+                    param.Size=50;
+                    command.Parameters.Add(param);
+                    #endregion @Table_Name
                     #endregion Line 4
+                    //@Till_ID,@Trans_Date,@Trans_Type,@TransactionText
+                    #region Line 5
+                    #region @Till_ID
+                    param  = new SqlParameter();
+                    param.ParameterName="@Till_ID";
+                    param.Value=m.TillId;
+                    param.DbType=DbType.String;
+                    param.Size=20;
+                    command.Parameters.Add(param);
+                    #endregion @Till_ID
+                    #region @Trans_Date
+                    param  = new SqlParameter();
+                    param.ParameterName="@Trans_Date";
+                    param.Value=m.TransDate;
+                    param.DbType=DbType.DateTime;
+                    command.Parameters.Add(param);
+                    #endregion @Trans_Date
+                    #region @Trans_Type
+                    param  = new SqlParameter();
+                    param.ParameterName="@Trans_Type";
+                    param.Value=m.TransType;
+                    param.DbType=DbType.Int32;
+                    command.Parameters.Add(param);
+                    #endregion @Trans_Type
+                    #region @TransactionText
+                    param  = new SqlParameter();
+                    param.ParameterName="@TransactionText";
+                    param.Value=m.TransactionText;
+                    param.DbType=DbType.String;
+                    param.Size=50;
+                    command.Parameters.Add(param);
+                    #endregion @TransactionText
+                    #endregion Line 5
                     #endregion Param
+
+                    var result=command.ExecuteScalar();
+                    int.TryParse(result.ToString().Trim(),out SlipNo);
                 }
             }
             #endregion Execute SQL
-        }*/
+            return SlipNo;
+        }
         public List<EposTransaction> GetTranactionBySlipNo(string  connectionString,string CustomerId,string StoreId,string TillId, int SlipNo)
         {
             List<EposTransaction> lm=new List<EposTransaction>();

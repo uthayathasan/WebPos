@@ -57,7 +57,13 @@ namespace WebPos.DataAccess
             return eposTransLineDa.InsertTransLine(ConnectionString,CustomerId,StoreId,TillId,m);
         }
         #endregion EposTransLine
-
+        #region EposTransaction
+        public int InsertTransaction(EposTransaction m,string CustomerId,string StoreId,string TillId)
+        {
+            EposTransactionDA eposTransactionDa=new EposTransactionDA();
+            return eposTransactionDa.InsertTransaction(ConnectionString,CustomerId,StoreId,TillId,m);
+        }
+        #endregion EposTransaction
         #region Staff
         public List<Staff> GetStaffDetails(string CustomerId,string StoreId)
         {

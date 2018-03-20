@@ -1,5 +1,9 @@
 
-<div class="px-2 m-0 w-100 h-100" id="pos">
+<div class="bg-danger text-white text-center p-2 m-2" *ngIf="error != null">
+        <h6 *ngFor="let e of error">{{e}}</h6>
+        <button class="btn btn-warning" (click)="clearError()">OK</button>
+</div>
+<div class="px-2 m-0 w-100 h-100" id="pos" *ngIf="error == null">
         <div class="navbar navbar-expand-xs bg-info navbar-dark m-0 p-0" style="max-height:30px">
                 <table class="table m-0 p-0">
                         <tr class="m-0 p-0">

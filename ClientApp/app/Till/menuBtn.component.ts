@@ -102,7 +102,11 @@ export class MenuBtnComponent {
         }
         else{
             if(line.keyValue.trim()!=""){
+                if(this.cart.slipNo==0){
+                    this.eRepo.createTransactionAndinsertTransLineFromItemNo(line.keyValue);
+                }else{
                 this.eRepo.insertTransLineFromItemNo(line.keyValue);
+                }
             }
         }
     }

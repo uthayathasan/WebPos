@@ -19,10 +19,12 @@ export class Cart{
         this.displayLines.push("Customer Id: C00050");
         this.displayLines.push("Copyright @ 2018 VBR");
 
-        this.orderType="Table";
+        this.orderTypeText="Table";
+        this.orderType=0;
         this.orderId=2;
         this.seates="1";
         this.slipNo=0;
+        this.customerId=0;
 
         this.menuHeaderId="MAIN";
         this.menuHeaderCurrentPage=1;
@@ -43,9 +45,11 @@ export class Cart{
     displayLines: Array<string>=new Array<string>();
 
     orderTypeId?:number;
-    orderType?:string;
+    orderTypeText?:string;
+    orderType?:number;
     orderId?:number;
     seates?:string;
+    customerId?:number;
 
     qty?:number;
     price?:number;

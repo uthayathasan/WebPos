@@ -32,7 +32,7 @@ export class DetailsComponent{
         return this.cart.displayLines;
     }
     get orderType():string{
-        return this.cart.orderType;
+        return this.cart.orderTypeText;
     }
     get orderId():number{
         return this.cart.orderId;

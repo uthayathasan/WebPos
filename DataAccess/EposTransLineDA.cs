@@ -143,6 +143,13 @@ namespace WebPos.DataAccess
             int result=0;
             string Sql="";
             #region SQL
+            Sql +="declare @Line_No int ";
+            Sql +="set @Line_No=(select MAX(Line_No) from "+CustomerId+"_"+StoreId+"_"+TillId+"_"+"EPOS_Trans_Line where Trans_ID=@Trans_ID) ";
+            Sql +="if(@Line_No is null) ";
+            Sql +="begin ";
+            Sql +="set @Line_No=0 ";
+            Sql +="end ";
+            Sql +="set @Line_No=@Line_No+1 ";
             Sql +="insert into " +CustomerId+"_"+StoreId+"_"+TillId+"_"+"EPOS_Trans_Line ";
             Sql +="(Amount,Barcode,Bar_Print,Bar_Printed,Bar_Printed_Time, ";
             Sql +="Department_Id,[Description],Discount_Amount,Discountable,Discount_Percentage, ";
@@ -317,11 +324,13 @@ namespace WebPos.DataAccess
                     command.Parameters.Add(param);
                     #endregion @Kitchen_Printed_Time
                     #region @Line_No
+                    /*
                     param  = new SqlParameter();
                     param.ParameterName="@Line_No";
                     param.Value=m.LineNo;
                     param.DbType=DbType.Int32;
                     command.Parameters.Add(param);
+                    */
                     #endregion @Line_No
                     #region @Line_Status
                     param  = new SqlParameter();

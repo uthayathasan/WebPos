@@ -7,6 +7,8 @@ import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import { Filter } from "./configClasses.repository";
 import { promise } from "selenium-webdriver";
+import { ErrorHandlerService, ValidationError } from "../errorHandler.service";
+import "rxjs/add/operator/catch";
 
 const devicesUrl="/api/devices";
 const staffUrl="/api/account/login";
@@ -95,6 +97,18 @@ export class Repository {
         return this.http.request(new Request({
             method: verb, url: url, body: data})).map(response =>{
                 return response.headers.get("Content-Length") != "0"? response.json() : null;
+            }).catch((errorResponse: Response) => {
+                if (errorResponse.status == 400 ) {
+                    let jsonData: string;
+                    try {
+                        jsonData = errorResponse.json();
+                    } catch (e) {
+                        throw new Error("Network Error");
+                    }
+                    let messages = Object.getOwnPropertyNames(jsonData).map(p => jsonData[p]);
+                    throw new ValidationError(messages);
+                }
+                throw new Error("Network Error");
             });
         }
     ChangeScreen(){

@@ -10,10 +10,17 @@ import {TillModule} from "./Till/till.module";
 import {TillComponent}from "./Till/till.component";
 import { AuthModule } from "./auth/auth.module";
 
+import { ErrorHandler } from "@angular/core";
+import { ErrorHandlerService } from "./errorHandler.service";
+const eHandler = new ErrorHandlerService();
+export function handler() {
+  return eHandler;
+}
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule,FormsModule, HttpModule, ModelModule,TillModule,RoutingConfig,AuthModule],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: ErrorHandlerService, useFactory: handler},{ provide: ErrorHandler, useFactory: handler}],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
