@@ -12,7 +12,7 @@ import { Device } from './models/device.model';
 export class AppComponent {
   constructor(private repo:Repository,private router:Router,private authService: AuthenticationService){}
   
-  ngOnInit(){
+   ngOnInit(){
     this.repo.getSessionData("device").subscribe(response =>{
       if(response!=null){
           this.repo.setDevice(response);
@@ -23,6 +23,7 @@ export class AppComponent {
           }
       }
     });
+    
     if((this.repo.device!=null)&&(!this.authService.authenticated)){
       this.router.navigateByUrl("/login");
     }

@@ -111,5 +111,4 @@ export class MenuBtnComponent {
         this.cart.menuLineCurrentPage=1;
         this.trepo.getMenuLines(id);
     }
-
 }

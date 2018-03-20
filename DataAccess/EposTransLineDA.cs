@@ -51,7 +51,7 @@ namespace WebPos.DataAccess
                         try{m.Barcode=reader.GetString(1);}catch{}
                         try{m.BarPrint=reader.GetBoolean(2);}catch{}
                         try{m.BarPrinted=reader.GetBoolean(3);}catch{}
-                        try{m.BarPrintedTime=reader.GetDateTime(4).ToString("yyyy-mm-dd hh:mm:ss");}catch{}
+                        try{m.BarPrintedTime=reader.GetDateTime(4).ToString("yyyy-MM-dd HH:mm:ss");}catch{}
                         #endregion Line 1
                         //Department_Id,[Description],Discount_Amount,Discountable,Discount_Percentage,
                         #region Line 2
@@ -74,7 +74,7 @@ namespace WebPos.DataAccess
                         try{m.ItemSubGroup=reader.GetString(15);}catch{}
                         try{m.KitchenPrint=reader.GetBoolean(16);}catch{}
                         try{m.KitchenPrinted=reader.GetBoolean(17);}catch{}
-                        try{m.KitchenPrintedTime=reader.GetDateTime(18).ToString("yyyy-mm-dd hh:mm:ss");}catch{}
+                        try{m.KitchenPrintedTime=reader.GetDateTime(18).ToString("yyyy-MM-dd HH:mm:ss");}catch{}
                         #endregion Line 4
                         //Line_No,Line_Status,LinkedOfferId,Main_Item_No,Mandatory,
                         #region Line 5
@@ -114,7 +114,7 @@ namespace WebPos.DataAccess
                         try{m.TempItem=reader.GetBoolean(40);}catch{}
                         try{m.TillId=reader.GetString(41);}catch{}
                         try{m.TotalCost=reader.GetDecimal(42);}catch{}
-                        try{m.TransDate=reader.GetDateTime(43).ToString("yyyy-mm-dd hh:mm:ss");}catch{}
+                        try{m.TransDate=reader.GetDateTime(43).ToString("yyyy-MM-dd HH:mm:ss");}catch{}
                         #endregion Line 9
                         //Trans_ID,Unit_Cost,VAT_Amount,VAT_Code,VAT_Rate
                         #region Line 10

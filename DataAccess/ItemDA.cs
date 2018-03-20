@@ -61,8 +61,8 @@ namespace WebPos.DataAccess{
                         try{m.ItemNo=reader.GetString(10);}catch{}
                         try{m.ItemSubGroup=reader.GetString(11);}catch{}
                         try{m.KitchenPrint=reader.GetBoolean(12);}catch{}
-                        try{m.LastModified=reader.GetDateTime(13).ToString("yyyy-mm-dd hh:mm:ss");}catch{}
-                        try{m.LastSalesDate=reader.GetDateTime(14).ToString("yyyy-mm-dd hh:mm:ss");}catch{}
+                        try{m.LastModified=reader.GetDateTime(13).ToString("yyyy-MM-dd HH:mm:ss");}catch{}
+                        try{m.LastSalesDate=reader.GetDateTime(14).ToString("yyyy-MM-dd HH:mm:ss");}catch{}
                         #endregion Line 3
                         //Maintain,Margin,Outer_EAN,Pack_Cost,Pack_Description
                         #region Line 4
@@ -169,8 +169,8 @@ namespace WebPos.DataAccess{
                         try{m.ItemNo=reader.GetString(10);}catch{}
                         try{m.ItemSubGroup=reader.GetString(11);}catch{}
                         try{m.KitchenPrint=reader.GetBoolean(12);}catch{}
-                        try{m.LastModified=reader.GetDateTime(13).ToString("yyyy-mm-dd hh:mm:ss");}catch{}
-                        try{m.LastSalesDate=reader.GetDateTime(14).ToString("yyyy-mm-dd hh:mm:ss");}catch{}
+                        try{m.LastModified=reader.GetDateTime(13).ToString("yyyy-MM-dd HH:mm:ss");}catch{}
+                        try{m.LastSalesDate=reader.GetDateTime(14).ToString("yyyy-MM-dd HH:mm:ss");}catch{}
                         #endregion Line 3
                         //Maintain,Margin,Outer_EAN,Pack_Cost,Pack_Description
                         #region Line 4

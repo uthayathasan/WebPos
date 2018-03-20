@@ -6,6 +6,7 @@ import { Http, RequestMethod, Request, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import { Filter } from "./configClasses.repository";
+import { promise } from "selenium-webdriver";
 
 const devicesUrl="/api/devices";
 const staffUrl="/api/account/login";
@@ -80,7 +81,8 @@ export class Repository {
         url +="&storeId="+this.filter.storeId;
         this.sendRequest(RequestMethod.Get, url)
         .subscribe(response =>this.staffs = response);   
-    }    
+    }
+    
     storeSessionData(dataType: string, data: any) {
         return this.sendRequest(RequestMethod.Post, "/api/session/" + dataType, data)
         .subscribe(response => { });

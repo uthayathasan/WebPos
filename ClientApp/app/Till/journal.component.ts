@@ -16,19 +16,6 @@ export class JournalComponent{
         this.trepo.getEposTransLines(this.cart.slipNo);
     }
 
-    onKey(event:KeyboardEvent){
-        if(event.keyCode==13){
-            this.inputValue = this.cart.journalInputElementValue;
-            this.journalText=this.inputValue;
-        }
-    }
-    getInputValue(){
-        this.inputValue = this.cart.journalInputElementValue;
-        this.journalText=this.inputValue;
-    }
-    focusJournalInput(){
-        this.cart.focusJournalInput();
-    }
     get journalText():string{
         return this.cart.journalText;
     }

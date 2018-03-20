@@ -11,7 +11,6 @@ import{Device} from "../models/device.model";
             if(this.repo.staffs==null){
             this.repo.getStaffs();
             }
-            
         }
         showError: boolean = false;
         login() {

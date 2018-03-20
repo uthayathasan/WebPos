@@ -160,13 +160,8 @@ export class Cart{
             return this.change;
         }
     }
-    focusJournalInput(){
-        document.getElementById("journalInput").focus();
+    focusTill(){
+        document.getElementById("till").focus();
     }
-
-    get journalInputElementValue():any{
-        return (<HTMLInputElement>document.getElementById("journalInput")).value;
-    }
-    
 
 }
