@@ -9,13 +9,15 @@ import { Cart } from './cart';
 })
 export class JournalComponent{
     constructor(private trepo: TillRepository,private cart:Cart) {}
-    inputValue:any;
+
     ngOnInit(){
         this.cart.slipNo=1206740;
         this.trepo.getEposTransaction(this.cart.slipNo);
         this.trepo.getEposTransLines(this.cart.slipNo);
     }
-
+    get journalInput():string{
+        return this.cart.journalInput;
+    }
     get journalText():string{
         return this.cart.journalText;
     }
@@ -38,6 +40,10 @@ export class JournalComponent{
     }
     set price(newPrice:number){
         this.cart.price=newPrice;
+    }
+
+    get isError():boolean{
+      return  this.cart.isError;
     }
 
 }

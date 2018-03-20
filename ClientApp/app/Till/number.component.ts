@@ -8,6 +8,10 @@ import { Router } from "@angular/router";
 })
 export class NumberComponent{
     constructor(private cart:Cart,private repo:Repository,private router:Router) {}
+    private clickStr?:string;
+    ngOnInit(){
+        this.clickStr="";
+    }
     gohome(){
          this.router.navigateByUrl("");
     }
@@ -16,5 +20,35 @@ export class NumberComponent{
     }
     get tillId():string{
         return this.repo.device.tillId;
+    }
+    numberClick(no:string){
+       this.cart.journalInput=this.cart.journalInput+no;
+       this.clickStr=no;
+    }
+    clearClick(){
+        this.cart.journalInput="";
+        this.cart.journalText="";
+        this.cart.qty=0;
+        this.cart.price=0;
+        this.cart.setIsError(false);
+        this.clickStr="Clear";
+    }
+    get clickBtn():string{
+        return  this.clickStr;
+    }
+    setToQty(){
+        let x=parseInt(this.cart.journalInput);
+        if(x>0){
+            if(x<this.cart.maxQty){
+                this.cart.qty=x;
+                this.cart.journalText=x.toString()+" X";
+                this.cart.journalInput="";
+            }else{
+                this.cart.qty=0;
+                this.cart.journalText="Allowed Maximum Quantity "+this.cart.maxQty.toString();
+                this.cart.setIsError(true);
+            }
+        }
+        this.clickStr="X";
     }
 }

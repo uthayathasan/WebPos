@@ -26,10 +26,13 @@ export class EposTransactionRepository{
                 response => {this.tRepo.item = response;
                 if(id==this.tRepo.item.itemNo){
                     if(this.tRepo.item.priceEntry){
-                        if(this.cart.price==0){
+                        let price=parseInt(this.cart.journalInput);
+                        if((price==0)||(this.cart.journalInput=="")){
                             this.cart.journalText="Please Enter the Price";
                         }else{
                             if(this.cart.qty==0){this.cart.qty=1;}
+                            this.cart.price=price/100.0;
+                            this.cart.journalInput="";
                             this.cart.journalText=this.tRepo.item.description +" @ "+(this.cart.qty*this.cart.price).toFixed(2);
                         }
                     }else{

@@ -10,7 +10,10 @@ export class Cart{
         this.change=0;
         this.qty=0;
         this.price=0;
-        
+        this.journalInput="";
+        this.maxQty=999;
+        this.isError=false;
+
         this.displayLines.push("www.visualbusinessretail.com");
         this.displayLines.push("Support: 02080901449");
         this.displayLines.push("Customer Id: C00050");
@@ -47,6 +50,8 @@ export class Cart{
     qty?:number;
     price?:number;
     journalText?:string;
+    journalInput?:string;
+    maxQty?:number;
 
     paid?:number;
     change?:number;
@@ -58,9 +63,17 @@ export class Cart{
     menuLineCurrentPage?:number;
     menuLine?:MenuLine;
 
+    isError?:boolean;
+
     mod?:string;
     functionKey?:FunctionKey;
 
+    getIsError():boolean{
+        return this.isError;
+    }
+    setIsError(newError:boolean){
+        this.isError=newError;
+    }
     getMaxLineNo():number{
         try{
             if(this.trepo.eposTransLines!=null&&this.trepo.eposTransLines.length>0){

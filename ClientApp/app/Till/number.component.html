@@ -26,26 +26,26 @@
                 </button>
             </th>
             <td class="m-0 p-0" style="min-width:35px">
-                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" 
-                    style="min-height:50px">
+                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='7'}"
+                 (click)="numberClick('7')" style="min-height:50px">
                     7
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
-                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" 
-                    style="min-height:50px">
+                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='8'}"
+                (click)="numberClick('8')" style="min-height:50px">
                     8
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
-                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" 
-                    style="min-height:50px">
+                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='9'}"
+                (click)="numberClick('9')" style="min-height:50px">
                     9
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
-                <button type="button" class="btn btn-lg btn-block btn-success m-0 p-0"
-                    style="min-height:50px">
+                <button type="button" class="btn btn-lg btn-block btn-success m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='Clear'}"
+                 (click)="clearClick()" style="min-height:50px">
                     CLEAR
                 </button>
             </td>
@@ -58,20 +58,20 @@
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
-                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" 
-                    style="min-height:50px">
+                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='4'}"
+                 (click)="numberClick('4')" style="min-height:50px">
                     4
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
-                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" 
-                    style="min-height:50px">
+                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='5'}"
+                 (click)="numberClick('5')" style="min-height:50px">
                     5
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
-                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" 
-                    style="min-height:50px">
+                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='6'}"
+                 (click)="numberClick('6')" style="min-height:50px">
                     6
                 </button>
             </td>
@@ -90,20 +90,20 @@
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
-                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" 
-                    style="min-height:50px">
+                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='1'}"
+                 (click)="numberClick('1')" style="min-height:50px">
                     1
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
-                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" 
-                    style="min-height:50px">
+                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='2'}"
+                 (click)="numberClick('2')" style="min-height:50px">
                     2
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
-                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" 
-                    style="min-height:50px">
+                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='3'}"
+                 (click)="numberClick('3')" style="min-height:50px">
                     3
                 </button>
             </td>
@@ -122,20 +122,20 @@
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
-                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" 
-                    style="min-height:50px">
+                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='0'}"
+                 (click)="numberClick('0')" style="min-height:50px">
                     0
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
-                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" 
-                    style="min-height:50px">
+                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='00'}"
+                 (click)="numberClick('00')" style="min-height:50px">
                     00
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
-                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" 
-                    style="min-height:50px">
+                <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='X'}"
+                 (click)="setToQty()" style="min-height:50px">
                     X
                 </button>
             </td>

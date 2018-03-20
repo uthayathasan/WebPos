@@ -11,15 +11,14 @@ export class TillComponent{
   }
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) { 
-    console.log(event.key);
+    
     if(event.keyCode==13){
-      console.log("Yes");
-   }
+      //this.cart.journalInput=this.input;
+    }else{
+      this.cart.journalInput=this.cart.journalInput+event.key;
+    }
   }
   focusTill(){
         this.cart.focusTill();
-  }
-  onKey(event:KeyboardEvent){
-      console.log("hello");
   }
 }

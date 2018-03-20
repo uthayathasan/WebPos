@@ -1,7 +1,9 @@
 <div class="row w-100 m-0 p-0" style="min-height:400px;max-height:400px">
 
-    <label class="form-control m-0 p-0" style="max-height:25px;min-height:25px">{{inputValue}}</label>
-    <label class="form-control m-0 p-0" style="max-height:25px;min-height:25px">{{journalText}}</label>
+    <label class="form-control m-0 p-0" style="max-height:25px;min-height:25px">{{journalInput}}</label>
+    <label class="form-control m-0 p-0" style="max-height:25px;min-height:25px" [ngClass]="{'text-danger':isError}">
+        {{journalText}}
+    </label>
 
     <div class="w-100 m-0 p-0" style="overflow-y:scroll; height:350px">
         <table class="table table-striped my-0 py-0">
