@@ -19,46 +19,66 @@ export class EposTransactionRepository{
     constructor(private repo:Repository,private tRepo:TillRepository,private cart:Cart){}
 
     createTransactionAndinsertTransLineFromItemNo(id:string){
-        if(this.cart.slipNo==0){
-            let m=new EposTransaction();
-            m.counterPrint=false;
-            m.customerId=this.cart.customerId;
-            m.deliveryId=0;
-            m.floor="";
-            m.id=0;
-            m.infoItem=0;
-            m.invoicedDate=this.repo.minDate;
-            m.invoicePrinted=false;
-            m.loyaltyCard="";
-            m.membershipNo="";
-            m.orderNo=0;
-            m.orderType=this.cart.orderType;
-            m.orderTypeText=this.cart.orderTypeText;
-            m.seats=this.cart.seates;
-            m.slipNo=this.cart.slipNo;
-            m.staffId=this.repo.logedInStaff.userId;
-            m.storeId=this.repo.device.storeId;
-            m.takeawayId=this.cart.orderId;
-            m.tableId=this.cart.orderId;
-            m.tableName="";
-            m.tillId=this.repo.device.tillId;
-            m.transDate=this.repo.currentDateTime;
-            m.transType=0;
-            m.transactionText=this.cart.orderTypeText;
+        let m=new EposTransaction();
+        m.counterPrint=false;
+        m.customerId=this.cart.customerId;
+        m.deliveryId=this.cart.deliveryId;
+        m.floor="";
+        m.id=0;
+        m.infoItem=0;
+        m.invoicedDate=this.repo.minDate;
+        m.invoicePrinted=false;
+        m.loyaltyCard="";
+        m.membershipNo="";
+        m.orderNo=this.cart.orderNo;
+        m.orderType=this.cart.orderType;
+        m.orderTypeText=this.cart.orderTypeText;
+        m.seats=this.cart.seates;
+        m.slipNo=this.cart.slipNo;
+        m.staffId=this.repo.logedInStaff.userId;
+        m.storeId=this.repo.device.storeId;
+        m.takeawayId=this.cart.takeawayId;
+        m.tableId=this.cart.tableId;
+        m.tableName=this.cart.tableName;
+        m.tillId=this.repo.device.tillId;
+        m.transDate=this.repo.currentDateTime;
+        m.transType=this.cart.transType;
+        m.transactionText=this.cart.orderTypeText;
 
-            let result=0;
-            let url=eposTransactionsUrl;
-            url +="?customerId="+this.repo.filter.customerId;
-            url +="&storeId="+this.repo.filter.storeId;
-            url +="&tillId="+this.repo.filter.tillId;
+        let result=0;
+        let url=eposTransactionsUrl;
+        url +="?customerId="+this.repo.filter.customerId;
+        url +="&storeId="+this.repo.filter.storeId;
+        url +="&tillId="+this.repo.filter.tillId;
+        if(this.cart.slipNo==0){
             this.repo.sendRequest(RequestMethod.Post, url, m).subscribe(response => {
                 result = response;
                 if(result>0){
                     this.cart.slipNo=result;
-                    this.tRepo.getEposTransaction(this.cart.slipNo);
+                    let turl=eposTransactionsUrl+"/"+this.cart.slipNo;
+                    turl +="?customerId="+this.repo.filter.customerId;
+                    turl +="&storeId="+this.repo.filter.storeId;
+                    turl +="&tillId="+this.repo.filter.tillId;
+                    this.repo.sendRequest(RequestMethod.Get, turl)
+                    .subscribe(response =>{
+                        this.tRepo.eposTransaction = response;
+                        this.cart.orderTypeText=this.tRepo.eposTransaction.orderTypeText;
+                        this.cart.orderType=this.tRepo.eposTransaction.orderType;
+                        this.cart.orderNo=this.tRepo.eposTransaction.orderNo;
+                        this.cart.tableId=this.tRepo.eposTransaction.tableId;
+                        this.cart.tableName=this.tRepo.eposTransaction.tableName;
+                        this.cart.seates=this.tRepo.eposTransaction.seats;
+                        this.cart.takeawayId=this.tRepo.eposTransaction.takeawayId;
+                        this.cart.deliveryId=this.tRepo.eposTransaction.deliveryId;
+                        this.cart.customerId=this.tRepo.eposTransaction.customerId;
+                        this.cart.slipNo=this.tRepo.eposTransaction.slipNo;
+                        this.cart.transType=this.tRepo.eposTransaction.transType;
+                    });
                     this.insertTransLineFromItemNo(id);
                 }
             });
+        }else{
+            this.insertTransLineFromItemNo(id);
         }
     }
 
@@ -98,7 +118,7 @@ export class EposTransactionRepository{
                     m.lineNo=this.cart.getMaxLineNo()+1;
                     m.netAmount=this.cart.qty*this.cart.price;
                     m.number=this.tRepo.item.itemNo;
-                    m.orderType=this.cart.orderTypeId;
+                    m.orderType=this.cart.orderType;
                     m.price=this.cart.price;
                     m.printGroup=this.tRepo.item.printGroup;
                     m.quantity=this.cart.qty;

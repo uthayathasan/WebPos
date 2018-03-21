@@ -31,15 +31,19 @@ export class DetailsComponent{
     get displayLines():string []{
         return this.cart.displayLines;
     }
-    get orderType():string{
-        return this.cart.orderTypeText;
+   
+    get orderTypeDetails():string{
+        if(this.cart.orderType==0){
+            return this.cart.orderTypeText+" Id:"+this.cart.tableId+" Seats:"+this.cart.seates;
+        }else if(this.cart.orderType==1){
+            return this.cart.orderTypeText+" Id:"+this.cart.takeawayId;
+        }else if(this.cart.orderType==2){
+            return this.cart.orderTypeText+" Id:"+this.cart.deliveryId;
+        }else{
+            return this.cart.orderTypeText
+        }
     }
-    get orderId():number{
-        return this.cart.orderId;
-    }
-    get seats():string{
-        return this.cart.seates;
-    }
+   
     get mod():string{
         return this.cart.mod;
     }

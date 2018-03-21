@@ -19,12 +19,17 @@ export class Cart{
         this.displayLines.push("Customer Id: C00050");
         this.displayLines.push("Copyright @ 2018 VBR");
 
-        this.orderTypeText="Table";
-        this.orderType=0;
-        this.orderId=2;
-        this.seates="1";
-        this.slipNo=0;
+        this.orderTypeText="Table";//Table||Takeaway||Delivery
+        this.orderType=0;//0||1||2
+        this.orderNo=1;//OrderNo From No Series
+        this.tableId=1;
+        this.tableName="Table 1";
+        this.seates="2";
+        this.takeawayId=0;
+        this.deliveryId=0;
         this.customerId=0;
+        this.slipNo=0;
+        this.transType=0;//0 sales||1 Refund
 
         this.menuHeaderId="MAIN";
         this.menuHeaderCurrentPage=1;
@@ -44,12 +49,17 @@ export class Cart{
     }
     displayLines: Array<string>=new Array<string>();
 
-    orderTypeId?:number;
-    orderTypeText?:string;
-    orderType?:number;
-    orderId?:number;
+    orderTypeText?:string;//Table||Takeaway||Delivery
+    orderType?:number;//0||1||2
+    orderNo?:number;//OrderNo From No Series
+    tableId?:number;
+    tableName?:string;
     seates?:string;
+    takeawayId?:number;
+    deliveryId?:number;
     customerId?:number;
+    slipNo?:number;
+    transType?:number;//0 sales||1 Refund
 
     qty?:number;
     price?:number;
@@ -60,7 +70,7 @@ export class Cart{
     paid?:number;
     change?:number;
 
-    slipNo?:number;
+    
 
     menuHeaderId?:string;
     menuHeaderCurrentPage?:number;

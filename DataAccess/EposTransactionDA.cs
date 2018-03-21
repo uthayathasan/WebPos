@@ -19,6 +19,14 @@ namespace WebPos.DataAccess
             Sql +="end ";
             Sql +="set @Slip_No=@Slip_No+1 ";
 
+            Sql +="declare @Order_No int ";
+            Sql +="set @Order_No=(select TOP 1 Order_No from "+CustomerId+"_"+StoreId+"_"+TillId+"_"+"No_Series) ";
+            Sql +="if(@Order_No is null) ";
+            Sql +="begin ";
+            Sql +="set @Order_No=0 ";
+            Sql +="end ";
+            Sql +="set @Order_No=@Order_No+1 ";
+
             Sql +="insert into "+CustomerId+"_"+StoreId+"_"+TillId+"_"+"EPOS_Transaction ";
             Sql +="(Counter_Print,Customer_Id,Delivery_ID,[Floor], ";
             Sql +="InfoItem,Invoiced_Date,InvoicePrinted,Loyalty_Card,Membership_No, ";
@@ -34,7 +42,12 @@ namespace WebPos.DataAccess
 
             Sql +="update "+CustomerId+"_"+StoreId+"_"+TillId+"_"+"No_Series ";
             Sql +="set Last_No_Used = @Slip_No ";
+
+            Sql +="update "+CustomerId+"_"+StoreId+"_"+TillId+"_"+"No_Series ";
+            Sql +="set Order_No = @Order_No ";
+            
             Sql +="select @Slip_No ";
+
             #endregion SQL
             #region Execute SQL
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -118,11 +131,13 @@ namespace WebPos.DataAccess
                     //@Order_No,@Order_Type,@Order_Type_Text,@Seats,@Slip_No,
                     #region Line 3
                     #region @Order_No
+                    /*
                     param  = new SqlParameter();
                     param.ParameterName="@Order_No";
                     param.Value=m.OrderNo;
                     param.DbType=DbType.Int32;
                     command.Parameters.Add(param);
+                    */
                     #endregion @Order_No
                     #region @Order_Type
                     param  = new SqlParameter();
