@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-namespace WebPos.Models{
+namespace WebPos.Models
+{
     public class MenuLine
     {
         public string BootstrapButton{get;set;}="btn-info";

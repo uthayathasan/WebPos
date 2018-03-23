@@ -11,6 +11,7 @@ namespace  WebPos.Models{
         public string Department{get;set;}="";
         public string Description{get;set;}="";
         public bool DiscountAllowed{get;set;}=false;
+        public bool IsCharge{get;set;}=false;
         public decimal Inventory{get;set;}=0;
         public bool IsSubItem{get;set;}=false;
         public string ItemGroup{get;set;}="";

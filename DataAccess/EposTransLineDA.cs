@@ -22,7 +22,7 @@ namespace WebPos.DataAccess
             Sql +="Scale,Scanned,Served,Split_Group,Staff_Id,";
             Sql +="Store_ID,Temp_Item,Till_Id,Total_Cost,Trans_Date,";
             Sql +="Trans_ID,Unit_Cost,VAT_Amount,VAT_Code,VAT_Rate ";
-            Sql +="IsChange,IsRefund ";
+            Sql +="IsChange,IsRefund,IsCharge ";
             Sql +="from "+CustomerId+"_"+StoreId+"_"+TillId+"_"+"EPOS_Trans_Line ";
             Sql +="where Trans_ID=@Trans_ID ";
             Sql +="Order by Line_No desc ";
@@ -124,10 +124,11 @@ namespace WebPos.DataAccess
                         try{m.VatCode=reader.GetString(47);}catch{}
                         try{m.VatRate=reader.GetDecimal(48);}catch{}
                         #endregion Line 10
-                        //IsChange,IsRefund
+                        //IsChange,IsRefund,IsCharge
                         #region Line 11
                         try{m.IsChange=reader.GetBoolean(49);}catch{}
                         try{m.IsRefund=reader.GetBoolean(50);}catch{}
+                        try{m.IsCharge=reader.GetBoolean(51);}catch{}
                         #endregion Line 11
                         #endregion Fill Model
                         lm.Add(m);
@@ -160,7 +161,7 @@ namespace WebPos.DataAccess
             Sql +="Price,Print_Group,Quantity,Scale,Scanned, ";
             Sql +="Served,Split_Group,Staff_Id,Store_ID,Temp_Item, ";
             Sql +="Till_Id,Total_Cost,Trans_Date,Trans_ID,Unit_Cost, ";
-            Sql +="VAT_Amount,VAT_Code,VAT_Rate,IsChange,IsRefund) ";
+            Sql +="VAT_Amount,VAT_Code,VAT_Rate,IsChange,IsRefund,IsCharge) ";
             Sql +="values ";
             Sql +="(@Amount,@Barcode,@Bar_Print,@Bar_Printed,@Bar_Printed_Time, ";//1 5
             Sql +="@Department_Id,@Description,@Discount_Amount,@Discountable,@Discount_Percentage, ";//2 5
@@ -171,7 +172,7 @@ namespace WebPos.DataAccess
             Sql +="@Price,@Print_Group,@Quantity,@Scale,@Scanned, ";//7 5
             Sql +="@Served,@Split_Group,@Staff_Id,@Store_ID,@Temp_Item, ";//8 5
             Sql +="@Till_Id,@Total_Cost,@Trans_Date,@Trans_ID,@Unit_Cost, ";//9 5
-            Sql +="@VAT_Amount,@VAT_Code,@VAT_Rate,@IsChange,@IsRefund) ";//10 5
+            Sql +="@VAT_Amount,@VAT_Code,@VAT_Rate,@IsChange,@IsRefund,@IsCharge) ";//10 5
             #endregion SQL
             #region Execute SQL
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -537,7 +538,7 @@ namespace WebPos.DataAccess
                     command.Parameters.Add(param);
                     #endregion @Unit_Cost
                     #endregion Line 9
-                    //@VAT_Amount,@VAT_Code,@VAT_Rate,@IsChange,@IsRefund
+                    //@VAT_Amount,@VAT_Code,@VAT_Rate,@IsChange,@IsRefund,@IsCharge
                     #region Line 10
                     #region @VAT_Amount
                     param  = new SqlParameter();
@@ -575,6 +576,13 @@ namespace WebPos.DataAccess
                     param.DbType=DbType.Boolean;
                     command.Parameters.Add(param);
                     #endregion @IsRefund
+                    #region @IsCharge
+                     param =new SqlParameter();
+                    param.ParameterName="@IsCharge";
+                    param.Value=m.IsCharge;
+                    param.DbType=DbType.Boolean;
+                    command.Parameters.Add(param);
+                    #endregion @IsCharge
                     #endregion Line 10
                     #endregion Param
                     result=command.ExecuteNonQuery();

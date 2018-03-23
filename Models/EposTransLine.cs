@@ -17,6 +17,7 @@ namespace WebPos.Models
         public int Elno{get;set;}=0;
         public int EntryType{get;set;}=0;
         public string FreeText{get;set;}="";
+        public bool IsCharge{get;set;}=false;
         public bool IsChange{get;set;}=false;
         public bool IsModifier{get;set;}=false;
         public bool IsRefund{get;set;}=false;

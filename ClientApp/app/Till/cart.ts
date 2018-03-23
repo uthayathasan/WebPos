@@ -103,7 +103,7 @@ export class Cart{
     getItemCount():number{
         try{
             if(this.trepo.eposTransLines!=null&&this.trepo.eposTransLines.length>0){
-                return this.trepo.eposTransLines.filter(l=>((!l.lineStatus)&&(l.entryType==0)))
+                return this.trepo.eposTransLines.filter(l=>((!l.lineStatus)&&(l.entryType==0)&&(!l.isCharge)))
                 .map(q=>q.quantity).reduce((s,u)=>s+u+0);
             }else{
                 return 0;

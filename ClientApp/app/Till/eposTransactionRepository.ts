@@ -134,6 +134,7 @@ export class EposTransactionRepository{
                         m.elno=0;
                         m.entryType=0;
                         m.freeText="";
+                        m.isCharge=this.tRepo.item.isCharge;
                         m.isChange=false;
                         m.isModifier=false;
                         m.isRefund=false;

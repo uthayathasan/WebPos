@@ -7,6 +7,7 @@ export class Item {
         public department?:string,
         public description?:string,
         public discountAllowed?:boolean,
+        public isCharge?:boolean,
         public inventory?:number,
         public isSubItem?:boolean,
         public itemGroup?:string,

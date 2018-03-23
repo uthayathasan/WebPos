@@ -17,7 +17,7 @@ namespace WebPos.DataAccess{
             Sql +="Pack_Quantity,Pack_Unit_Of_Measure,Peak_Price,Price,Price_Entry, ";
             Sql +="Print_Group,Quantity_Entry,ReOrder_Point,ReOrder_Quantity,RRP, ";
             Sql +="Scale,Sub_Menu_Available,Takeaway_Price,Total_Volume_Or_Weight,Unit_Cost, ";
-            Sql +="Unit_Volume_Or_Weight,Vat_Code,Vendor_Item_No,Vendor_No,Wet_Stock from ";
+            Sql +="Unit_Volume_Or_Weight,Vat_Code,Vendor_Item_No,Vendor_No,Wet_Stock,IsCharge from ";
             Sql +=CustomerId+"_"+StoreId+"_"+"Item ";
             Sql +="where Item_No=@Item_No ";
             #endregion SQL
@@ -96,13 +96,14 @@ namespace WebPos.DataAccess{
                         try{m.TotalVolumeOrWeight=reader.GetDecimal(33);}catch{}
                         try{m.UnitCost=reader.GetDecimal(34);}catch{}
                         #endregion Line 7
-                        //Unit_Volume_Or_Weight,Vat_Code,Vendor_Item_No,Vendor_No,Wet_Stock
+                        //Unit_Volume_Or_Weight,Vat_Code,Vendor_Item_No,Vendor_No,Wet_Stock,Ischarge
                         #region Line 8
                         try{m.UnitVolumeOrWeight=reader.GetDecimal(35);}catch{}
                         try{m.VatCode=reader.GetString(36);}catch{}
                         try{m.VendorItemNo=reader.GetString(37);}catch{}
                         try{m.VendorNo=reader.GetString(38);}catch{}
                         try{m.WetStock=reader.GetBoolean(39);}catch{}
+                        try{m.IsCharge=reader.GetBoolean(40);}catch{}
                         #endregion Line 8
                         #endregion Fill Model
                         lm.Add(m);
@@ -125,7 +126,7 @@ namespace WebPos.DataAccess{
             Sql +="Pack_Quantity,Pack_Unit_Of_Measure,Peak_Price,Price,Price_Entry, ";
             Sql +="Print_Group,Quantity_Entry,ReOrder_Point,ReOrder_Quantity,RRP, ";
             Sql +="Scale,Sub_Menu_Available,Takeaway_Price,Total_Volume_Or_Weight,Unit_Cost, ";
-            Sql +="Unit_Volume_Or_Weight,Vat_Code,Vendor_Item_No,Vendor_No,Wet_Stock from ";
+            Sql +="Unit_Volume_Or_Weight,Vat_Code,Vendor_Item_No,Vendor_No,Wet_Stock,IsCharge from ";
             Sql +=CustomerId+"_"+"Item ";
             Sql +="where Item_No=@Item_No ";
             #endregion SQL
@@ -204,13 +205,14 @@ namespace WebPos.DataAccess{
                         try{m.TotalVolumeOrWeight=reader.GetDecimal(33);}catch{}
                         try{m.UnitCost=reader.GetDecimal(34);}catch{}
                         #endregion Line 7
-                        //Unit_Volume_Or_Weight,Vat_Code,Vendor_Item_No,Vendor_No,Wet_Stock
+                        //Unit_Volume_Or_Weight,Vat_Code,Vendor_Item_No,Vendor_No,Wet_Stock,Ischarge
                         #region Line 8
                         try{m.UnitVolumeOrWeight=reader.GetDecimal(35);}catch{}
                         try{m.VatCode=reader.GetString(36);}catch{}
                         try{m.VendorItemNo=reader.GetString(37);}catch{}
                         try{m.VendorNo=reader.GetString(38);}catch{}
                         try{m.WetStock=reader.GetBoolean(39);}catch{}
+                        try{m.IsCharge=reader.GetBoolean(40);}catch{}
                         #endregion Line 8
                         #endregion Fill Model
                         lm.Add(m);

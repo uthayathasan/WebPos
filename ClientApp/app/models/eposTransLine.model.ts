@@ -14,6 +14,7 @@ export class EposTransLine{
         public entryType?:number,
         public freeText?:string,
         public isChange?:boolean,
+        public isCharge?:boolean,
         public isModifier?:boolean,
         public isRefund?:boolean,
         public itemGroup?:string,
