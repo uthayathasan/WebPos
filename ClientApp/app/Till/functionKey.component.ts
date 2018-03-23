@@ -11,7 +11,7 @@ export class FunctionKeyComponent{
     ngOnInit(){}
     get functionKeys1(): FunctionKey[]{
         if( this.trepo.functionKeys!=null){
-            return this.trepo.functionKeys.filter(m=>m.mod.toUpperCase()==this.cart.mod)
+            return this.trepo.functionKeys.filter(m=>m.mod.toUpperCase()==this.cart.mod.toUpperCase())
             .filter(l=>l.index%3==1);
         }else{
             this.trepo.functionKeys;
@@ -19,7 +19,7 @@ export class FunctionKeyComponent{
     }
     get functionKeys2(): FunctionKey[]{
         if( this.trepo.functionKeys!=null){
-            return this.trepo.functionKeys.filter(m=>m.mod.toUpperCase()==this.cart.mod)
+            return this.trepo.functionKeys.filter(m=>m.mod.toUpperCase()==this.cart.mod.toUpperCase())
             .filter(l=>l.index%3==2);
         }else{
             this.trepo.functionKeys;
@@ -27,7 +27,7 @@ export class FunctionKeyComponent{
     }
     get functionKeys3(): FunctionKey[]{
         if( this.trepo.functionKeys!=null){
-            return this.trepo.functionKeys.filter(m=>m.mod.toUpperCase()==this.cart.mod)
+            return this.trepo.functionKeys.filter(m=>m.mod.toUpperCase()==this.cart.mod.toUpperCase())
             .filter(l=>l.index%3==0);
         }else{
             this.trepo.functionKeys;
@@ -35,8 +35,15 @@ export class FunctionKeyComponent{
     }
     setFunctionKey(line:FunctionKey){
         this.cart.functionKey=line;
+        this.applyJob(line);
     }
     get functionKey():FunctionKey{
         return this.cart.functionKey;
+    }
+
+    private applyJob(line:FunctionKey){
+        if(line.job=="TABLE"){
+            this.trepo.getTables();
+        }
     }
 }

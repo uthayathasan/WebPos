@@ -45,6 +45,6 @@ export class DetailsComponent{
     }
    
     get mod():string{
-        return this.cart.mod;
+        return this.cart.mod.toUpperCase();
     }
 }

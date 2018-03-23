@@ -64,6 +64,13 @@ namespace WebPos.DataAccess
             return eposTransactionDa.InsertTransaction(ConnectionString,CustomerId,StoreId,TillId,m);
         }
         #endregion EposTransaction
+        #region Select Order Table Takeaway 
+        public List<TableStatus> GetTableStatus(string CustomerId,string StoreId,string TillId)
+        {
+            TableStatusDA tableStatusDa=new TableStatusDA();
+            return tableStatusDa.GetTableStatusByStoreIdCustomerId(ConnectionString,CustomerId,StoreId,TillId);
+        }
+        #endregion Select Order Table Takeaway 
         #region Staff
         public List<Staff> GetStaffDetails(string CustomerId,string StoreId)
         {

@@ -70,8 +70,6 @@ export class Cart{
     paid?:number;
     change?:number;
 
-    
-
     menuHeaderId?:string;
     menuHeaderCurrentPage?:number;
     menuLineCurrentPage?:number;

@@ -10,11 +10,7 @@ import { Cart } from './cart';
 export class JournalComponent{
     constructor(private trepo: TillRepository,private cart:Cart) {}
 
-    ngOnInit(){
-        /*this.cart.slipNo=1206740;
-        this.trepo.getEposTransaction(this.cart.slipNo);
-        this.trepo.getEposTransLines(this.cart.slipNo);*/
-    }
+    ngOnInit(){}
     get journalInput():string{
         return this.cart.journalInput;
     }

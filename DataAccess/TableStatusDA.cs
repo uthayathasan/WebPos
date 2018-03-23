@@ -68,19 +68,87 @@ namespace WebPos.DataAccess
             Sql +="Update @Final ";
             Sql +="set NoOfItems=E.NoOfItems ";
             Sql +="from (select Trans_Id,sum(Quantity) NoOfItems from " +Epos_Trans_Line ;
-            Sql +="where Line_Status=0 and Entry_Type=0 and Quantity>0 and IsCharge=0 ";
+            Sql +="where Line_Status=0 and Entry_Type=0 and IsCharge=0 ";
             Sql +="group by Trans_Id) as E ";
             Sql +="where SlipNo=E.Trans_Id ";
 
             Sql +="Update @Final ";
             Sql +="set NoOfKitchenItems= E.NoOfKitchenItems from( ";
-            Sql +="select Trans_Id,sum(Quantity) NoOfKitchenItems from C00050_S0001_T1_Epos_Trans_Line ";
+            Sql +="select Trans_Id,sum(Quantity) NoOfKitchenItems from "+ Epos_Trans_Line;
             Sql +="where Line_Status=0 and Entry_Type=0 and Quantity>0 and Kitchen_Print=1 and IsCharge=0 ";
             Sql +="group by Trans_Id) as E ";
             Sql +="where SlipNo=E.Trans_Id ";
 
-            Sql +="";
+            Sql +="declare @delayTime int ";
+            Sql +="set @delayTime=(select DelayTime from " +StoreSettings+") ";
+            Sql +="if(@delayTime is null) ";
+            Sql +="begin ";
+            Sql +="set @delayTime=30 ";
+            Sql +="end ";
+
+            Sql +="declare @NonServedTransactions Table ";
+            Sql +="(Trans_ID int,NoOfNonServedItems int) ";
+
+            Sql +="insert into @NonServedTransactions ";
+            Sql +="(Trans_ID,NoOfNonServedItems) ";
+
+            Sql +="select Trans_ID,sum(Quantity) NoOfNonServedItems from "+Epos_Trans_Line;
+            Sql +="where Line_Status=0 and Kitchen_Print=1 and Kitchen_Printed=1 and  Quantity>0 and IsCharge=0 and ";
+            Sql +="Entry_Type='0' and Served=0 and DATEADD(mi,@delayTime,Kitchen_Printed_Time)<GETDATE() ";
+            Sql +="group by Trans_ID ";
+
+            Sql +="update @Final ";
+            Sql +="set NoOfNonServedItems=N.NoOfNonServedItems ";
+            Sql +="from (select Trans_ID,NoOfNonServedItems from @NonServedTransactions) N ";
+            Sql +="where SlipNo=N.Trans_ID ";
+
+            Sql +="update @Final ";
+            Sql +="set Total=E.Total ";
+            Sql +="from(select Trans_Id,SUM(Net_Amount) Total from "+Epos_Trans_Line ;
+            Sql +="where Line_Status=0 and Entry_Type=0 group by Trans_ID) E ";
+            Sql +="where SlipNo=E.Trans_ID ";
+
+            Sql +="update @Final ";
+            Sql +="set CounterPrint=ET.Counter_Print ";
+            Sql +="from (select Slip_No, Counter_Print from "+Epos_Transaction+") ET ";
+            Sql +="where SlipNo=ET.Slip_No ";
+
+            Sql +="select CounterPrint,CustomerId,[Floor],Seats,Show,SlipNo, ";
+            Sql +="NoOfItems,NoOfKitchenItems,NoOfNonServedItems,TableId, ";
+            Sql +="TableName,Total,x,y from @Final ";
             #endregion SQL
+
+            #region Execute SQL
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand(Sql, connection))
+                {
+                    SqlDataReader reader = command.ExecuteReader();
+                    while(reader.Read())
+                    {
+                        TableStatus m=new TableStatus();
+                        #region Fill Model
+                        try{m.CounterPrint=reader.GetBoolean(0);}catch{}
+                        try{m.CustomerId=reader.GetInt32(1);}catch{}
+                        try{m.Floor=reader.GetString(2);}catch{}
+                        try{m.Seats=reader.GetString(3);}catch{}
+                        try{m.Show=reader.GetBoolean(4);}catch{}
+                        try{m.SlipNo=reader.GetInt32(5);}catch{}
+                        try{m.NoOfItems=reader.GetInt32(6);}catch{}
+                        try{m.NoOfKitchenItems=reader.GetInt32(7);}catch{}
+                        try{m.NoOfNonServedItems=reader.GetInt32(8);}catch{}
+                        try{m.TableID=reader.GetInt32(9);}catch{}
+                        try{m.TableName=reader.GetString(10);}catch{}
+                        try{m.Total=reader.GetDecimal(11);}catch{}
+                        try{m.x=reader.GetInt32(12);}catch{}
+                        try{m.y=reader.GetInt32(13);}catch{}
+                        #endregion Fill Model
+                        lm.Add(m);
+                    }
+                }
+            }
+            #endregion Execute SQL
             return lm;
         }
     }

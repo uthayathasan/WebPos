@@ -4,6 +4,7 @@ import { MenuLine } from "../models/menuLine.model";
 import {FunctionKey} from "../models/functionKey.model";
 import{ EposTransaction } from "../models/eposTransaction.model";
 import{EposTransLine} from "../models/eposTransLine.model";
+import{TableStatus} from "../models/tableStatus.model";
 
 
 import { Injectable } from "@angular/core";
@@ -11,17 +12,19 @@ import { RequestMethod, Request, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import{Repository} from "../models/repository";
-const itemsUrl = "/api/items";
 const menuHeadersUrl="/api/menuHeaders";
 const menuLinesUrl="/api/menuLines";
+const itemsUrl = "/api/items";
 const eposTransactionsUrl="/api/eposTransactions";
 const eposTransLinesUrl="/api/eposTransLines";
 const functionKeysUrl="/api/functionKeys";
+const tablesUrl="/api/tables";
 
 @Injectable()
 export class TillRepository {
 
     constructor(private repo:Repository){}
+    
     getItem(id: string) {
         let url=itemsUrl+ "/" + id;
         url +="?customerId="+this.repo.filter.customerId;
@@ -29,7 +32,7 @@ export class TillRepository {
         this.repo.sendRequest(RequestMethod.Get, url)
         .subscribe(response => this.item = response);
         }
-
+    
     getMenuLines(id: string){
         let url=menuLinesUrl+"/"+id;
         url +="?customerId="+this.repo.filter.customerId;
@@ -50,6 +53,7 @@ export class TillRepository {
         .subscribe(response=>this.functionKeys=response);
 
     }
+   /*
     getEposTransaction(id:number){
         let url=eposTransactionsUrl+"/"+id;
         url +="?customerId="+this.repo.filter.customerId;
@@ -57,7 +61,7 @@ export class TillRepository {
         url +="&tillId="+this.repo.filter.tillId;
         this.repo.sendRequest(RequestMethod.Get, url)
         .subscribe(response =>this.eposTransaction = response);
-    }
+    }*/
     getEposTransLines(id:number){
         let url=eposTransLinesUrl+"/"+id;
         url +="?customerId="+this.repo.filter.customerId;
@@ -66,6 +70,7 @@ export class TillRepository {
         this.repo.sendRequest(RequestMethod.Get, url)
         .subscribe(response =>this.eposTransLines = response);
     }
+     /*
     insertEposTransLine(line:EposTransLine){
         let result=0;
         let url=eposTransLinesUrl;
@@ -75,7 +80,14 @@ export class TillRepository {
         this.repo.sendRequest(RequestMethod.Post, url, line).subscribe(response => {
             result = response;});
     }
-   
+    */
+    getTables(){
+        let url=tablesUrl+"?customerId="+this.repo.filter.customerId;
+        url +="&storeId="+this.repo.filter.storeId;
+        url +="&tillId="+this.repo.filter.tillId;
+        this.repo.sendRequest(RequestMethod.Get, url)
+        .subscribe(response =>this.tableStatus = response);
+    }
 
     item:Item;
     menuHeaders:MenuHeader[];
@@ -83,6 +95,6 @@ export class TillRepository {
     functionKeys:FunctionKey[];
     eposTransaction:EposTransaction;
     eposTransLines:EposTransLine[];
-
+    tableStatus:TableStatus[];
 
 }

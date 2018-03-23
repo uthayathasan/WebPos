@@ -10,6 +10,7 @@ import { RequestMethod, Request, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import { promise } from "selenium-webdriver";
+import { and } from "@angular/router/src/utils/collection";
 
 const itemsUrl = "/api/items";
 const eposTransactionsUrl="/api/eposTransactions";
@@ -17,7 +18,7 @@ const eposTransLinesUrl="/api/eposTransLines";
 @Injectable()
 export class EposTransactionRepository{
     constructor(private repo:Repository,private tRepo:TillRepository,private cart:Cart){}
-
+    busy?:boolean;
     createTransactionAndinsertTransLineFromItemNo(id:string){
         let m=new EposTransaction();
         m.counterPrint=false;
@@ -50,9 +51,11 @@ export class EposTransactionRepository{
         url +="?customerId="+this.repo.filter.customerId;
         url +="&storeId="+this.repo.filter.storeId;
         url +="&tillId="+this.repo.filter.tillId;
-        if(this.cart.slipNo==0){
+        if((this.cart.slipNo==0)&&(!this.busy)){
+            this.busy=true;
             this.repo.sendRequest(RequestMethod.Post, url, m).subscribe(response => {
                 result = response;
+                this.busy=false;
                 if(result>0){
                     this.cart.slipNo=result;
                     let turl=eposTransactionsUrl+"/"+this.cart.slipNo;

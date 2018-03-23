@@ -36,16 +36,16 @@ namespace WebPos.DataAccess
                     {
                         MenuLine m=new MenuLine();
                         #region Fill Model
-                        m.BootstrapButton=reader.GetString(0);
-                        m.Colour=reader.GetString(1);
-                        m.Description=reader.GetString(2);
-                        m.HtmlColour=reader.GetString(3);
-                        m.ImagePath=reader.GetString(4);
-                        m.IsImage=reader.GetBoolean(5);
-                        m.KeyCommand=reader.GetInt32(6);
-                        m.KeyId=reader.GetInt32(7);
-                        m.KeyValue=reader.GetString(8);
-                        m.MenuId=reader.GetString(9);
+                        try{m.BootstrapButton=reader.GetString(0);}catch{}
+                        try{m.Colour=reader.GetString(1);}catch{}
+                        try{m.Description=reader.GetString(2);}catch{}
+                        try{m.HtmlColour=reader.GetString(3);}catch{}
+                        try{m.ImagePath=reader.GetString(4);}catch{}
+                        try{m.IsImage=reader.GetBoolean(5);}catch{}
+                        try{m.KeyCommand=reader.GetInt32(6);}catch{}
+                        try{m.KeyId=reader.GetInt32(7);}catch{}
+                        try{m.KeyValue=reader.GetString(8);}catch{}
+                        try{m.MenuId=reader.GetString(9);}catch{}
                         #endregion Fill Model
                         lm.Add(m);
                     }
