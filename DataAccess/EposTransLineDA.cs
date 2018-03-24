@@ -133,6 +133,7 @@ namespace WebPos.DataAccess
                         #endregion Fill Model
                         lm.Add(m);
                     }
+                    reader.Close();
                 }
             }
             #endregion Execute SQL
