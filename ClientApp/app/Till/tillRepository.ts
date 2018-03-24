@@ -23,7 +23,11 @@ const tablesUrl="/api/tables";
 @Injectable()
 export class TillRepository {
 
-    constructor(private repo:Repository){}
+    constructor(private repo:Repository){
+        this.selectedEposTransLine=new EposTransLine;
+        this.eposTransLines =new Array();
+        this.eposTransLines.length=0;
+    }
     
     getItem(id: string) {
         let url=itemsUrl+ "/" + id;
@@ -68,7 +72,18 @@ export class TillRepository {
         url +="&storeId="+this.repo.filter.storeId;
         url +="&tillId="+this.repo.filter.tillId;
         this.repo.sendRequest(RequestMethod.Get, url)
-        .subscribe(response =>this.eposTransLines = response);
+        .subscribe(response =>{
+            this.eposTransLines = response;
+            if(this.eposTransLines.length>0){
+                let maxlineNo=this.eposTransLines.reduce((oa,u)=>Math.max(oa,u.lineNo),0);
+                this.selectedEposTransLine=this.eposTransLines.filter(l=>l.lineNo==maxlineNo)[0];
+            }else{
+                this.selectedEposTransLine=new EposTransLine;
+            }
+        });
+    }
+    setSelectedLine(line:EposTransLine){
+        this.selectedEposTransLine=line;
     }
      /*
     insertEposTransLine(line:EposTransLine){
@@ -96,5 +111,6 @@ export class TillRepository {
     eposTransaction:EposTransaction;
     eposTransLines:EposTransLine[];
     tableStatus:TableStatus[];
+    selectedEposTransLine:EposTransLine;
 
 }

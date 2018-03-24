@@ -179,6 +179,8 @@ export class EposTransactionRepository{
                         //m.vatAmount
                         m.vatCode=this.tRepo.item.vatCode;
                         //m.vatRate
+
+                        this.tRepo.eposTransLines.unshift(m);
                         let result=0;
                         let url=eposTransLinesUrl;
                         url +="?customerId="+this.repo.filter.customerId;

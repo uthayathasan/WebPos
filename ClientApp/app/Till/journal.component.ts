@@ -42,4 +42,10 @@ export class JournalComponent{
       return  this.cart.isError;
     }
 
+    get selectedEposTransLine(){
+        return this.trepo.selectedEposTransLine;
+    }
+    setSelectedEposTransLine(line:EposTransLine){
+        this.trepo.setSelectedLine(line);
+    }
 }
