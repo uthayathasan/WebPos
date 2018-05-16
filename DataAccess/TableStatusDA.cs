@@ -61,7 +61,7 @@ namespace WebPos.DataAccess
             Sql +="where  CounterPrint is null ";
 
             Sql +="Update @Final ";
-            Sql +="set SlipNo=L.Slip_No,CustomerId=L.Customer_Id ";
+            Sql +="set SlipNo=L.Slip_No,CustomerId=L.Customer_Id,Seats=L.Seats ";
             Sql +="from (select Slip_No,Table_Id,Seats,Customer_Id from " + Epos_Transaction+") L ";
             Sql +="where L.Table_Id=TableId ";
 
@@ -143,6 +143,11 @@ namespace WebPos.DataAccess
                         try{m.Total=reader.GetDecimal(11);}catch{}
                         try{m.x=reader.GetInt32(12);}catch{}
                         try{m.y=reader.GetInt32(13);}catch{}
+                        if(m.SlipNo==0) m.Colour="blue";
+                        if(m.SlipNo>0) m.Colour="green";
+                        if(m.NoOfNonServedItems>0) m.Colour="red";
+                        if(m.CounterPrint) m.Colour="yellow";
+                        if(!m.Show) m.Colour="white";
                         #endregion Fill Model
                         lm.Add(m);
                     }

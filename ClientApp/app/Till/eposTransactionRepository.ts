@@ -9,8 +9,6 @@ import { Injectable } from "@angular/core";
 import { RequestMethod, Request, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
-import { promise } from "selenium-webdriver";
-import { and } from "@angular/router/src/utils/collection";
 
 const itemsUrl = "/api/items";
 const eposTransactionsUrl="/api/eposTransactions";
@@ -181,6 +179,7 @@ export class EposTransactionRepository{
                         //m.vatRate
 
                         this.tRepo.eposTransLines.unshift(m);
+                        this.tRepo.selectedEposTransLine=m;
                         let result=0;
                         let url=eposTransLinesUrl;
                         url +="?customerId="+this.repo.filter.customerId;

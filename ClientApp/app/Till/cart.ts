@@ -19,7 +19,7 @@ export class Cart{
         this.displayLines.push("Customer Id: C00050");
         this.displayLines.push("Copyright @ 2018 VBR");
 
-        this.orderTypeText="Table";//Table||Takeaway||Delivery
+        /*this.orderTypeText="Table";//Table||Takeaway||Delivery
         this.orderType=0;//0||1||2
         this.orderNo=1;//OrderNo From No Series
         this.tableId=1;
@@ -29,7 +29,7 @@ export class Cart{
         this.deliveryId=0;
         this.customerId=0;
         this.slipNo=0;
-        this.transType=0;//0 sales||1 Refund
+        this.transType=0;//0 sales||1 Refund*/
 
         this.menuHeaderId="MAIN";
         this.menuHeaderCurrentPage=1;

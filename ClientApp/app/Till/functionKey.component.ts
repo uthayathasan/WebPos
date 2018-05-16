@@ -1,4 +1,5 @@
 import { Component,OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 import { Cart } from './cart';
 import {FunctionKey} from "../models/functionKey.model";
 import { TillRepository } from './tillRepository';
@@ -7,7 +8,7 @@ import { TillRepository } from './tillRepository';
     templateUrl: "./functionKey.component.html"
 })
 export class FunctionKeyComponent{
-    constructor(private trepo:TillRepository,private cart: Cart) {}
+    constructor(private trepo:TillRepository,private cart: Cart,private router:Router) {}
     ngOnInit(){}
     get functionKeys1(): FunctionKey[]{
         if( this.trepo.functionKeys!=null){
@@ -43,7 +44,11 @@ export class FunctionKeyComponent{
 
     private applyJob(line:FunctionKey){
         if(line.job=="TABLE"){
+            //this.trepo.testEsp();
             this.trepo.getTables();
+            this.trepo.selectedTableLine=null;
+            this.router.navigateByUrl("/tables")
+            
         }
     }
 }

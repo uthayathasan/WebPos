@@ -46,8 +46,8 @@ export class AppComponent {
   get Device():Device{
     return this.repo.device;
   }
-  changeScreen(){
-   this.repo.ChangeScreen();
+  changeScreenSize(){
+   this.repo.ChangeScreenSize();
   }
   gohome(){
     this.router.navigateByUrl("");

@@ -11,11 +11,11 @@ import {DetailsComponent} from "./details.component";
 import{NumberComponent} from "./number.component";
 import {FunctionKeyComponent} from "./functionKey.component";
 import{TimeComponent} from "./time.component";
-
+import {TablesComponent} from "./tables.component"
 
 @NgModule({
     declarations: [MenuBtnComponent,JournalComponent,TillComponent,ItemComponent,DetailsComponent,
-                    NumberComponent,FunctionKeyComponent,TimeComponent],
+                    NumberComponent,FunctionKeyComponent,TimeComponent,TablesComponent],
     imports: [BrowserModule],
     providers: [TillRepository,Cart,EposTransactionRepository]
     })

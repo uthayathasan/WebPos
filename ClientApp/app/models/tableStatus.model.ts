@@ -13,6 +13,7 @@ export class TableStatus{
         public tableName?:string,
         public total?:number,
         public x?:number,
-        public y?:number
+        public y?:number,
+        public colour?:string
     ){}
 }

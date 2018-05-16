@@ -111,7 +111,7 @@ export class Repository {
                 throw new Error("Network Error");
             });
         }
-    ChangeScreen(){
+    ChangeScreenSize(){
         let elem = document.getElementById("pos"); 
         if(!document.webkitIsFullScreen){
             if (elem.requestFullscreen) {

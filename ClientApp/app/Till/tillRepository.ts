@@ -85,6 +85,18 @@ export class TillRepository {
     setSelectedLine(line:EposTransLine){
         this.selectedEposTransLine=line;
     }
+
+    /*
+    testEsp(){
+        let val;
+        let url="http://192.168.1.104/gpio/1";
+        this.repo.sendRequest(RequestMethod.Post, url)
+        .subscribe(response=>{
+            val=response;
+            console.log(val);
+        });
+    }
+    */
      /*
     insertEposTransLine(line:EposTransLine){
         let result=0;
@@ -103,7 +115,9 @@ export class TillRepository {
         this.repo.sendRequest(RequestMethod.Get, url)
         .subscribe(response =>this.tableStatus = response);
     }
-
+    setSelectedTable(line:TableStatus){
+        this.selectedTableLine=line;
+    }
     item:Item;
     menuHeaders:MenuHeader[];
     menuLines:MenuLine[];
@@ -112,5 +126,6 @@ export class TillRepository {
     eposTransLines:EposTransLine[];
     tableStatus:TableStatus[];
     selectedEposTransLine:EposTransLine;
+    selectedTableLine:TableStatus;
 
 }

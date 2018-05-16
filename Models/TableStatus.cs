@@ -18,5 +18,6 @@ namespace WebPos.Models
         public decimal Total{get;set;}=0;
         public int x { get; set; }=0;
         public int y { get; set; }=0;
+        public string Colour{get;set;}="blue";
     }
 }
