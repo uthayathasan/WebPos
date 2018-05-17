@@ -1,0 +1,101 @@
+<div class="row w-100 m-0 p-0" style="min-height:100px"></div>
+<div class="row" style="margin: auto;width: 40%">
+    <h3 class="text-info text-center" style="margin: auto" >
+       ENTER THE SEATS
+    </h3>
+    <table class="table table-bordered table-sm m-0 p-0" >
+        <thead class="table-primary">
+            <th>Table Name : {{SelectedTable.tableName}}</th>
+            <th>Seats : {{seats}}</th>
+        </thead>
+    </table>
+    <table class="table table-bordered table-sm m-0 p-0" >
+        <tr class="table-info">
+            <td>
+                <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
+                style="min-height:50px;background: blue" (click)="setSeats('7')">
+                    7
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
+                style="min-height:50px;background: blue" (click)="setSeats('8')">
+                    8
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
+                style="min-height:50px;background: blue" (click)="setSeats('9')">
+                    9
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
+                style="min-height:50px;background: green" (click)="enterSeats()">
+                    Enter
+                </button>
+            </td>
+        </tr>
+        <tr class="table-info">
+            <td>
+                <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
+                style="min-height:50px;background: blue"  (click)="setSeats('4')">
+                    4
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
+                style="min-height:50px;background: blue" (click)="setSeats('5')">
+                    5
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
+                style="min-height:50px;background: blue" (click)="setSeats('6')">
+                    6
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
+                style="min-height:50px;background:orange" (click)=" clearSeats()">
+                    Clear
+                </button>
+            </td>
+        </tr>
+        <tr class="table-info">
+            <td>
+                <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
+                style="min-height:50px;background: blue" (click)="setSeats('1')">
+                    1
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
+                style="min-height:50px;background: blue" (click)="setSeats('2')">
+                    2
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
+                style="min-height:50px;background: blue" (click)="setSeats('3')">
+                    3
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
+                style="min-height:50px;background: red" (click)="exitSeats()"> 
+                    Exit
+                </button>
+            </td>
+        </tr>
+        <tr class="table-info">
+            <td colspan="4">
+                <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
+                style="min-height:50px;background: blue" (click)="setSeats('0')">
+                    0
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
+

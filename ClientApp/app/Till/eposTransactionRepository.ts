@@ -74,6 +74,12 @@ export class EposTransactionRepository{
                         this.cart.customerId=this.tRepo.eposTransaction.customerId;
                         this.cart.slipNo=this.tRepo.eposTransaction.slipNo;
                         this.cart.transType=this.tRepo.eposTransaction.transType;
+                        if(this.cart.transType==0){
+                            this.cart.mod="Sales";
+                        }
+                        if(this.cart.transType==1){
+                            this.cart.mod="Refund";
+                        }
                     });
                     this.insertTransLineFromItemNo(id);
                 }
@@ -97,12 +103,14 @@ export class EposTransactionRepository{
                     if(this.tRepo.item.priceEntry){
                         let price=parseInt(this.cart.journalInput);
                         if((price==0)||(this.cart.journalInput=="")){
+                            this.cart.isError=true;
                             this.cart.journalText="Please Enter the Price";
                             canAdd=false;
                         }else{
                             if(this.cart.qty==0){this.cart.qty=1;}
                             this.cart.price=price/100.0;
                             this.cart.journalInput="";
+                            this.cart.isError=false;
                             this.cart.journalText=this.tRepo.item.description +" @ "+(this.cart.qty*this.cart.price).toFixed(2);
                         }
                     }else{
@@ -117,6 +125,7 @@ export class EposTransactionRepository{
                         if(this.cart.price==0){
                             this.cart.price=this.tRepo.item.price;
                         }
+                        this.cart.isError=false;
                         this.cart.journalText=this.tRepo.item.description +" @ "+(this.cart.qty*this.cart.price).toFixed(2);
                     }
                     if(canAdd){
@@ -174,9 +183,10 @@ export class EposTransactionRepository{
                         m.transDate= this.repo.currentDateTime;
                         m.transId=this.cart.slipNo;
                         m.unitCost=this.tRepo.item.unitCost;
-                        //m.vatAmount
+                        
                         m.vatCode=this.tRepo.item.vatCode;
-                        //m.vatRate
+                        m.vatRate=this.tRepo.getVatRateById(m.vatCode);
+                        m.vatAmount=m.netAmount*m.vatRate/100;
 
                         this.tRepo.eposTransLines.unshift(m);
                         this.tRepo.selectedEposTransLine=m;
@@ -197,7 +207,8 @@ export class EposTransactionRepository{
                     }
                 }
                 else{
-                this.cart.journalText="Item Not Found";
+                    this.cart.isError=true;
+                    this.cart.journalText="Item Not Found";
                 }
             });
         }

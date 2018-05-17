@@ -102,10 +102,16 @@ export class MenuBtnComponent {
         }
         else{
             if(line.keyValue.trim()!=""){
-                if(this.cart.slipNo==0){
-                    this.eRepo.createTransactionAndinsertTransLineFromItemNo(line.keyValue);
-                }else{
-                this.eRepo.insertTransLineFromItemNo(line.keyValue);
+                if(this.cart.orderTypeText!=""){
+                    if(this.cart.slipNo==0){
+                        this.eRepo.createTransactionAndinsertTransLineFromItemNo(line.keyValue);
+                    }else{
+                    this.eRepo.insertTransLineFromItemNo(line.keyValue);
+                    }
+                }
+                else{
+                    this.cart.isError=true;
+                    this.cart.journalText="Please select the order type!";
                 }
             }
         }

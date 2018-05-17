@@ -18,6 +18,13 @@ namespace WebPos.DataAccess
             return itemDa.GetItemByItemNoStoreIdCustomerId(ConnectionString,CustomerId,StoreId,Item_No);
         }
         #endregion Item
+        #region Vat
+        public List<Vat> GetVatsByStoreIdCustomerId(string CustomerId,string StoreId)
+        {
+            VatDA vatDa=new VatDA();
+            return vatDa.GetVatsByStoreIdCustomerId(ConnectionString,CustomerId,StoreId);
+        }
+        #endregion Vat
         #region Menu
         public List<MenuHeader> GetMenuHeadersByStoreIdCustomerId(string CustomerId,string StoreId)
         {

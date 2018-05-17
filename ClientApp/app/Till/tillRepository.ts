@@ -5,7 +5,7 @@ import {FunctionKey} from "../models/functionKey.model";
 import{ EposTransaction } from "../models/eposTransaction.model";
 import{EposTransLine} from "../models/eposTransLine.model";
 import{TableStatus} from "../models/tableStatus.model";
-
+import{Vat} from "../models/vat.model";
 
 import { Injectable } from "@angular/core";
 import { RequestMethod, Request, Response } from "@angular/http";
@@ -19,7 +19,7 @@ const eposTransactionsUrl="/api/eposTransactions";
 const eposTransLinesUrl="/api/eposTransLines";
 const functionKeysUrl="/api/functionKeys";
 const tablesUrl="/api/tables";
-
+const vatUrl="/api/vats";
 @Injectable()
 export class TillRepository {
 
@@ -27,8 +27,28 @@ export class TillRepository {
         this.selectedEposTransLine=new EposTransLine;
         this.eposTransLines =new Array();
         this.eposTransLines.length=0;
+
+        this.getVats();
     }
-    
+
+    getVats(){
+        let url=vatUrl+"?customerId="+this.repo.filter.customerId;
+        url +="&storeId="+this.repo.filter.storeId;
+        this.repo.sendRequest(RequestMethod.Get, url)
+        .subscribe(response=>this.vats=response);
+    }
+    getVatRateById(id:string):number{
+        
+        try{
+            let rate=this.vats.filter(x=>x.id==id).map(y=>y.rate)[0];
+            return rate;
+        }
+        catch{
+            return 0;
+        }
+       
+    }
+
     getItem(id: string) {
         let url=itemsUrl+ "/" + id;
         url +="?customerId="+this.repo.filter.customerId;
@@ -118,6 +138,7 @@ export class TillRepository {
     setSelectedTable(line:TableStatus){
         this.selectedTableLine=line;
     }
+    vats:Vat[];
     item:Item;
     menuHeaders:MenuHeader[];
     menuLines:MenuLine[];
@@ -127,5 +148,5 @@ export class TillRepository {
     tableStatus:TableStatus[];
     selectedEposTransLine:EposTransLine;
     selectedTableLine:TableStatus;
-
+   
 }

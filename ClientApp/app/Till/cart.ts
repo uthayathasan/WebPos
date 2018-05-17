@@ -19,6 +19,7 @@ export class Cart{
         this.displayLines.push("Customer Id: C00050");
         this.displayLines.push("Copyright @ 2018 VBR");
 
+        this.orderTypeText="";
         /*this.orderTypeText="Table";//Table||Takeaway||Delivery
         this.orderType=0;//0||1||2
         this.orderNo=1;//OrderNo From No Series
@@ -46,6 +47,8 @@ export class Cart{
             this.functionKey=new FunctionKey();
         }
         this.mod="START";
+
+       
     }
     displayLines: Array<string>=new Array<string>();
 
@@ -80,12 +83,7 @@ export class Cart{
     mod?:string;
     functionKey?:FunctionKey;
 
-    getIsError():boolean{
-        return this.isError;
-    }
-    setIsError(newError:boolean){
-        this.isError=newError;
-    }
+   
     getMaxLineNo():number{
         try{
             if(this.trepo.eposTransLines!=null&&this.trepo.eposTransLines.length>0){

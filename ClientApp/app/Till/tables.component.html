@@ -1,15 +1,148 @@
-<div class="row w-100 m-0 p-0" style="min-height:768px">
-    <div align="center">
-        <button  *ngFor="let table of tables " type="button"  class="btn btn-sm btn-primary text-white m-1 p-1" 
-        style="min-height:55px;min-width: 100px"
-        [style.background]="table.colour"
-        (click)="selectTable(table)">
-           {{table.tableName}}
-        </button>
+<div class="row w-100 m-0 p-0" style="min-height:768px;align-content: center">
+        <div class="col m-0 p-0">
+                <table class="table m-0 p-0">
+                        <tr *ngFor="let table of tablesCol1"  class="m-0 p-0">
+                                <td class="m-1 p-1">
+                                        <button type="button"  class="btn btn-sm btn-block text-white m-0 p-0" 
+                                        style="min-height:55px"
+                                        [style.background]="table.colour"
+                                        (click)="selectTable(table)">
+                                           {{table.tableName}}
+                                        </button>
+                                </td>
+                        </tr>
+                </table>
+        </div>
 
-        <button type="button" class="btn btn-sm btn-danger btn-block" style="min-height: 55px"
+        <div class="col m-0 p-0">
+                <table class="table m-0 p-0">
+                        <tr *ngFor="let table of tablesCol2"  class="m-0 p-0">
+                                <td class="m-1 p-1">
+                                        <button type="button"  class="btn btn-sm btn-block text-white m-0 p-0" 
+                                        style="min-height:55px"
+                                        [style.background]="table.colour"
+                                        (click)="selectTable(table)">
+                                           {{table.tableName}}
+                                        </button>
+                                </td>
+                        </tr>
+                </table>
+        </div>
+        <div class="col m-0 p-0">
+                <table class="table m-0 p-0">
+                        <tr *ngFor="let table of tablesCol3"  class="m-0 p-0">
+                                <td class="m-1 p-1">
+                                        <button type="button"  class="btn btn-sm btn-block text-white m-0 p-0" 
+                                        style="min-height:55px"
+                                        [style.background]="table.colour"
+                                        (click)="selectTable(table)">
+                                           {{table.tableName}}
+                                        </button>
+                                </td>
+                        </tr>
+                </table>
+        </div>
+        <div class="col m-0 p-0">
+                <table class="table m-0 p-0">
+                        <tr *ngFor="let table of tablesCol4"  class="m-0 p-0">
+                                <td class="m-1 p-1">
+                                        <button type="button"  class="btn btn-sm btn-block text-white m-0 p-0" 
+                                        style="min-height:55px"
+                                        [style.background]="table.colour"
+                                        (click)="selectTable(table)">
+                                           {{table.tableName}}
+                                        </button>
+                                </td>
+                        </tr>
+                </table>
+        </div>
+        <div class="col m-0 p-0">
+                <table class="table m-0 p-0">
+                        <tr *ngFor="let table of tablesCol5"  class="m-0 p-0">
+                                <td class="m-1 p-1">
+                                        <button type="button"  class="btn btn-sm btn-block text-white m-0 p-0" 
+                                        style="min-height:55px"
+                                        [style.background]="table.colour"
+                                        (click)="selectTable(table)">
+                                           {{table.tableName}}
+                                        </button>
+                                </td>
+                        </tr>
+                </table>
+        </div>
+        <div class="col m-0 p-0">
+                <table class="table m-0 p-0">
+                        <tr *ngFor="let table of tablesCol6"  class="m-0 p-0">
+                                <td class="m-1 p-1">
+                                        <button type="button"  class="btn btn-sm btn-block text-white m-0 p-0" 
+                                        style="min-height:55px"
+                                        [style.background]="table.colour"
+                                        (click)="selectTable(table)">
+                                           {{table.tableName}}
+                                        </button>
+                                </td>
+                        </tr>
+                </table>
+        </div>
+        <div class="col m-0 p-0">
+                <table class="table m-0 p-0">
+                        <tr *ngFor="let table of tablesCol7"  class="m-0 p-0">
+                                <td class="m-1 p-1">
+                                        <button type="button"  class="btn btn-sm btn-block text-white m-0 p-0" 
+                                        style="min-height:55px"
+                                        [style.background]="table.colour"
+                                        (click)="selectTable(table)">
+                                           {{table.tableName}}
+                                        </button>
+                                </td>
+                        </tr>
+                </table>
+        </div>
+        <div class="col m-0 p-0">
+                <table class="table m-0 p-0">
+                        <tr *ngFor="let table of tablesCol8"  class="m-0 p-0">
+                                <td class="m-1 p-1">
+                                        <button type="button"  class="btn btn-sm btn-block text-white m-0 p-0" 
+                                        style="min-height:55px"
+                                        [style.background]="table.colour"
+                                        (click)="selectTable(table)">
+                                           {{table.tableName}}
+                                        </button>
+                                </td>
+                        </tr>
+                </table>
+        </div>
+        <div class="col m-0 p-0">
+                <table class="table m-0 p-0">
+                        <tr *ngFor="let table of tablesCol9"  class="m-0 p-0">
+                                <td class="m-1 p-1">
+                                        <button type="button"  class="btn btn-sm btn-block text-white m-0 p-0" 
+                                        style="min-height:55px"
+                                        [style.background]="table.colour"
+                                        (click)="selectTable(table)">
+                                           {{table.tableName}}
+                                        </button>
+                                </td>
+                        </tr>
+                </table>
+        </div>
+        <div class="col m-0 p-0">
+                <table class="table m-0 p-0">
+                        <tr *ngFor="let table of tablesCol10"  class="m-0 p-0">
+                                <td class="m-1 p-1">
+                                        <button type="button"  class="btn btn-sm btn-block text-white m-0 p-0" 
+                                        style="min-height:55px"
+                                        [style.background]="table.colour"
+                                        (click)="selectTable(table)">
+                                           {{table.tableName}}
+                                        </button>
+                                </td>
+                        </tr>
+                </table>
+        </div>
+        <button type="button" class="btn btn-sm btn-danger btn-block" style="min-height: 55px;max-height: 55px"
         (click)="back()">
             MAIN
         </button>
-    </div>
+       
 </div>

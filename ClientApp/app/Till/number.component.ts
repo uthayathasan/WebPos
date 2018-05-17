@@ -30,7 +30,7 @@ export class NumberComponent{
         this.cart.journalText="";
         this.cart.qty=0;
         this.cart.price=0;
-        this.cart.setIsError(false);
+        this.cart.isError=false;
         this.clickStr="Clear";
     }
     get clickBtn():string{
@@ -41,12 +41,13 @@ export class NumberComponent{
         if(x>0){
             if(x<this.cart.maxQty){
                 this.cart.qty=x;
+                this.cart.isError=false;
                 this.cart.journalText=x.toString()+" X";
                 this.cart.journalInput="";
             }else{
                 this.cart.qty=0;
                 this.cart.journalText="Allowed Maximum Quantity "+this.cart.maxQty.toString();
-                this.cart.setIsError(true);
+                this.cart.isError=true;
             }
         }
         this.clickStr="X";

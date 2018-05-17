@@ -12,6 +12,7 @@ import { AuthModule } from "./auth/auth.module";
 
 import { ErrorHandler } from "@angular/core";
 import { ErrorHandlerService } from "./errorHandler.service";
+
 const eHandler = new ErrorHandlerService();
 export function handler() {
   return eHandler;

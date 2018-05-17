@@ -26,7 +26,8 @@ import { Device } from '../models/device.model';
       this.authService.logout();
       this.authService.userId="";
       this.authService.password="";
-      this.router.navigateByUrl("login");
+      location.reload();
+      //this.router.navigateByUrl("login");
       this.repo.exitFullScreen();
     }
     goToTill(){
