@@ -7,7 +7,8 @@ import{Repository} from "../models/repository";
 import { AuthenticationService } from "../auth/authentication.service";
 @Component({
     selector: "function-key",
-    templateUrl: "./functionKey.component.html"
+    templateUrl: "./functionKey.component.html",
+    styleUrls: ['./functionKey.component.css']
 })
 export class FunctionKeyComponent{
     constructor(private repo:Repository,private trepo:TillRepository,private cart: Cart,private router:Router,private authService: AuthenticationService) {}
@@ -48,11 +49,19 @@ export class FunctionKeyComponent{
         if(line.mod.toUpperCase()=="START")
         {
             if(line.job.toUpperCase()=="TABLE"){
+                this.cart.journalText="";
+                this.cart.isError=false;
                 //this.trepo.testEsp();
                 this.trepo.getTables();
                 this.trepo.selectedTableLine=null;
-                this.router.navigateByUrl("/tables")
-                
+                this.router.navigateByUrl("/tables");
+            }
+            else if(line.job.toUpperCase()=="TAKE AWAY"){
+                this.cart.journalText="";
+                this.cart.isError=false;
+                this.trepo.getTakeaways();
+                this.trepo.selectedTakeawayLine=null;
+                this.router.navigateByUrl("/takeaways");
             }
             else if(line.job.toUpperCase()=="LOG OFF"){
                 this.authService.logout();

@@ -2,12 +2,14 @@ import { Component,OnInit } from '@angular/core';
 import { Cart } from './cart';
 import { Repository } from '../models/repository';
 import { Router } from "@angular/router";
+import{EposTransactionRepository} from "./epostransactionRepository";
 @Component({
     selector: "number-lines",
-    templateUrl: "./number.component.html"
+    templateUrl: "./number.component.html",
+    styleUrls: ['./number.component.css']
 })
 export class NumberComponent{
-    constructor(private cart:Cart,private repo:Repository,private router:Router) {}
+    constructor(private cart:Cart,private repo:Repository,private eRepo:EposTransactionRepository,private router:Router) {}
     private clickStr?:string;
     ngOnInit(){
         this.clickStr="";
@@ -24,6 +26,23 @@ export class NumberComponent{
     numberClick(no:string){
        this.cart.journalInput=this.cart.journalInput+no;
        this.clickStr=no;
+    }
+    enterClick(){
+        if(this.cart.journalInput!=""){
+            let id=this.cart.journalInput;
+            this.cart.journalInput="";
+            if(this.cart.orderTypeText!=""){
+              if(this.cart.slipNo==0){
+                  this.eRepo.createTransactionAndinsertTransLineFromItemNo(id);
+              }else{
+                  this.eRepo.insertTransLineFromItemNo(id);
+              }
+            }
+            else{
+              this.cart.isError=true;
+              this.cart.journalText="Please select the order type!";
+            }
+          }
     }
     clearClick(){
         this.cart.journalInput="";
@@ -51,5 +70,18 @@ export class NumberComponent{
             }
         }
         this.clickStr="X";
+    }
+
+    get cash0():number{
+        return this.cart.cash0;
+    }
+    get cash4():number{
+        return this.cart.cash4;
+    }
+    get cash8():number{
+        return this.cart.cash8;
+    }
+    get cash12():number{
+        return this.cart.cash12;
     }
 }

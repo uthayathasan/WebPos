@@ -35,6 +35,7 @@ export class AppComponent {
     if(this.repo.device==null){
       this.router.navigateByUrl("");
     }
+   
 }
 
   get error(): string[] {

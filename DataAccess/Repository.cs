@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using WebPos;
 using WebPos.Models;
@@ -12,10 +13,32 @@ namespace WebPos.DataAccess
             ConnectionString=Startup.ConnectionString;
         }
         #region Item
-        public List<Item> GetItemByItemNoStoreIdCustomerId(string CustomerId,string StoreId,string Item_No)
+        public List<Item> GetItemByItemNoOrBarcodeStoreIdCustomerId(string CustomerId,string StoreId,string id)
         {
             ItemDA itemDa =new ItemDA();
-            return itemDa.GetItemByItemNoStoreIdCustomerId(ConnectionString,CustomerId,StoreId,Item_No);
+            List<ItemBarcode> lb=itemDa.GetitemBarcodeByBarcodeStoreIdCustomerId(ConnectionString,CustomerId,StoreId,id);
+            if(lb.Count>0){
+                string ItemNo=lb[0].ItemNo;
+                List<Item> li=itemDa.GetItemByItemNoStoreIdCustomerId(ConnectionString,CustomerId,StoreId,ItemNo);
+                if(li.Count>0){
+                    if(lb[0].Price>0){
+                        li[0].Price=lb[0].Price;
+                    }
+                    if(lb[0].TakeawayPrice>0){
+                        li[0].TakeawayPrice=lb[0].TakeawayPrice;
+                    }
+                    if(lb[0].DeliveryPrice>0){
+                        li[0].DeliveryPrice=lb[0].DeliveryPrice;
+                    }
+                    if(!String.IsNullOrEmpty(lb[0].Description.Trim())){
+                        li[0].Description=lb[0].Description;
+                    }
+                }
+                return li;
+            }
+            else{
+                return itemDa.GetItemByItemNoStoreIdCustomerId(ConnectionString,CustomerId,StoreId,id);
+            }
         }
         #endregion Item
         #region Vat
@@ -51,6 +74,11 @@ namespace WebPos.DataAccess
             EposTransactionDA eposTransactionDa=new EposTransactionDA();
             return eposTransactionDa.GetTranactionBySlipNo(ConnectionString,CustomerId,StoreId,TillId,SlipNo);
         }
+        public int InsertTransaction(EposTransaction m,string CustomerId,string StoreId,string TillId)
+        {
+            EposTransactionDA eposTransactionDa=new EposTransactionDA();
+            return eposTransactionDa.InsertTransaction(ConnectionString,CustomerId,StoreId,TillId,m);
+        }
         #endregion EposTransaction
         #region EposTransLine
         public List<EposTransLine> GetTransLinesByTransId(string CustomerId,string StoreId,string TillId,int TransId)
@@ -64,18 +92,16 @@ namespace WebPos.DataAccess
             return eposTransLineDa.InsertTransLine(ConnectionString,CustomerId,StoreId,TillId,m);
         }
         #endregion EposTransLine
-        #region EposTransaction
-        public int InsertTransaction(EposTransaction m,string CustomerId,string StoreId,string TillId)
-        {
-            EposTransactionDA eposTransactionDa=new EposTransactionDA();
-            return eposTransactionDa.InsertTransaction(ConnectionString,CustomerId,StoreId,TillId,m);
-        }
-        #endregion EposTransaction
         #region Select Order Table Takeaway 
         public List<TableStatus> GetTableStatus(string CustomerId,string StoreId,string TillId)
         {
             TableStatusDA tableStatusDa=new TableStatusDA();
             return tableStatusDa.GetTableStatusByStoreIdCustomerId(ConnectionString,CustomerId,StoreId,TillId);
+        }
+        public List<TakeawayStatus> GetTakeawayStatus(string CustomerId,string StoreId,string TillId)
+        {
+            TakeawayStatusDA takeawayStatusDa=new TakeawayStatusDA();
+            return takeawayStatusDa.GetTakeawayStatusByStoreIdCustomerId(ConnectionString,CustomerId,StoreId,TillId);
         }
         #endregion Select Order Table Takeaway 
         #region Staff

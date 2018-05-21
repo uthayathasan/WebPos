@@ -16,7 +16,7 @@ namespace WebPos.Controllers
         public Item GetItem(string id,string customerId,string storeId)
         {
             #region Get Item CustomerId & StoreId
-            List<Item>lm=repo.GetItemByItemNoStoreIdCustomerId(customerId,storeId,id);
+            List<Item>lm=repo.GetItemByItemNoOrBarcodeStoreIdCustomerId(customerId,storeId,id);
             if(lm.Count>0)
             {
                 return lm[0];

@@ -1,15 +1,14 @@
-
-<div class="row w-100 m-0 p-0" style="min-height:25px;max-height:25px">
+<div class="row w-100 m-0 p-0" style="min-height:25px;max-height:25px;background:#027cbb">
     <table class="table table-condensed m-0 p-0"  style="min-height:25px;max-height:25px">
-        <tr class="m-0 p-0 text-success" style="min-height:25px;max-height:25px">
+        <tr class="m-0 p-0 text-warning" style="min-height:25px;max-height:25px">
             <th class="m-0 p-0 text-left">{{mod}}</th>
             <th class="m-0 p-0 text-center">{{orderTypeDetails}}</th>
             <th class="m-0 p-0 px-2 text-right">Items: {{noOfItems}}</th>
         </tr>
     </table>
 </div>
-<div class="row w-100 m-0 p-0" style="min-height:100px;max-height:100px">
-    <div class="col m-0 p-0 text-info text-left" style="overflow-y:scroll; height:100px">
+<div class="row w-100 m-0 p-0" style="min-height:100px;max-height:100px;background: #027cbb">
+    <div class="col m-0 p-0 text-white text-left" style="overflow-y:scroll; height:100px">
         <table class="table table-striped m-0 p-0"  style="min-height:100px;max-height:100px">
             <tr class="m-0 p-0" style="min-height:25px;max-height:25px" *ngFor="let line of displayLines">
                 <td class="m-0 p-0">{{line}}</td>
@@ -19,21 +18,22 @@
     <div class="col m-0 p-0 text-right">
         <table class="table table-striped m-0 p-0"  style="min-height:100px;max-height:100px">
             <tr class="m-0 p-0" style="min-height:25px;max-height:25px">
-                <th class="my-0 py-0 text-danger text-left ">TOTAL</th>
-                <th class="m-0 p-0 px-2 text-danger text-right">{{total?.toFixed(2)}}</th>
+                <th class="my-0 py-0 text-white text-left ">TOTAL</th>
+                <th class="m-0 p-0 px-2 text-white text-right">{{total?.toFixed(2)}}</th>
             </tr>
             <tr class="m-0 p-0" style="min-height:25px;max-height:25px">
-                <th class="my-0 py-0 text-warning text-left">DISCOUNT</th>
-                <th class="m-0 p-0 px-2 text-warning text-right">{{discount?.toFixed(2)}}</th>
+                <th class="my-0 py-0  text-left" style="color: lawngreen">DISCOUNT</th>
+                <th class="m-0 p-0 px-2 text-right" style="color: lawngreen" >{{discount?.toFixed(2)}}</th>
             </tr>
             <tr class="m-0 p-0" style="min-height:25px;max-height:25px">
-                <th class="my-0 py-0 text-success text-left">PAID</th>
-                <th class="m-0 p-0 px-2 text-success text-right">{{paid?.toFixed(2)}}</th>
+                <th class="my-0 py-0 text-warning text-left">PAID</th>
+                <th class="m-0 p-0 px-2 text-warning text-right">{{paid?.toFixed(2)}}</th>
             </tr>
             <tr class="m-0 p-0" style="min-height:25px;max-height:25px">
-                <th class="my-0 py-0 text-info  text-left">CHANGE</th>
-                <th class="m-0 p-0 px-2 text-info text-right">{{change?.toFixed(2)}}</th>
+                <th class="my-0 py-0 text-left" style="color: magenta">CHANGE</th>
+                <th class="m-0 p-0 px-2 text-right" style="color: magenta">{{change?.toFixed(2)}}</th>
             </tr>
         </table>
     </div>
 </div>
+

@@ -187,4 +187,78 @@ export class Cart{
         document.getElementById("till").focus();
     }
 
+    get cash0():number{
+        let total=this.getTotal();
+        if(total<=0){
+            return 0;
+        }
+        else if(total>0){
+            return total;
+        }
+    }
+
+    get cash4():number{
+        let total=this.getTotal();
+        if(total<=0){
+            return 0;
+        }
+        else if(total<0.5){
+            return 0.5;
+        }
+        else if(total<1){
+            return 1;
+        }
+        else if(total<5){
+            return 5;
+        }
+        else if(total<10){
+            return 10;
+        }
+        else if(total>10){
+            return Math.floor(total)+1;
+        }
+    }
+    get cash8():number{
+        let total=this.getTotal();
+        if(total<=0){
+            return 0;
+        }
+        else if(total<0.5){
+            return 1;
+        }
+        else if(total<1){
+            return 5;
+        }
+        else if(total<5){
+            return 10;
+        }
+        else if(total<10){
+            return 20;
+        }
+        else if(total>10){
+            return 20;
+        }
+    }
+    get cash12():number{
+        let total=this.getTotal();
+        if(total<=0){
+            return 0;
+        }
+        else if(total<0.5){
+            return 5;
+        }
+        else if(total<1){
+            return 10;
+        }
+        else if(total<5){
+            return 20;
+        }
+        else if(total<10){
+            return 50;
+        }
+        else if(total>10){
+            return 50;
+        }
+    }
+
 }

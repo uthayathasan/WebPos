@@ -42,10 +42,10 @@
         </table>
     </div>  
 </div>
-<div class="row m-0 p-0">
+<div class="row m-0 p-0" style="background:#027cbb" >
     <div class="col m-0 p-0">
         <div *ngIf="MenuLinePages.length > 1" class="text-left my-1">
-            <button *ngFor="let page of MenuLinePages" class="btn btn-outline-primary btn-sm mx-1"
+            <button *ngFor="let page of MenuLinePages" class="btn btn-outline-info btn-sm mx-1"
                 [class.active]="CurrentMenuLinePage == page"
                 (click)="ChangeMenuLinePage(page)">
                     {{page}}

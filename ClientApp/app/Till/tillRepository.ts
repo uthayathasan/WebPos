@@ -6,6 +6,7 @@ import{ EposTransaction } from "../models/eposTransaction.model";
 import{EposTransLine} from "../models/eposTransLine.model";
 import{TableStatus} from "../models/tableStatus.model";
 import{Vat} from "../models/vat.model";
+import {TakeawayStatus} from "../models/takeawayStatus.model";
 
 import { Injectable } from "@angular/core";
 import { RequestMethod, Request, Response } from "@angular/http";
@@ -20,6 +21,7 @@ const eposTransLinesUrl="/api/eposTransLines";
 const functionKeysUrl="/api/functionKeys";
 const tablesUrl="/api/tables";
 const vatUrl="/api/vats";
+const takeawayUrl="/api/takeaways";
 @Injectable()
 export class TillRepository {
 
@@ -138,6 +140,18 @@ export class TillRepository {
     setSelectedTable(line:TableStatus){
         this.selectedTableLine=line;
     }
+
+    getTakeaways(){
+        let url=takeawayUrl +"?customerId="+this.repo.filter.customerId;
+        url +="&storeId="+this.repo.filter.storeId;
+        url +="&tillId="+this.repo.filter.tillId;
+        this.repo.sendRequest(RequestMethod.Get, url)
+        .subscribe(response=>this.takeawayStatus=response);
+    }
+    setSelectedTakeaway(line:TakeawayStatus){
+        this.selectedTakeawayLine=line;
+    }
+
     vats:Vat[];
     item:Item;
     menuHeaders:MenuHeader[];
@@ -145,8 +159,9 @@ export class TillRepository {
     functionKeys:FunctionKey[];
     eposTransaction:EposTransaction;
     eposTransLines:EposTransLine[];
-    tableStatus:TableStatus[];
     selectedEposTransLine:EposTransLine;
+    tableStatus:TableStatus[];
     selectedTableLine:TableStatus;
-   
+    takeawayStatus:TakeawayStatus[];
+    selectedTakeawayLine:TakeawayStatus;
 }

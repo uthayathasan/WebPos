@@ -114,6 +114,24 @@ export class EposTransactionRepository{
                             this.cart.journalText=this.tRepo.item.description +" @ "+(this.cart.qty*this.cart.price).toFixed(2);
                         }
                     }else{
+                        if(this.cart.qty==0){
+                            if(this.cart.journalInput!=""){
+                                let q=parseInt(this.cart.journalInput);
+                                if(this.cart.maxQty<q){
+                                    this.cart.journalText="Allowed Maximum Quantity "+this.cart.maxQty.toString();
+                                    this.cart.isError=true;
+                                    canAdd=false;
+                                }
+                                else if(q>0){
+                                    this.cart.qty=q;
+                                }
+                                else if(isNaN(q)){
+                                    canAdd=false;
+                                    this.cart.isError=true;
+                                    this.cart.journalText="Invalid Quantity!";
+                                }
+                            }
+                        }
                         if(this.cart.qty==0){this.cart.qty=1;}
                         if(this.cart.orderType==0){
                             this.cart.price=this.tRepo.item.price;
@@ -125,8 +143,15 @@ export class EposTransactionRepository{
                         if(this.cart.price==0){
                             this.cart.price=this.tRepo.item.price;
                         }
-                        this.cart.isError=false;
-                        this.cart.journalText=this.tRepo.item.description +" @ "+(this.cart.qty*this.cart.price).toFixed(2);
+                        
+                        if(canAdd){
+                            this.cart.isError=false;
+                            this.cart.journalText=this.tRepo.item.description +" @ "+(this.cart.qty*this.cart.price).toFixed(2);
+                        }else{
+                            this.cart.qty=0;
+                            this.cart.price=0;
+
+                        }
                     }
                     if(canAdd){
                         if(this.cart.transType==1){this.cart.qty=-1*this.cart.qty}

@@ -6,7 +6,8 @@ import { MenuLine } from "../models/menuLine.model";
 import { MenuHeader } from "../models/menuHeader.model";
 @Component({
     selector: "menu-btn",
-    templateUrl: "./menuBtn.component.html"
+    templateUrl: "./menuBtn.component.html",
+    styleUrls: ['./menuBtn.component.css']
 })
 export class MenuBtnComponent {
     constructor(private trepo: TillRepository,private cart:Cart,private eRepo:EposTransactionRepository) {}
@@ -106,7 +107,7 @@ export class MenuBtnComponent {
                     if(this.cart.slipNo==0){
                         this.eRepo.createTransactionAndinsertTransLineFromItemNo(line.keyValue);
                     }else{
-                    this.eRepo.insertTransLineFromItemNo(line.keyValue);
+                        this.eRepo.insertTransLineFromItemNo(line.keyValue);
                     }
                 }
                 else{

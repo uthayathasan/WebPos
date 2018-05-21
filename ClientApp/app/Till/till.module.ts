@@ -13,9 +13,11 @@ import {FunctionKeyComponent} from "./functionKey.component";
 import{TimeComponent} from "./time.component";
 import {TablesComponent} from "./tables.component";
 import {SeatsComponent} from "./seats.component";
+import{TakeawaysComponent} from "./takeaway.component";
 @NgModule({
     declarations: [MenuBtnComponent,JournalComponent,TillComponent,ItemComponent,DetailsComponent,
-                    NumberComponent,FunctionKeyComponent,TimeComponent,TablesComponent,SeatsComponent],
+                    NumberComponent,FunctionKeyComponent,TimeComponent,TablesComponent,SeatsComponent,
+                    TakeawaysComponent],
     imports: [BrowserModule],
     providers: [TillRepository,Cart,EposTransactionRepository]
     })

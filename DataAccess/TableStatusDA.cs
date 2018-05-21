@@ -62,7 +62,7 @@ namespace WebPos.DataAccess
 
             Sql +="Update @Final ";
             Sql +="set SlipNo=L.Slip_No,CustomerId=L.Customer_Id,Seats=L.Seats ";
-            Sql +="from (select Slip_No,Table_Id,Seats,Customer_Id from " + Epos_Transaction+") L ";
+            Sql +="from (select Slip_No,Table_Id,Seats,Customer_Id from " + Epos_Transaction+") as L ";
             Sql +="where L.Table_Id=TableId ";
 
             Sql +="Update @Final ";
@@ -99,18 +99,18 @@ namespace WebPos.DataAccess
 
             Sql +="update @Final ";
             Sql +="set NoOfNonServedItems=N.NoOfNonServedItems ";
-            Sql +="from (select Trans_ID,NoOfNonServedItems from @NonServedTransactions) N ";
+            Sql +="from (select Trans_ID,NoOfNonServedItems from @NonServedTransactions) as N ";
             Sql +="where SlipNo=N.Trans_ID ";
 
             Sql +="update @Final ";
             Sql +="set Total=E.Total ";
             Sql +="from(select Trans_Id,SUM(Net_Amount) Total from "+Epos_Trans_Line ;
-            Sql +="where Line_Status=0 and Entry_Type=0 group by Trans_ID) E ";
+            Sql +="where Line_Status=0 and Entry_Type=0 group by Trans_ID) as E ";
             Sql +="where SlipNo=E.Trans_ID ";
 
             Sql +="update @Final ";
             Sql +="set CounterPrint=ET.Counter_Print ";
-            Sql +="from (select Slip_No, Counter_Print from "+Epos_Transaction+") ET ";
+            Sql +="from (select Slip_No, Counter_Print from "+Epos_Transaction+") as ET ";
             Sql +="where SlipNo=ET.Slip_No ";
 
             Sql +="select CounterPrint,CustomerId,[Floor],Seats,Show,SlipNo, ";

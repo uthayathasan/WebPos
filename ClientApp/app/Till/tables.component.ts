@@ -18,9 +18,7 @@ const eposTransLinesUrl="/api/eposTransLines";
 })
 export class TablesComponent{
     constructor(private trepo:TillRepository,private repo:Repository,private cart: Cart,private router:Router) {}
-    ngOnInit(){
-       
-    }
+    ngOnInit(){}
 
     
     get tablesCol1():TableStatus[]{
@@ -105,7 +103,7 @@ export class TablesComponent{
     }
     private back(){
         this.trepo.selectedTableLine=null;
-        this.router.navigateByUrl("/till")
+        this.router.navigateByUrl("/till");
     }
     private selectTable(line:TableStatus){
         this.trepo.selectedTableLine=line;

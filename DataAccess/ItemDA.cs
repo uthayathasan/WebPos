@@ -5,6 +5,60 @@ using  WebPos.Models;
 namespace WebPos.DataAccess{
     public class ItemDA
     {
+        
+        public List<ItemBarcode> GetitemBarcodeByBarcodeStoreIdCustomerId(string connectionString,string CustomerId,string StoreId ,string Barcode)
+        {
+            List<ItemBarcode> lm=new List<ItemBarcode>();
+            string Sql="";
+            #region SQL
+            Sql +="select Item_No,Barcode,[Description],Marked_Price,Price, ";
+            Sql +="Takeaway_Price,Delivery_Price,Size,Colour ";
+            Sql +="from "+CustomerId+"_"+StoreId+"_"+"Item_Barcode ";
+            Sql +="where Barcode=@Barcode ";
+            #endregion SQL
+            #region Execute SQL
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand(Sql, connection))
+                {
+                    #region Param
+                    SqlParameter param  = new SqlParameter();
+                    param.ParameterName="@Barcode";
+                    param.Value=Barcode;
+                    param.DbType=DbType.String;
+                    param.Size=20;
+                    command.Parameters.Add(param);
+                    #endregion Param
+                    SqlDataReader reader = command.ExecuteReader();
+                    while(reader.Read())
+                    {
+                        ItemBarcode m=new ItemBarcode();
+                        #region Fill Model
+                        //Item_No,Barcode,[Description],Marked_Price,Price
+                        #region Line 1
+                        try{m.ItemNo=reader.GetString(0);}catch{}
+                        try{m.Barcode=reader.GetString(1);}catch{}
+                        try{m.Description=reader.GetString(2);}catch{}
+                        try{m.MarkedPrice=reader.GetBoolean(3);}catch{}
+                        try{m.Price=reader.GetDecimal(4);}catch{}
+                        #endregion Line 1
+                        //Takeaway_Price,Delivery_Price,Size,Colour
+                        #region Line 2
+                        try{m.TakeawayPrice=reader.GetDecimal(5);}catch{}
+                        try{m.DeliveryPrice=reader.GetDecimal(6);}catch{}
+                        try{m.Size=reader.GetString(7);}catch{}
+                        try{m.Colour=reader.GetString(8);}catch{}
+                        #endregion Line 2
+                        #endregion Fill Model
+                        lm.Add(m);
+                    }
+
+                }
+            }
+            #endregion Execute SQL
+            return lm;
+        }
         public List<Item> GetItemByItemNoStoreIdCustomerId(string connectionString,string CustomerId,string StoreId ,string Item_No)
         {
             List<Item> lm=new List<Item>();

@@ -1,6 +1,6 @@
-<div class="row w-100 m-0 p-0 text-center" style="min-height:27px;max-height:27px">
+<div class="row w-100 m-0 p-0 text-center" style="min-height:27px;max-height:27px;background:#027cbb">
     <table class="table table-condensed m-0 p-0"  style="min-height:27px;max-height:27px">
-        <tr class="m-0 p-0 text-success" style="min-height:27px;max-height:27px">
+        <tr class="m-0 p-0 text-white" style="min-height:27px;max-height:27px">
             <td class="m-0 p-0 text-left"><current-time></current-time></td>
             <td class="m-0 p-0 text-left">
                     <button class="btn btn-sm btn-success" (click)="gohome()">
@@ -21,31 +21,31 @@
         <tr class="m-0 p-0">
             <th class="m-0 p-0" style="min-width:35px">
                 <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" 
-                    style="min-height:50px">
-                    £0
+                    style="min-height:50px;background: darkblue">
+                    £{{cash0?.toFixed(2)}}
                 </button>
             </th>
             <td class="m-0 p-0" style="min-width:35px">
                 <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='7'}"
-                 (click)="numberClick('7')" style="min-height:50px">
+                 (click)="numberClick('7')" style="min-height:50px;background: darkblue">
                     7
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
                 <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='8'}"
-                (click)="numberClick('8')" style="min-height:50px">
+                (click)="numberClick('8')" style="min-height:50px;background: darkblue">
                     8
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
                 <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='9'}"
-                (click)="numberClick('9')" style="min-height:50px">
+                (click)="numberClick('9')" style="min-height:50px;background: darkblue">
                     9
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
                 <button type="button" class="btn btn-lg btn-block btn-success m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='Clear'}"
-                 (click)="clearClick()" style="min-height:50px">
+                 (click)="clearClick()" style="min-height:50px;background: orange">
                     CLEAR
                 </button>
             </td>
@@ -53,31 +53,31 @@
         <tr class="m-0 p-0">
             <td class="m-0 p-0" style="min-width:35px">
                 <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" 
-                    style="min-height:50px">
-                    £0
+                    style="min-height:50px;background: darkblue">
+                    £{{cash4?.toFixed(2)}}
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
                 <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='4'}"
-                 (click)="numberClick('4')" style="min-height:50px">
+                 (click)="numberClick('4')" style="min-height:50px;background: darkblue">
                     4
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
                 <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='5'}"
-                 (click)="numberClick('5')" style="min-height:50px">
+                 (click)="numberClick('5')" style="min-height:50px;background: darkblue">
                     5
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
                 <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='6'}"
-                 (click)="numberClick('6')" style="min-height:50px">
+                 (click)="numberClick('6')" style="min-height:50px;background: darkblue">
                     6
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
                 <button type="button" class="btn btn-lg btn-block btn-success m-0 p-0" 
-                    style="min-height:50px">
+                    style="min-height:50px;background: darkgreen" (click)="enterClick()">
                     ENTER
                 </button>
             </td>
@@ -85,31 +85,31 @@
         <tr class="m-0 p-0">
             <td class="m-0 p-0" style="min-width:35px">
                 <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" 
-                    style="min-height:50px">
-                    £0
+                    style="min-height:50px;background: darkblue">
+                    £{{cash8?.toFixed(2)}}
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
                 <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='1'}"
-                 (click)="numberClick('1')" style="min-height:50px">
+                 (click)="numberClick('1')" style="min-height:50px;background: darkblue">
                     1
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
                 <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='2'}"
-                 (click)="numberClick('2')" style="min-height:50px">
+                 (click)="numberClick('2')" style="min-height:50px;background: darkblue">
                     2
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
                 <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='3'}"
-                 (click)="numberClick('3')" style="min-height:50px">
+                 (click)="numberClick('3')" style="min-height:50px;background: darkblue">
                     3
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
                 <button type="button" class="btn btn-lg btn-block btn-danger m-0 p-0" 
-                    style="min-height:50px">
+                    style="min-height:50px;background:limegreen">
                     CARD
                 </button>
             </td>
@@ -117,31 +117,31 @@
         <tr class="m-0 p-0">
             <td class="m-0 p-0" style="min-width:35px">
                 <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" 
-                    style="min-height:50px">
-                    £0
+                    style="min-height:50px;background: darkblue">
+                    £{{cash12?.toFixed(2)}}
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
                 <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='0'}"
-                 (click)="numberClick('0')" style="min-height:50px">
+                 (click)="numberClick('0')" style="min-height:50px;background: darkblue">
                     0
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
                 <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='00'}"
-                 (click)="numberClick('00')" style="min-height:50px">
+                 (click)="numberClick('00')" style="min-height:50px;background: darkblue">
                     00
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
                 <button type="button" class="btn btn-lg btn-block btn-primary m-0 p-0" [ngClass]="{'btn-dark':clickBtn=='X'}"
-                 (click)="setToQty()" style="min-height:50px">
+                 (click)="setToQty()" style="min-height:50px;background: darkblue">
                     X
                 </button>
             </td>
             <td class="m-0 p-0" style="min-width:35px">
                 <button type="button" class="btn btn-lg btn-block btn-danger m-0 p-0" 
-                    style="min-height:50px">
+                    style="min-height:50px;background: maroon">
                     CASH
                 </button>
             </td>
