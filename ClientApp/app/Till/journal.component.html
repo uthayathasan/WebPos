@@ -1,7 +1,7 @@
-<div class="row w-100 m-0 p-0" style="min-height:400px;max-height:400px">
+<div class="row w-100 m-0 p-0" style="min-height:400px;max-height:400px;background: #cce6ff">
 
-    <label class="form-control m-0 p-0" style="max-height:25px;min-height:25px">{{journalInput}}</label>
-    <label class="form-control m-0 p-0" style="max-height:25px;min-height:25px" [ngClass]="{'text-danger':isError}">
+    <label class="form-control m-0 p-0" style="max-height:25px;min-height:25px;background: #cce6ff">{{journalInput}}</label>
+    <label class="form-control m-0 p-0" style="max-height:25px;min-height:25px;background: #cce6ff" [ngClass]="{'text-danger':isError}">
         {{journalText}}
     </label>
 
@@ -18,7 +18,7 @@
             </thead>
             <tbody class="m-0 p-0">
                 <tr *ngFor="let eposTransline of eposTranslines" class="m-0 p-0" style="min-height:25px;max-height:25px"
-                    [style.background]="selectedEposTransLine.lineNo==eposTransline.lineNo?'yellow':'white'"
+                    [style.background]="selectedEposTransLine.lineNo==eposTransline.lineNo?'#cc9900':'#cce6ff'"
                     [ngClass]="{'text-danger':eposTransline.lineStatus}"
                     (click)="setSelectedEposTransLine(eposTransline)">
                     <td class="m-0 p-0 pl-1">

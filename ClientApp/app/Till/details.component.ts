@@ -34,11 +34,11 @@ export class DetailsComponent{
    
     get orderTypeDetails():string{
         if(this.cart.orderType==0){
-            return this.cart.orderTypeText+" Id:"+this.cart.tableId+" Seats:"+this.cart.seates;
+            return this.cart.orderTypeText+" Id: "+this.cart.tableId+" Seats: "+this.cart.seates;
         }else if(this.cart.orderType==1){
-            return this.cart.orderTypeText+" Id:"+this.cart.takeawayId;
+            return this.cart.orderTypeText+" Id: "+this.cart.takeawayId;
         }else if(this.cart.orderType==2){
-            return this.cart.orderTypeText+" Id:"+this.cart.deliveryId;
+            return this.cart.orderTypeText+" Id: "+this.cart.deliveryId;
         }else{
             return this.cart.orderTypeText
         }

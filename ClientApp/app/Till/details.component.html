@@ -1,4 +1,4 @@
-<div class="row w-100 m-0 p-0" style="min-height:25px;max-height:25px;background:#027cbb">
+<div class="row w-100 m-0 p-0" style="min-height:25px;max-height:25px;background:DarkSlateGray">
     <table class="table table-condensed m-0 p-0"  style="min-height:25px;max-height:25px">
         <tr class="m-0 p-0 text-warning" style="min-height:25px;max-height:25px">
             <th class="m-0 p-0 text-left">{{mod}}</th>
@@ -7,16 +7,16 @@
         </tr>
     </table>
 </div>
-<div class="row w-100 m-0 p-0" style="min-height:100px;max-height:100px;background: #027cbb">
+<div class="row w-100 m-0 p-0" style="min-height:100px;max-height:100px;background: DarkSlateGray">
     <div class="col m-0 p-0 text-white text-left" style="overflow-y:scroll; height:100px">
-        <table class="table table-striped m-0 p-0"  style="min-height:100px;max-height:100px">
+        <table class="table table-borderless m-0 p-0"  style="min-height:100px;max-height:100px">
             <tr class="m-0 p-0" style="min-height:25px;max-height:25px" *ngFor="let line of displayLines">
                 <td class="m-0 p-0">{{line}}</td>
             </tr>
         </table>
     </div>
     <div class="col m-0 p-0 text-right">
-        <table class="table table-striped m-0 p-0"  style="min-height:100px;max-height:100px">
+        <table class="table table-borderless m-0 p-0"  style="min-height:100px;max-height:100px">
             <tr class="m-0 p-0" style="min-height:25px;max-height:25px">
                 <th class="my-0 py-0 text-white text-left ">TOTAL</th>
                 <th class="m-0 p-0 px-2 text-white text-right">{{total?.toFixed(2)}}</th>
