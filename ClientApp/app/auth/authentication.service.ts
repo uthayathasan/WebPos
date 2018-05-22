@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Repository } from "../models/repository";
 import { Observable } from "rxjs/Observable";
 import { Router } from "@angular/router";
+import { Http, RequestMethod, Request, Response } from "@angular/http";
 import "rxjs/add/observable/of";
 import{Staff} from "../models/staff.model";
 @Injectable()
@@ -14,8 +15,7 @@ export class AuthenticationService {
     login() {
         this.authenticated = false;
         if(this.repo.staffs!=null){
-            const logedInStaff=this.repo.staffs
-            .filter(u => u.userId == this.userId && u.password==this.password);
+            let logedInStaff=this.repo.staffs.filter(u => u.userId == this.userId && u.password==this.password);
             if(logedInStaff.length>0)
             {
                 this.repo.logedInStaff=logedInStaff[0];
@@ -37,7 +37,12 @@ export class AuthenticationService {
         this.repo.logedInStaff=null;
         this.repo.device.userId="";
         this.repo.device.password="";
-        this.repo.storeSessionData('device',this.repo.device);
-        this.router.navigateByUrl("/login");
+        this.userId="";
+        this.password="";
+        this.repo.sendRequest(RequestMethod.Post, "/api/session/" + 'device',this.repo.device)
+        .subscribe(response => {
+            this.repo.exitFullScreen();
+            this.router.navigateByUrl("/login");
+        });
     }
 }

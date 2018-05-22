@@ -65,11 +65,6 @@ export class FunctionKeyComponent{
             }
             else if(line.job.toUpperCase()=="LOG OFF"){
                 this.authService.logout();
-                this.authService.userId="";
-                this.authService.password="";
-                location.reload();
-                //this.router.navigateByUrl("login");
-                this.repo.exitFullScreen();
             }
         }
         else if(line.mod.toUpperCase()=="SALES")
