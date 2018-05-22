@@ -238,4 +238,165 @@ export class EposTransactionRepository{
             });
         }
     }
+
+    insertCashPayment(amount?:number){
+        let m=new EposTransLine();
+        let qty=-1;
+        m.amount=qty*amount;
+        m.barcode="";
+        m.barPrint=false;
+        m.barPrinted=false;
+        m.barPrintedTime=this.repo.minDate;
+        m.departmentId='';
+        m.description='Cash Payment';
+        m.discountAmount=0;
+        m.discountable=false;
+        m.discountPercentage=0;
+        m.elno=0;
+        m.entryType=2;
+        m.freeText="";
+        m.isCharge=false;
+        m.isChange=false;
+        m.isModifier=false;
+        m.isRefund=false;
+        if(this.cart.transType==1){
+            m.isRefund=true;
+        }
+        m.itemGroup='';
+        m.itemSubGroup='';
+        m.kitchenPrint=false;
+        m.kitchenPrinted=false;
+        m.kitchenPrintedTime=this.repo.minDate;
+        m.lineNo=this.cart.getMaxLineNo()+1;
+        m.lineStatus=false;
+        m.linkedOfferId=0;
+        m.mainItemNo="";
+        m.mandatory=false;
+        m.netAmount=qty*amount;
+        m.number="1";
+        m.offerID="";
+        m.offerQuantity=0;
+        m.offerTrigger=false;
+        m.orderType=this.cart.orderType;
+        m.paymentType=1;
+        m.price=amount;
+        m.printGroup="";
+        m.quantity=qty;
+        m.scale=false;
+        m.scanned=false;
+        m.served=false;
+        m.splitGroup=false;
+        m.staffId=this.repo.logedInStaff.userId;
+        m.storeId=this.repo.device.storeId;
+        m.tempItem=false;
+        m.tillId=this.repo.device.tillId;
+        m.totalCost=0;
+        m.transDate= this.repo.currentDateTime;
+        m.transId=this.cart.slipNo;
+        m.unitCost=0;
+        
+        m.vatCode="";
+        m.vatRate=0;
+        m.vatAmount=0;
+
+        this.tRepo.eposTransLines.unshift(m);
+        this.tRepo.selectedEposTransLine=m;
+        let result=0;
+        let url=eposTransLinesUrl;
+        url +="?customerId="+this.repo.filter.customerId;
+        url +="&storeId="+this.repo.filter.storeId;
+        url +="&tillId="+this.repo.filter.tillId;
+        this.repo.sendRequest(RequestMethod.Post, url, m).subscribe(response => {
+            result = response;
+            if(result>0){
+                this.tRepo.getEposTransLines(this.cart.slipNo);
+                this.cart.qty=0;
+                this.cart.price=0;
+                this.cart.journalInput="";
+                if(this.cart.getTotal()<0){
+                    this.cart.isError=false;
+                    this.cart.journalText="Change @ "+(-1*this.cart.getTotal()).toFixed(2);
+                    this.insertCashChange(-1*this.cart.getTotal());
+                }
+            }
+        });
+    }
+
+    insertCashChange(amount?:number){
+        let m=new EposTransLine();
+        let qty=1;
+        m.amount=qty*amount;
+        m.barcode="";
+        m.barPrint=false;
+        m.barPrinted=false;
+        m.barPrintedTime=this.repo.minDate;
+        m.departmentId='';
+        m.description="Change";
+        m.discountAmount=0;
+        m.discountable=false;
+        m.discountPercentage=0;
+        m.elno=0;
+        m.entryType=2;
+        m.freeText="";
+        m.isCharge=false;
+        m.isChange=true;
+        m.isModifier=false;
+        m.isRefund=false;
+        if(this.cart.transType==1){
+            m.isRefund=true;
+        }
+        m.itemGroup='';
+        m.itemSubGroup='';
+        m.kitchenPrint=false;
+        m.kitchenPrinted=false;
+        m.kitchenPrintedTime=this.repo.minDate;
+        m.lineNo=this.cart.getMaxLineNo()+1;
+        m.lineStatus=false;
+        m.linkedOfferId=0;
+        m.mainItemNo="";
+        m.mandatory=false;
+        m.netAmount=qty*amount;
+        m.number="1";
+        m.offerID="";
+        m.offerQuantity=0;
+        m.offerTrigger=false;
+        m.orderType=this.cart.orderType;
+        m.paymentType=1;
+        m.price=amount;
+        m.printGroup="";
+        m.quantity=qty;
+        m.scale=false;
+        m.scanned=false;
+        m.served=false;
+        m.splitGroup=false;
+        m.staffId=this.repo.logedInStaff.userId;
+        m.storeId=this.repo.device.storeId;
+        m.tempItem=false;
+        m.tillId=this.repo.device.tillId;
+        m.totalCost=0;
+        m.transDate= this.repo.currentDateTime;
+        m.transId=this.cart.slipNo;
+        m.unitCost=0;
+        
+        m.vatCode="";
+        m.vatRate=0;
+        m.vatAmount=0;
+
+        this.tRepo.eposTransLines.unshift(m);
+        this.tRepo.selectedEposTransLine=m;
+        let result=0;
+        let url=eposTransLinesUrl;
+        url +="?customerId="+this.repo.filter.customerId;
+        url +="&storeId="+this.repo.filter.storeId;
+        url +="&tillId="+this.repo.filter.tillId;
+        this.repo.sendRequest(RequestMethod.Post, url, m).subscribe(response => {
+            result = response;
+            if(result>0){
+                this.tRepo.getEposTransLines(this.cart.slipNo);
+                this.cart.qty=0;
+                this.cart.price=0;
+                this.cart.journalInput="";
+            }
+        });
+    }
 }

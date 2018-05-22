@@ -3,8 +3,7 @@
         <table class="table m-0 p-0">
             <tr *ngFor="let menuLine1 of menuLines1" class="m-0 p-0">
                 <td class="m-0 p-0" style="background: #cce6ff">
-                        <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
-                        style="min-height:50px"
+                        <button type="button" class="btn btn-sm btn-block menubtn text-white m-0 p-0" 
                         [style.background]="menuLine==menuLine1 ?'black':menuLine1.htmlColour"
                         (click)="setMenuLine(menuLine1)">
                                 {{menuLine1.description}}
@@ -17,8 +16,7 @@
         <table class="table m-0 p-0">
             <tr *ngFor="let menuLine2 of menuLines2" class="m-0 p-0">
                 <td class="m-0 p-0" style="background: #cce6ff">
-                    <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
-                        style="min-height:50px"
+                    <button type="button" class="btn btn-sm btn-block menubtn text-white m-0 p-0" 
                         [style.background]="menuLine==menuLine2 ?'black':menuLine2.htmlColour"
                         (click)="setMenuLine(menuLine2)">
                             {{menuLine2.description}}
@@ -31,8 +29,7 @@
         <table class="table m-0 p-0">
             <tr *ngFor="let menuHeader of menuHeaders" class="m-0 p-0">
                 <td class="m-0 p-0" style="background: #cce6ff">
-                    <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
-                        style="min-height:50px"
+                    <button type="button" class="btn btn-sm btn-block menubtn text-white m-0 p-0" 
                         [style.background]="menuHeaderId==menuHeader.menuId?'black':menuHeader.htmlColour"
                         (click)="setMenuHeaderId(menuHeader.menuId)">
                             {{menuHeader.description}}

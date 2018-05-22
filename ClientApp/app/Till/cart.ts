@@ -107,6 +107,25 @@ export class Cart{
         }catch{
             return 0;
         }
+    }
+    isPossibleCashPay(amount:number):boolean{
+        if(this.getNoOfActiveLines()>0){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+    getNoOfActiveLines():number{
+        try{
+            if(this.trepo.eposTransLines!=null&&this.trepo.eposTransLines.length>0){
+                return this.trepo.eposTransLines.filter(l=>!l.lineStatus).length;
+            }else {
+                return 0;
+            }
+        }catch{
+            return 0;
+        }
     }   
     getPurchaseTotalIncDiscount():number{
         try{

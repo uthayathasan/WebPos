@@ -21,7 +21,7 @@ namespace WebPos.DataAccess
             Sql +="OrderType,Payment_Type,Price,Print_Group,Quantity,";
             Sql +="Scale,Scanned,Served,Split_Group,Staff_Id,";
             Sql +="Store_ID,Temp_Item,Till_Id,Total_Cost,Trans_Date,";
-            Sql +="Trans_ID,Unit_Cost,VAT_Amount,VAT_Code,VAT_Rate ";
+            Sql +="Trans_ID,Unit_Cost,VAT_Amount,VAT_Code,VAT_Rate, ";
             Sql +="IsChange,IsRefund,IsCharge ";
             Sql +="from "+CustomerId+"_"+StoreId+"_"+TillId+"_"+"EPOS_Trans_Line ";
             Sql +="where Trans_ID=@Trans_ID ";

@@ -84,4 +84,32 @@ export class NumberComponent{
     get cash12():number{
         return this.cart.cash12;
     }
+
+    CashPayment(amount?:number)
+    {
+        if(this.cart.slipNo>0)
+        {
+            if(this.cart.getTotal()>0)
+            {
+                if(isNaN(amount))
+                {
+                    let amt=parseInt(this.cart.journalInput);
+                    if((isNaN(amt))||(amt==0))
+                    {
+                        this.cart.isError=true;
+                        this.cart.journalText="Enter valid amount!";
+                    }
+                    else{
+                        this.cart.isError=false;
+                        this.cart.journalText="Cash Payment @ "+amt.toFixed(2);
+                        this.eRepo.insertCashPayment(amt/100);
+                    }
+                }
+                else if(amount>0)
+                {
+
+                }
+            }
+        }
+    }
 }

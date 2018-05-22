@@ -42,7 +42,7 @@ export class AuthenticationService {
         this.repo.sendRequest(RequestMethod.Post, "/api/session/" + 'device',this.repo.device)
         .subscribe(response => {
             this.repo.exitFullScreen();
-            this.router.navigateByUrl("/login");
+            location.reload();
         });
     }
 }
