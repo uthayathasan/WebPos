@@ -198,6 +198,9 @@ export class EposTransactionRepository{
                         m.quantity=this.cart.qty;
                         m.scale=this.tRepo.item.scale;
                         m.scanned=false;
+                        if(m.barcode!=""){
+                            m.scanned=true;
+                        }
                         m.served=false;
                         m.splitGroup=false;
                         m.staffId=this.repo.logedInStaff.userId;
@@ -214,7 +217,7 @@ export class EposTransactionRepository{
                         m.vatAmount=m.netAmount*m.vatRate/100;
 
                         this.tRepo.eposTransLines.unshift(m);
-                        this.tRepo.selectedEposTransLine=m;
+                        //this.tRepo.selectedEposTransLine=m;
                         let result=0;
                         let url=eposTransLinesUrl;
                         url +="?customerId="+this.repo.filter.customerId;
@@ -300,7 +303,7 @@ export class EposTransactionRepository{
         m.vatAmount=0;
 
         this.tRepo.eposTransLines.unshift(m);
-        this.tRepo.selectedEposTransLine=m;
+        //this.tRepo.selectedEposTransLine=m;
         let result=0;
         let url=eposTransLinesUrl;
         url +="?customerId="+this.repo.filter.customerId;
@@ -383,7 +386,7 @@ export class EposTransactionRepository{
         m.vatAmount=0;
 
         this.tRepo.eposTransLines.unshift(m);
-        this.tRepo.selectedEposTransLine=m;
+        //this.tRepo.selectedEposTransLine=m;
         let result=0;
         let url=eposTransLinesUrl;
         url +="?customerId="+this.repo.filter.customerId;
