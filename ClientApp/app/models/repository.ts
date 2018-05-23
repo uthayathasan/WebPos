@@ -18,7 +18,9 @@ export class Repository {
     
     private filterObject = new Filter();
 
-    constructor(private http: Http){}
+    constructor(private http: Http){
+        this.apiBusy=false;
+    }
 
     get currentDateTime():string{
         let d=new Date(Date.now());
@@ -135,7 +137,7 @@ export class Repository {
     device:Device;
     staffs:Staff[];
     logedInStaff:Staff;
-
+    apiBusy?:boolean;
     get filter(): Filter {
         return this.filterObject;
     }

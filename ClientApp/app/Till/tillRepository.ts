@@ -40,15 +40,17 @@ export class TillRepository {
         .subscribe(response=>this.vats=response);
     }
     getVatRateById(id:string):number{
-        
+        let vatRate=0;
         try{
-            let rate=this.vats.filter(x=>x.id==id).map(y=>y.rate)[0];
-            return rate;
+            vatRate=this.vats.filter(x=>x.id==id).map(y=>y.rate)[0];
         }
         catch{
-            return 0;
+            vatRate=0;
         }
-       
+        if(isNaN(vatRate)){
+            vatRate=0;
+        }
+       return vatRate;
     }
 
     getItem(id: string) {
@@ -89,12 +91,14 @@ export class TillRepository {
         .subscribe(response =>this.eposTransaction = response);
     }*/
     getEposTransLines(id:number){
+        this.apiBusy=true;
         let url=eposTransLinesUrl+"/"+id;
         url +="?customerId="+this.repo.filter.customerId;
         url +="&storeId="+this.repo.filter.storeId;
         url +="&tillId="+this.repo.filter.tillId;
         this.repo.sendRequest(RequestMethod.Get, url)
         .subscribe(response =>{
+            this.apiBusy=false;
             this.eposTransLines = response;
             if(this.eposTransLines.length>0){
                 let maxlineNo=this.eposTransLines.reduce((oa,u)=>Math.max(oa,u.lineNo),0);
@@ -131,25 +135,39 @@ export class TillRepository {
     }
     */
     getTables(){
+        this.apiBusy=true;
         let url=tablesUrl+"?customerId="+this.repo.filter.customerId;
         url +="&storeId="+this.repo.filter.storeId;
         url +="&tillId="+this.repo.filter.tillId;
         this.repo.sendRequest(RequestMethod.Get, url)
-        .subscribe(response =>this.tableStatus = response);
+        .subscribe(response =>{
+            this.apiBusy=false;
+            this.tableStatus = response;
+        });
     }
     setSelectedTable(line:TableStatus){
         this.selectedTableLine=line;
     }
 
     getTakeaways(){
+        this.apiBusy=true;
         let url=takeawayUrl +"?customerId="+this.repo.filter.customerId;
         url +="&storeId="+this.repo.filter.storeId;
         url +="&tillId="+this.repo.filter.tillId;
         this.repo.sendRequest(RequestMethod.Get, url)
-        .subscribe(response=>this.takeawayStatus=response);
+        .subscribe(response=>{
+            this.apiBusy=false;
+            this.takeawayStatus=response;
+        });
     }
     setSelectedTakeaway(line:TakeawayStatus){
         this.selectedTakeawayLine=line;
+    }
+    set apiBusy(val:boolean){
+        this.repo.apiBusy=val;
+    }
+    get apiBusy(){
+        return this.repo.apiBusy;
     }
 
     vats:Vat[];

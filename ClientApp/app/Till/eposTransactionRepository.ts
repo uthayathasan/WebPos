@@ -18,6 +18,7 @@ export class EposTransactionRepository{
     constructor(private repo:Repository,private tRepo:TillRepository,private cart:Cart){}
     busy?:boolean;
     createTransactionAndinsertTransLineFromItemNo(id:string){
+        this.repo.apiBusy=true;
         let m=new EposTransaction();
         m.counterPrint=false;
         m.customerId=this.cart.customerId;
@@ -80,6 +81,7 @@ export class EposTransactionRepository{
                         if(this.cart.transType==1){
                             this.cart.mod="Refund";
                         }
+                        this.repo.apiBusy=false;
                     });
                     this.insertTransLineFromItemNo(id);
                 }
@@ -90,6 +92,7 @@ export class EposTransactionRepository{
     }
 
     insertTransLineFromItemNo(id:string){
+        this.repo.apiBusy=true;
         if(this.cart.slipNo>0){
         let url=itemsUrl+ "/" + id;
         url +="?customerId="+this.repo.filter.customerId;
@@ -217,7 +220,7 @@ export class EposTransactionRepository{
                         m.vatAmount=m.netAmount*m.vatRate/100;
 
                         this.tRepo.eposTransLines.unshift(m);
-                        //this.tRepo.selectedEposTransLine=m;
+                        this.tRepo.selectedEposTransLine=m;
                         let result=0;
                         let url=eposTransLinesUrl;
                         url +="?customerId="+this.repo.filter.customerId;
@@ -226,6 +229,7 @@ export class EposTransactionRepository{
                         this.repo.sendRequest(RequestMethod.Post, url, m).subscribe(response => {
                             result = response;
                             if(result>0){
+                                this.repo.apiBusy=false;
                                 this.tRepo.getEposTransLines(this.cart.slipNo);
                                 this.cart.qty=0;
                                 this.cart.price=0;
@@ -237,12 +241,14 @@ export class EposTransactionRepository{
                 else{
                     this.cart.isError=true;
                     this.cart.journalText="Item Not Found";
+                    this.repo.apiBusy=false;
                 }
             });
         }
     }
 
     insertCashPayment(amount?:number){
+        this.repo.apiBusy=true;
         let m=new EposTransLine();
         let qty=-1;
         m.amount=qty*amount;
@@ -303,7 +309,7 @@ export class EposTransactionRepository{
         m.vatAmount=0;
 
         this.tRepo.eposTransLines.unshift(m);
-        //this.tRepo.selectedEposTransLine=m;
+        this.tRepo.selectedEposTransLine=m;
         let result=0;
         let url=eposTransLinesUrl;
         url +="?customerId="+this.repo.filter.customerId;
@@ -311,6 +317,7 @@ export class EposTransactionRepository{
         url +="&tillId="+this.repo.filter.tillId;
         this.repo.sendRequest(RequestMethod.Post, url, m).subscribe(response => {
             result = response;
+            this.repo.apiBusy=false;
             if(result>0){
                 this.tRepo.getEposTransLines(this.cart.slipNo);
                 this.cart.qty=0;
@@ -326,6 +333,7 @@ export class EposTransactionRepository{
     }
 
     insertCashChange(amount?:number){
+        this.repo.apiBusy=true;
         let m=new EposTransLine();
         let qty=1;
         m.amount=qty*amount;
@@ -386,13 +394,14 @@ export class EposTransactionRepository{
         m.vatAmount=0;
 
         this.tRepo.eposTransLines.unshift(m);
-        //this.tRepo.selectedEposTransLine=m;
+        this.tRepo.selectedEposTransLine=m;
         let result=0;
         let url=eposTransLinesUrl;
         url +="?customerId="+this.repo.filter.customerId;
         url +="&storeId="+this.repo.filter.storeId;
         url +="&tillId="+this.repo.filter.tillId;
         this.repo.sendRequest(RequestMethod.Post, url, m).subscribe(response => {
+            this.repo.apiBusy=false;
             result = response;
             if(result>0){
                 this.tRepo.getEposTransLines(this.cart.slipNo);
@@ -401,5 +410,11 @@ export class EposTransactionRepository{
                 this.cart.journalInput="";
             }
         });
+    }
+    get apiBusy():boolean{
+        return this.repo.apiBusy;
+    }
+    set apiBusy(val:boolean){
+        this.repo.apiBusy=val;
     }
 }

@@ -46,50 +46,53 @@ export class FunctionKeyComponent{
     }
 
     private applyJob(line:FunctionKey){
-        if(line.mod.toUpperCase()=="START")
+        if(!this.repo.apiBusy)
         {
-            if(line.job.toUpperCase()=="TABLE"){
-                this.cart.journalText="";
-                this.cart.isError=false;
-                //this.trepo.testEsp();
-                this.trepo.getTables();
-                this.trepo.selectedTableLine=null;
-                this.router.navigateByUrl("/tables");
-            }
-            else if(line.job.toUpperCase()=="TAKE AWAY"){
-                this.cart.journalText="";
-                this.cart.isError=false;
-                this.trepo.getTakeaways();
-                this.trepo.selectedTakeawayLine=null;
-                this.router.navigateByUrl("/takeaways");
-            }
-            else if(line.job.toUpperCase()=="LOG OFF"){
-                this.authService.logout();
-            }
-        }
-        else if(line.mod.toUpperCase()=="SALES")
-        {
-            if(line.job.toUpperCase()=="MAIN")
+            if(line.mod.toUpperCase()=="START")
             {
-                this.trepo.eposTransLines.length=0;
-                this.trepo.eposTransaction=null;
-                this.cart.mod="Start";
-                
-                this.trepo.selectedTableLine=null;
-                
-                this.cart.orderTypeText="";
-                this.cart.orderType=0;
-                this.cart.orderNo=0;
-                this.cart.tableId=0;
-                this.cart.tableName="";
-                this.cart.seates="";
-                this.cart.takeawayId=0;
-                this.cart.deliveryId=0;
-                this.cart.customerId==0;
-                this.cart.slipNo=0;
-                this.cart.transType=0;
-                this.cart.isError=false;
-                this.cart.journalText="";
+                if(line.job.toUpperCase()=="TABLE"){
+                    this.cart.journalText="";
+                    this.cart.isError=false;
+                    //this.trepo.testEsp();
+                    this.trepo.getTables();
+                    this.trepo.selectedTableLine=null;
+                    this.router.navigateByUrl("/tables");
+                }
+                else if(line.job.toUpperCase()=="TAKE AWAY"){
+                    this.cart.journalText="";
+                    this.cart.isError=false;
+                    this.trepo.getTakeaways();
+                    this.trepo.selectedTakeawayLine=null;
+                    this.router.navigateByUrl("/takeaways");
+                }
+                else if(line.job.toUpperCase()=="LOG OFF"){
+                    this.authService.logout();
+                }
+            }
+            else if(line.mod.toUpperCase()=="SALES")
+            {
+                if(line.job.toUpperCase()=="MAIN")
+                {
+                    this.trepo.eposTransLines.length=0;
+                    this.trepo.eposTransaction=null;
+                    this.cart.mod="Start";
+                    
+                    this.trepo.selectedTableLine=null;
+                    
+                    this.cart.orderTypeText="";
+                    this.cart.orderType=0;
+                    this.cart.orderNo=0;
+                    this.cart.tableId=0;
+                    this.cart.tableName="";
+                    this.cart.seates="";
+                    this.cart.takeawayId=0;
+                    this.cart.deliveryId=0;
+                    this.cart.customerId==0;
+                    this.cart.slipNo=0;
+                    this.cart.transType=0;
+                    this.cart.isError=false;
+                    this.cart.journalText="";
+                }
             }
         }
     }

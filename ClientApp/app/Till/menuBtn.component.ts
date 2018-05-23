@@ -105,9 +105,13 @@ export class MenuBtnComponent {
             if(line.keyValue.trim()!=""){
                 if(this.cart.orderTypeText!=""){
                     if(this.cart.slipNo==0){
-                        this.eRepo.createTransactionAndinsertTransLineFromItemNo(line.keyValue);
+                        if(!this.trepo.apiBusy){
+                            this.eRepo.createTransactionAndinsertTransLineFromItemNo(line.keyValue);
+                        }
                     }else{
-                        this.eRepo.insertTransLineFromItemNo(line.keyValue);
+                        if(!this.trepo.apiBusy){
+                            this.eRepo.insertTransLineFromItemNo(line.keyValue);
+                        }
                     }
                 }
                 else{

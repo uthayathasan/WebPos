@@ -181,12 +181,12 @@ export class Cart{
             if(this.trepo.eposTransLines!=null&&this.trepo.eposTransLines.length>0){
                 this.paid= this.trepo.eposTransLines.filter(l=>((!l.lineStatus)&&(l.entryType==2)&&(!l.isChange)))
                         .map(e=>e.netAmount).reduce((s,u)=>s+u+0);
-                        return this.paid;
-            }else{
                 return this.paid;
+            }else{
+                return 0;
             }
         }catch{
-            return this.paid;
+            return 0;
         }
     }
     getChangeAmount():number{
@@ -196,10 +196,10 @@ export class Cart{
                         .map(e=>e.netAmount).reduce((s,u)=>s+u+0);
                         return this.change;
             }else{
-                return this.change;
+                return 0;
             }
         }catch{
-            return this.change;
+            return 0;
         }
     }
     focusTill(){

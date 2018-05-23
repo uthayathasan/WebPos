@@ -36,12 +36,15 @@ export class AppComponent {
       this.router.navigateByUrl("");
     }
    
-}
-
+  }
+  get apiBusy(){
+    return this.repo.apiBusy;
+  }
   get error(): string[] {
     return this.lastError;
   }
   clearError() {
+    this.repo.apiBusy=false;
     this.lastError = null;
   }
   get Device():Device{

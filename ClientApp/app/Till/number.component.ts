@@ -28,21 +28,30 @@ export class NumberComponent{
        this.clickStr=no;
     }
     enterClick(){
-        if(this.cart.journalInput!=""){
-            let id=this.cart.journalInput;
-            this.cart.journalInput="";
-            if(this.cart.orderTypeText!=""){
-              if(this.cart.slipNo==0){
-                  this.eRepo.createTransactionAndinsertTransLineFromItemNo(id);
-              }else{
-                  this.eRepo.insertTransLineFromItemNo(id);
-              }
+        if(!this.repo.apiBusy)
+        {
+            if(this.cart.journalInput!="")
+            {
+                let id=this.cart.journalInput;
+                this.cart.journalInput="";
+                if(this.cart.orderTypeText!="")
+                {
+                    if(this.cart.slipNo==0)
+                    {
+                        this.eRepo.createTransactionAndinsertTransLineFromItemNo(id);
+                    }
+                    else
+                    {
+                        this.eRepo.insertTransLineFromItemNo(id);
+                    }
+                }
+                else
+                {
+                    this.cart.isError=true;
+                    this.cart.journalText="Please select the order type!";
+                }
             }
-            else{
-              this.cart.isError=true;
-              this.cart.journalText="Please select the order type!";
-            }
-          }
+        }
     }
     clearClick(){
         this.cart.journalInput="";
@@ -87,27 +96,30 @@ export class NumberComponent{
 
     CashPayment(amount?:number)
     {
-        if(this.cart.slipNo>0)
+        if(!this.repo.apiBusy)
         {
-            if(this.cart.getTotal()>0)
+            if(this.cart.slipNo>0)
             {
-                if(isNaN(amount))
+                if(this.cart.getTotal()>0)
                 {
-                    let amt=parseInt(this.cart.journalInput);
-                    if((isNaN(amt))||(amt==0))
+                    if(isNaN(amount))
                     {
-                        this.cart.isError=true;
-                        this.cart.journalText="Enter valid amount!";
+                        let amt=parseInt(this.cart.journalInput);
+                        if((isNaN(amt))||(amt==0))
+                        {
+                            this.cart.isError=true;
+                            this.cart.journalText="Enter valid amount!";
+                        }
+                        else{
+                            this.cart.isError=false;
+                            this.cart.journalText="Cash Payment @ "+amt.toFixed(2);
+                            this.eRepo.insertCashPayment(amt/100);
+                        }
                     }
-                    else{
-                        this.cart.isError=false;
-                        this.cart.journalText="Cash Payment @ "+amt.toFixed(2);
-                        this.eRepo.insertCashPayment(amt/100);
-                    }
-                }
-                else if(amount>0)
-                {
+                    else if(amount>0)
+                    {
 
+                    }
                 }
             }
         }
