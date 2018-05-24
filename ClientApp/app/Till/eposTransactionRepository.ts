@@ -18,7 +18,6 @@ export class EposTransactionRepository{
     constructor(private repo:Repository,private tRepo:TillRepository,private cart:Cart){}
     busy?:boolean;
     createTransactionAndinsertTransLineFromItemNo(id:string){
-        this.repo.apiBusy=true;
         let m=new EposTransaction();
         m.counterPrint=false;
         m.customerId=this.cart.customerId;
@@ -52,6 +51,7 @@ export class EposTransactionRepository{
         url +="&tillId="+this.repo.filter.tillId;
         if((this.cart.slipNo==0)&&(!this.busy)){
             this.busy=true;
+            this.repo.apiBusy=true;
             this.repo.sendRequest(RequestMethod.Post, url, m).subscribe(response => {
                 result = response;
                 this.busy=false;
@@ -102,6 +102,7 @@ export class EposTransactionRepository{
             response => {
                 this.tRepo.item = response;
                 let canAdd=true;
+                this.repo.apiBusy=false;
                 if(id==this.tRepo.item.itemNo){
                     if(this.tRepo.item.priceEntry){
                         let price=parseInt(this.cart.journalInput);
@@ -226,6 +227,7 @@ export class EposTransactionRepository{
                         url +="?customerId="+this.repo.filter.customerId;
                         url +="&storeId="+this.repo.filter.storeId;
                         url +="&tillId="+this.repo.filter.tillId;
+                        this.repo.apiBusy=true;
                         this.repo.sendRequest(RequestMethod.Post, url, m).subscribe(response => {
                             result = response;
                             if(result>0){

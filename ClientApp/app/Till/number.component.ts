@@ -14,6 +14,7 @@ export class NumberComponent{
     ngOnInit(){
         this.clickStr="";
     }
+
     gohome(){
          this.router.navigateByUrl("");
     }
@@ -52,6 +53,7 @@ export class NumberComponent{
                 }
             }
         }
+        this.clickStr="Enter";
     }
     clearClick(){
         this.cart.journalInput="";
@@ -61,7 +63,7 @@ export class NumberComponent{
         this.cart.isError=false;
         this.clickStr="Clear";
     }
-    get clickBtn():string{
+    get clickBtn() :string{
         return  this.clickStr;
     }
     setToQty(){
@@ -93,8 +95,27 @@ export class NumberComponent{
     get cash12():number{
         return this.cart.cash12;
     }
-
-    CashPayment(amount?:number)
+    cash0Btn(){
+        this.cashPayment(this.cash0*100);
+        this.clickStr="C0";
+    }
+    cash4Btn(){
+        this.cashPayment(this.cash4*100);
+        this.clickStr="C4";
+    }
+    cash8Btn(){
+        this.cashPayment(this.cash8*100);
+        this.clickStr="C8";
+    }
+    cash12Btn(){
+        this.cashPayment(this.cash12*100);
+        this.clickStr="C12";
+    }
+    cardPayment(amount?:number)
+    {
+        this.clickStr="Card";
+    }
+    cashPayment(amount?:number)
     {
         if(!this.repo.apiBusy)
         {
@@ -112,16 +133,23 @@ export class NumberComponent{
                         }
                         else{
                             this.cart.isError=false;
-                            this.cart.journalText="Cash Payment @ "+amt.toFixed(2);
+                            this.cart.journalText="Cash Payment @ "+(amt/100).toFixed(2);
                             this.eRepo.insertCashPayment(amt/100);
                         }
                     }
                     else if(amount>0)
                     {
-
+                        this.cart.isError=false;
+                        this.cart.journalText="Cash Payment @ "+(amount/100).toFixed(2);
+                        this.eRepo.insertCashPayment(amount/100);
+                    }
+                    else if(amount==0){
+                        this.cart.isError=true;
+                        this.cart.journalText="Enter valid amount!";
                     }
                 }
             }
         }
+        this.clickStr="Cash";
     }
 }
