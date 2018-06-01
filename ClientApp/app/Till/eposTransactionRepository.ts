@@ -4,7 +4,7 @@ import{EposTransLine} from "../models/eposTransLine.model";
 import{Repository} from "../models/repository";
 import{TillRepository} from "./tillRepository";
 import { Cart } from './cart';
-
+import { Router } from "@angular/router";
 import { Injectable } from "@angular/core";
 import { RequestMethod, Request, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
@@ -13,9 +13,10 @@ import "rxjs/add/operator/map";
 const itemsUrl = "/api/items";
 const eposTransactionsUrl="/api/eposTransactions";
 const eposTransLinesUrl="/api/eposTransLines";
+const postSalesUrl="/api/postSales";
 @Injectable()
 export class EposTransactionRepository{
-    constructor(private repo:Repository,private tRepo:TillRepository,private cart:Cart){}
+    constructor(private repo:Repository,private tRepo:TillRepository,private cart:Cart,private router:Router){}
     busy?:boolean;
     createTransactionAndinsertTransLineFromItemNo(id:string){
         let m=new EposTransaction();
@@ -321,15 +322,88 @@ export class EposTransactionRepository{
             result = response;
             this.repo.apiBusy=false;
             if(result>0){
-                this.tRepo.getEposTransLines(this.cart.slipNo);
-                this.cart.qty=0;
-                this.cart.price=0;
-                this.cart.journalInput="";
-                if(this.cart.getTotal()<0){
-                    this.cart.isError=false;
-                    this.cart.journalText="Change @ "+(-1*this.cart.getTotal()).toFixed(2);
-                    this.insertCashChange(-1*this.cart.getTotal());
-                }
+                this.apiBusy=true;                
+                let url=eposTransLinesUrl+"/"+this.cart.slipNo;
+                url +="?customerId="+this.repo.filter.customerId;
+                url +="&storeId="+this.repo.filter.storeId;
+                url +="&tillId="+this.repo.filter.tillId;
+                this.repo.sendRequest(RequestMethod.Get, url)
+                .subscribe(response =>{
+                    this.apiBusy=false;
+                    this.tRepo.eposTransLines = response;
+                    if(this.tRepo.eposTransLines.length>0){
+                        let maxlineNo=this.tRepo.eposTransLines.reduce((oa,u)=>Math.max(oa,u.lineNo),0);
+                        this.tRepo.selectedEposTransLine=this.tRepo.eposTransLines.filter(l=>l.lineNo==maxlineNo)[0];
+                    }else{
+                        this.tRepo.selectedEposTransLine=new EposTransLine;
+                    }
+
+                    this.cart.qty=0;
+                    this.cart.price=0;
+                    this.cart.journalInput="";
+                    if(this.cart.getTotal()<0){
+                        this.cart.isError=false;
+                        this.cart.journalText="Change @ "+(-1*this.cart.getTotal()).toFixed(2);
+                        this.insertCashChange(-1*this.cart.getTotal());
+                    }
+                    else if(this.cart.getTotal()==0)
+                    {
+                        this.apiBusy=true;
+                        this.cart.isError=false;
+                        this.cart.journalText="Posting ... ";
+                        //post component
+                        this.cart.posting="Posting ...";
+                        if(this.cart.orderType==0){
+                            this.cart.header= this.cart.orderTypeText+" Id: "+this.cart.tableId+" Seats: "+this.cart.seates;
+                        }else if(this.cart.orderType==1){
+                            this.cart.header= this.cart.orderTypeText+" Id: "+this.cart.takeawayId;
+                        }else if(this.cart.orderType==2){
+                            this.cart.header= this.cart.orderTypeText+" Id: "+this.cart.deliveryId;
+                        }else{
+                            this.cart.header= this.cart.orderTypeText
+                        }
+                        this.cart.salesAmount=this.cart.getPurchaseTotalExcDiscount();
+                        this.cart.noOfitems=this.cart.getItemCount();
+                        this.cart.paidAmount=this.cart.getPaidAmount();
+                        this.cart.changeAmount=this.cart.getChangeAmount();
+                        this.cart.discountAmount=this.cart.getDiscount();
+                        this.router.navigateByUrl("/post");
+                        //post component
+                        this.apiBusy=true;                
+                        let url=postSalesUrl;
+                        url +="?customerId="+this.repo.filter.customerId;
+                        url +="&storeId="+this.repo.filter.storeId;
+                        url +="&tillId="+this.repo.filter.tillId;
+                        url +="&slipNo="+this.cart.slipNo;
+                        this.repo.sendRequest(RequestMethod.Post, url)
+                        .subscribe(response =>{
+                            result = response;
+                            this.apiBusy=false;
+                            if(result>0){
+                                this.tRepo.eposTransLines.length=0;
+                                this.tRepo.eposTransaction=null;
+                                this.cart.mod="Start";
+                    
+                                this.tRepo.selectedTableLine=null;
+                                this.tRepo.selectedTakeawayLine=null;
+                                this.cart.orderTypeText="";
+                                this.cart.orderType=0;
+                                this.cart.orderNo=0;
+                                this.cart.tableId=0;
+                                this.cart.tableName="";
+                                this.cart.seates="";
+                                this.cart.takeawayId=0;
+                                this.cart.deliveryId=0;
+                                this.cart.customerId==0;
+                                this.cart.slipNo=0;
+                                this.cart.transType=0;
+                                this.cart.isError=false;
+                                this.cart.journalText="";
+                                this.cart.posting="Posted";
+                            }
+                        });
+                    }
+                });
             }
         });
     }
@@ -406,7 +480,72 @@ export class EposTransactionRepository{
             this.repo.apiBusy=false;
             result = response;
             if(result>0){
-                this.tRepo.getEposTransLines(this.cart.slipNo);
+                this.apiBusy=true;                
+                let url=eposTransLinesUrl+"/"+this.cart.slipNo;
+                url +="?customerId="+this.repo.filter.customerId;
+                url +="&storeId="+this.repo.filter.storeId;
+                url +="&tillId="+this.repo.filter.tillId;
+                this.repo.sendRequest(RequestMethod.Get, url)
+                .subscribe(response =>{
+                    this.apiBusy=false;
+                    this.tRepo.eposTransLines = response;
+                    if(this.cart.getTotal()==0)
+                    {
+                        this.apiBusy=true;
+                        this.cart.isError=false;
+                        this.cart.journalText="Posting ... ";
+                        //post component
+                        if(this.cart.orderType==0){
+                            this.cart.header= this.cart.orderTypeText+" Id: "+this.cart.tableId+" Seats: "+this.cart.seates;
+                        }else if(this.cart.orderType==1){
+                            this.cart.header= this.cart.orderTypeText+" Id: "+this.cart.takeawayId;
+                        }else if(this.cart.orderType==2){
+                            this.cart.header= this.cart.orderTypeText+" Id: "+this.cart.deliveryId;
+                        }else{
+                            this.cart.header= this.cart.orderTypeText
+                        }
+                        this.cart.salesAmount=this.cart.getPurchaseTotalExcDiscount();
+                        this.cart.noOfitems=this.cart.getItemCount();
+                        this.cart.paidAmount=this.cart.getPaidAmount();
+                        this.cart.changeAmount=this.cart.getChangeAmount();
+                        this.cart.discountAmount=this.cart.getDiscount();
+                        this.router.navigateByUrl("/post");
+                        //post component
+                        this.apiBusy=true;                
+                        let url=postSalesUrl;
+                        url +="?customerId="+this.repo.filter.customerId;
+                        url +="&storeId="+this.repo.filter.storeId;
+                        url +="&tillId="+this.repo.filter.tillId;
+                        url +="&slipNo="+this.cart.slipNo;
+                        this.repo.sendRequest(RequestMethod.Post, url)
+                        .subscribe(response =>{
+                            result = response;
+                            this.apiBusy=false;
+                            if(result>0){
+                                this.tRepo.eposTransLines.length=0;
+                                this.tRepo.eposTransaction=null;
+                                this.cart.mod="Start";
+                    
+                                this.tRepo.selectedTableLine=null;
+                                this.tRepo.selectedTakeawayLine=null;
+                                this.cart.orderTypeText="";
+                                this.cart.orderType=0;
+                                this.cart.orderNo=0;
+                                this.cart.tableId=0;
+                                this.cart.tableName="";
+                                this.cart.seates="";
+                                this.cart.takeawayId=0;
+                                this.cart.deliveryId=0;
+                                this.cart.customerId==0;
+                                this.cart.slipNo=0;
+                                this.cart.transType=0;
+                                this.cart.isError=false;
+                                this.cart.journalText="";
+                                this.cart.posting="Posted";
+                            }
+                        });
+                    }
+                });
                 this.cart.qty=0;
                 this.cart.price=0;
                 this.cart.journalInput="";

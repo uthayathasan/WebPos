@@ -51,6 +51,11 @@ export class FunctionKeyComponent{
             if(line.mod.toUpperCase()=="START")
             {
                 if(line.job.toUpperCase()=="TABLE"){
+                    if(this.cart.slipNo==0)
+                    {
+                        this.trepo.eposTransLines.length=0;
+                        this.trepo.eposTransaction=null;
+                    }
                     this.cart.journalText="";
                     this.cart.isError=false;
                     //this.trepo.testEsp();
@@ -59,6 +64,11 @@ export class FunctionKeyComponent{
                     this.router.navigateByUrl("/tables");
                 }
                 else if(line.job.toUpperCase()=="TAKE AWAY"){
+                    if(this.cart.slipNo==0)
+                    {
+                        this.trepo.eposTransLines.length=0;
+                        this.trepo.eposTransaction=null;
+                    }
                     this.cart.journalText="";
                     this.cart.isError=false;
                     this.trepo.getTakeaways();
@@ -78,7 +88,7 @@ export class FunctionKeyComponent{
                     this.cart.mod="Start";
                     
                     this.trepo.selectedTableLine=null;
-                    
+                    this.trepo.selectedTakeawayLine=null;
                     this.cart.orderTypeText="";
                     this.cart.orderType=0;
                     this.cart.orderNo=0;

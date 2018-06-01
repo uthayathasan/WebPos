@@ -9,7 +9,7 @@ namespace WebPos.Models
         public bool BarPrinted{get;set;}=false;
         public string BarPrintedTime{get;set;}=ConstValues.MinDate;
         public string Barcode{get;set;}="";
-        public int CustomerID{get;set;}=0;
+        public int CustomerId{get;set;}=0;
         public int DayofYear{get;set;}=0;
         public string DepartmentId{get;set;}="";
         public string Description{get;set;}="";
@@ -33,7 +33,7 @@ namespace WebPos.Models
         public int LineNo{get;set;}=0;
         public bool LineStatus{get;set;}=false;
         public int LinkedOfferId{get;set;}=0;
-        public string loyaltycard{get;set;}="";
+        public string Loyaltycard{get;set;}="";
         public string MainItemNo{get;set;}="";
         public bool Mandatory{get;set;}=false;
         public string MembershipNo{get;set;}="";

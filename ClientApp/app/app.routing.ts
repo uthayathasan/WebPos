@@ -7,6 +7,7 @@ import {ClearDeviceComponent} from "./auth/clearDevice.component";
 import {TablesComponent} from "./Till/tables.component";
 import {SeatsComponent} from "./Till/seats.component";
 import {TakeawaysComponent} from "./Till/takeaway.component";
+import{PostSalesComponent} from "./Till/postSales.component";
 const routes : Routes=[
     {path: "", component: VbrComponent },
     {path: "login", component: AuthenticationComponent },
@@ -15,6 +16,7 @@ const routes : Routes=[
     {path: "detail/:id", component: ItemComponent},
     {path:"tables",component:TablesComponent},
     {path:"seats",component:SeatsComponent},
-    {path:"takeaways",component:TakeawaysComponent}
+    {path:"takeaways",component:TakeawaysComponent},
+    {path:"post",component:PostSalesComponent}
 ]
 export const RoutingConfig=RouterModule.forRoot(routes);

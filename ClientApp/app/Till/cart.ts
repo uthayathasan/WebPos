@@ -181,7 +181,7 @@ export class Cart{
             if(this.trepo.eposTransLines!=null&&this.trepo.eposTransLines.length>0){
                 this.paid= this.trepo.eposTransLines.filter(l=>((!l.lineStatus)&&(l.entryType==2)&&(!l.isChange)))
                         .map(e=>e.netAmount).reduce((s,u)=>s+u+0);
-                return this.paid;
+                return Math.abs(this.paid);
             }else{
                 return 0;
             }
@@ -280,4 +280,11 @@ export class Cart{
         }
     }
 
+    header?:string;
+    salesAmount?:number;
+    noOfitems?:number;
+    paidAmount?:number;
+    changeAmount?:number;
+    discountAmount?:number;
+    posting?:string;
 }

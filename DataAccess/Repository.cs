@@ -92,6 +92,13 @@ namespace WebPos.DataAccess
             return eposTransLineDa.InsertTransLine(ConnectionString,CustomerId,StoreId,TillId,m);
         }
         #endregion EposTransLine
+        #region PostSales
+        public int PostSales(string CustomerId,string StoreId,string TillId,int SlipNo)
+        {
+            PostSalesDA postSalesDa =new PostSalesDA();
+            return postSalesDa.PostSales(ConnectionString,CustomerId,StoreId,TillId,SlipNo);
+        }
+        #endregion PostSales
         #region Select Order Table Takeaway 
         public List<TableStatus> GetTableStatus(string CustomerId,string StoreId,string TillId)
         {
