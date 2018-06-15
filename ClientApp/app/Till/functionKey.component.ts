@@ -85,6 +85,7 @@ export class FunctionKeyComponent{
                 {
                     this.trepo.eposTransLines.length=0;
                     this.trepo.eposTransaction=null;
+
                     this.cart.mod="Start";
                     
                     this.trepo.selectedTableLine=null;
@@ -102,6 +103,20 @@ export class FunctionKeyComponent{
                     this.cart.transType=0;
                     this.cart.isError=false;
                     this.cart.journalText="";
+                }
+                else if(line.job.toUpperCase()=="VOID LINE")
+                {
+                    if(this.trepo.eposTransLines.length>0)
+                    {
+                        if(this.trepo.selectedEposTransLine.elno>0)
+                        {
+                            this.trepo.selectedEposTransLine.lineStatus=true;
+                            let elno=this.trepo.selectedEposTransLine.elno;
+                            let changes = new Map<string, any>();
+                            changes.set("lineStatus", true);
+                            this.trepo.updateEposTransLine(elno,changes);
+                        }
+                    }
                 }
             }
         }

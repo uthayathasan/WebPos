@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using WebPos.Models;
 using WebPos.DataAccess;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.JsonPatch;
+
 namespace WebPos.Controllers
 {
     [Route("api/eposTransLines")]
@@ -33,6 +35,20 @@ namespace WebPos.Controllers
                 return Ok(result);
             }
             else{
+                return BadRequest(ModelState);
+            }
+        }
+        [HttpPatch("{id}")]
+        public IActionResult UpdateTransLine(int id,string customerId,string storeId,string tillId,[FromBody]JsonPatchDocument<EposTransLine> patch)
+        {
+            List<EposTransLine> lm=repo.GetTransLinesByElNo(customerId,storeId,tillId,id);
+            EposTransLine m=lm[0];
+            patch.ApplyTo(m,ModelState);
+            if(ModelState.IsValid && TryValidateModel(m))
+            {
+                int result =repo.UpdateTransLineByELNo(m,customerId,storeId,tillId);
+                return Ok(result);
+            }else{
                 return BadRequest(ModelState);
             }
         }

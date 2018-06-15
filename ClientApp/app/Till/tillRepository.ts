@@ -90,6 +90,24 @@ export class TillRepository {
         this.repo.sendRequest(RequestMethod.Get, url)
         .subscribe(response =>this.eposTransaction = response);
     }*/
+    updateEposTransLine(id: number, changes: Map<string, any>){
+        let patch = [];
+        changes.forEach((value, key) =>patch.push({ op: "replace", path: key, value: value }));
+        this.apiBusy=true;
+        let url=eposTransLinesUrl+"/"+id;
+        url +="?customerId="+this.repo.filter.customerId;
+        url +="&storeId="+this.repo.filter.storeId;
+        url +="&tillId="+this.repo.filter.tillId;
+        this.repo.sendRequest(RequestMethod.Patch, url,patch)
+        .subscribe(response =>{
+            let result = response;
+            this.apiBusy=false;
+            if(result>0){
+                let trans_id=this.selectedEposTransLine.transId;
+                this.getEposTransLines(trans_id);
+            }
+        });
+    }
     getEposTransLines(id:number){
         this.apiBusy=true;
         let url=eposTransLinesUrl+"/"+id;

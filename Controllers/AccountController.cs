@@ -4,6 +4,7 @@ using WebPos.DataAccess;
 using System.Collections.Generic;
 namespace WebPos.Controllers
 {
+    [Route("/api/account/login")]
     public class AccountController:Controller
     {
         private Repository repo;
@@ -11,7 +12,7 @@ namespace WebPos.Controllers
         {
             repo=_repo;
         }
-        [HttpGet("/api/account/login")]
+        [HttpGet]
         public IEnumerable<Staff> GetStaffs(string customerId,string storeId)
         {
             return repo.GetStaffDetails(customerId,storeId);

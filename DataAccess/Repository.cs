@@ -86,10 +86,20 @@ namespace WebPos.DataAccess
             EposTransLineDA eposTransLineDa=new EposTransLineDA();
             return eposTransLineDa.GetTransLinesByTransId(ConnectionString,CustomerId,StoreId,TillId,TransId);
         }
+        public List<EposTransLine> GetTransLinesByElNo(string CustomerId,string StoreId,string TillId,int ELNo)
+        {
+            EposTransLineDA eposTransLineDa=new EposTransLineDA();
+            return  eposTransLineDa.GetTransLinesByELNo(ConnectionString,CustomerId,StoreId,TillId,ELNo);
+        }
         public int InsertTransLine(EposTransLine m,string CustomerId,string StoreId,string TillId)
         {
             EposTransLineDA eposTransLineDa=new EposTransLineDA();
             return eposTransLineDa.InsertTransLine(ConnectionString,CustomerId,StoreId,TillId,m);
+        }
+        public int UpdateTransLineByELNo(EposTransLine m,string CustomerId,string StoreId,string TillId)
+        {
+            EposTransLineDA eposTransLineDa=new EposTransLineDA();
+            return eposTransLineDa.UpdateTransLineByELNo(ConnectionString,CustomerId,StoreId,TillId,m);
         }
         #endregion EposTransLine
         #region PostSales
