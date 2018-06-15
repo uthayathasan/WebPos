@@ -24,6 +24,7 @@ export class AuthenticationService {
                 this.repo.device.password=this.password;
                 this.repo.storeSessionData('device',this.repo.device);
                 this.router.navigateByUrl(this.callbackUrl || "");
+                this.repo.getAuthorizations();
             }
             else
             {

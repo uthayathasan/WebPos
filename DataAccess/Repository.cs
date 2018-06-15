@@ -12,6 +12,13 @@ namespace WebPos.DataAccess
         {
             ConnectionString=Startup.ConnectionString;
         }
+        #region Authorization
+        public List<Authorization> GetAuthorizations(string CustomerId,string StoreId)
+        {
+            AuthorizationDA authorizationDa =new AuthorizationDA();
+            return authorizationDa.GetAuthorizations(ConnectionString,CustomerId,StoreId);
+        }
+        #endregion Authorization
         #region Item
         public List<Item> GetItemByItemNoOrBarcodeStoreIdCustomerId(string CustomerId,string StoreId,string id)
         {

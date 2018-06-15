@@ -1,5 +1,6 @@
 import{Staff} from "./staff.model";
 import{Device} from "./device.model";
+import{Authorization} from "./authorization.model";
 
 import { Injectable } from "@angular/core";
 import { Http, RequestMethod, Request, Response } from "@angular/http";
@@ -12,6 +13,7 @@ import "rxjs/add/operator/catch";
 
 const devicesUrl="/api/devices";
 const staffUrl="/api/account/login";
+const authorizationUrl="/api/authorizations";
 
 @Injectable()
 export class Repository {
@@ -86,7 +88,33 @@ export class Repository {
         this.sendRequest(RequestMethod.Get, url)
         .subscribe(response =>this.staffs = response);   
     }
-    
+    getAuthorizations(){
+        this.apiBusy=true;
+        let url=authorizationUrl;
+        url +="?customerId="+this.filter.customerId;
+        url +="&storeId="+this.filter.storeId;
+        this.sendRequest(RequestMethod.Get, url)
+        .subscribe(response =>{
+            this.authorizations = response;
+            this.apiBusy=false;
+        });  
+    }
+    getIsAuthorised(tag:string,role:string):boolean{
+        let result=false;
+        let authTag=this.authorizations.filter(x=>x.tag==tag);
+        if(role=="Admin"){
+            result=authTag.map(y=>y.admin)[0];
+        }else if(role=="Manager"){
+            result=authTag.map(y=>y.manager)[0];
+        }else if(role=="Supervisor"){
+            result=authTag.map(y=>y.supervisor)[0];
+        }else if(role=="Cashier"){
+            result=authTag.map(y=>y.cashier)[0];
+        }else if(role=="Staff"){
+            result=authTag.map(y=>y.staff)[0];
+        }
+        return result;
+    }
     storeSessionData(dataType: string, data: any) {
         return this.sendRequest(RequestMethod.Post, "/api/session/" + dataType, data)
         .subscribe(response => { });
@@ -137,6 +165,7 @@ export class Repository {
     device:Device;
     staffs:Staff[];
     logedInStaff:Staff;
+    authorizations:Authorization[];
     apiBusy?:boolean;
     get filter(): Filter {
         return this.filterObject;
