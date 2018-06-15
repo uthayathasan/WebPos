@@ -111,17 +111,28 @@ export class FunctionKeyComponent{
                         if(this.trepo.selectedEposTransLine.elno>0)
                         {
                             let role=this.repo.logedInStaff.role;
-                            let tag="Void Line";
-                            if(this.repo.getIsAuthorised(tag,role)){
+                            let isAuthorised=false;
+                            if(this.trepo.selectedEposTransLine.kitchenPrinted)
+                            {
+                                let tag="Kitchen Void Line";
+                                if(this.repo.getIsAuthorised(tag,role)){
+                                    isAuthorised=true;
+                                }
+                            }else{
+                                let tag="Void Line";
+                                if(this.repo.getIsAuthorised(tag,role)){
+                                    isAuthorised=true;
+                                }
+                            }
+                            if(isAuthorised){
                                 this.trepo.selectedEposTransLine.lineStatus=true;
                                 let elno=this.trepo.selectedEposTransLine.elno;
                                 let changes = new Map<string, any>();
                                 changes.set("lineStatus", true);
                                 this.trepo.updateEposTransLine(elno,changes);
                                 this.cart.isError=true;
-                                this.cart.journalText="Line Voided!";
-                            }
-                            else{
+                                this.cart.journalText="Sales Line Voided!";
+                            }else{
                                 this.cart.isError=true;
                                 this.cart.journalText="Permission Denied!";
                             }
