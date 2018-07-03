@@ -38,7 +38,7 @@ namespace WebPos.DataAccess
                         #region Fill Model
                         try{m.BootstrapButton=reader.GetString(0);}catch{}
                         try{m.Colour=reader.GetString(1);}catch{}
-                        try{m.Description=reader.GetString(2);}catch{}
+                        try{m.Description=reader.GetString(2).ToUpper();}catch{}
                         try{m.HtmlColour=reader.GetString(3);}catch{}
                         try{m.ImagePath=reader.GetString(4);}catch{}
                         try{m.IsImage=reader.GetBoolean(5);}catch{}

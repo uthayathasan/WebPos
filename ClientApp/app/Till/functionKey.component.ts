@@ -141,6 +141,7 @@ export class FunctionKeyComponent{
                 }
                 else if(line.job.toUpperCase()=="VOID ALL")
                 {
+                    this.trepo.specialTag="VOID ALL";
                     this.router.navigateByUrl("/specialPermission");
                 }
             }

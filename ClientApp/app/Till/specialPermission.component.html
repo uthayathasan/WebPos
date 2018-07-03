@@ -4,22 +4,23 @@
         <h5 class="text-info text-center">
             SPECIAL PERMISSION
         </h5>
+        <h6 class="text-warning text-center">{{specialTag}}</h6>
         <h6 *ngIf="showError" class="p-2 bg-warning text-white">
             Invalid username or password
         </h6>
         <form novalidate #authForm="ngForm" class="m-1 p-1">
             <div class="form-group">
                 <label>UserId:</label>
-                <input #name="ngModel" name="name" class="form-control"
-                [(ngModel)]="UserId" required />
+                <input #name="ngModel" name="name" id="username" class="form-control"
+                [(ngModel)]="UserId" required (click)="focus('userId')" />
                 <div *ngIf="name.invalid" class="text-danger">
                     Please enter your user name
                 </div>
             </div>
             <div class="form-group">
                 <label>Password:</label>
-                <input type="password" #password="ngModel" name="password"
-                    class="form-control" [(ngModel)]="Password" required />
+                <input type="password" #password="ngModel" name="password" id="userpassword"
+                    class="form-control" [(ngModel)]="Password" required (click)="focus('password')" />
                 <div *ngIf="password.invalid" class="text-danger">
                     Please enter your password
                 </div>
@@ -29,19 +30,19 @@
                     <tr class="table-info">
                         <td>
                             <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
-                            style="min-height:50px;background: blue" >
+                            style="min-height:50px;background: blue" (click)="enterTxt('7')" >
                                 7
                             </button>
                         </td>
                         <td>
                             <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
-                            style="min-height:50px;background: blue" >
+                            style="min-height:50px;background: blue" (click)="enterTxt('8')" >
                                 8
                             </button>
                         </td>
                         <td>
                             <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
-                            style="min-height:50px;background: blue" >
+                            style="min-height:50px;background: blue" (click)="enterTxt('9')" >
                                 9
                             </button>
                         </td>
@@ -55,25 +56,25 @@
                     <tr class="table-info">
                         <td>
                             <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
-                            style="min-height:50px;background: blue"  >
+                            style="min-height:50px;background: blue"  (click)="enterTxt('4')" >
                                 4
                             </button>
                         </td>
                         <td>
                             <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
-                            style="min-height:50px;background: blue" >
+                            style="min-height:50px;background: blue" (click)="enterTxt('5')" >
                                 5
                             </button>
                         </td>
                         <td>
                             <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
-                            style="min-height:50px;background: blue" >
+                            style="min-height:50px;background: blue" (click)="enterTxt('6')" >
                                 6
                             </button>
                         </td>
                         <td>
                             <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
-                            style="min-height:50px;background: green" >
+                            style="min-height:50px;background: green" (click)=" enterBtn()" >
                                 Enter
                             </button>
                         </td>
@@ -81,25 +82,25 @@
                     <tr class="table-info">
                         <td>
                             <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
-                            style="min-height:50px;background: blue">
+                            style="min-height:50px;background: blue" (click)="enterTxt('1')">
                                 1
                             </button>
                         </td>
                         <td>
                             <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
-                            style="min-height:50px;background: blue" >
+                            style="min-height:50px;background: blue" (click)="enterTxt('2')" >
                                 2
                             </button>
                         </td>
                         <td>
                             <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
-                            style="min-height:50px;background: blue">
+                            style="min-height:50px;background: blue" (click)="enterTxt('3')">
                                 3
                             </button>
                         </td>
                         <td>
                             <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
-                            style="min-height:50px;background:orange" >
+                            style="min-height:50px;background:orange" (click)="clearBtn()" >
                                 Clear
                             </button>
                         </td>
@@ -107,13 +108,13 @@
                     <tr class="table-info">
                         <td colspan="3">
                             <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
-                            style="min-height:50px;background: blue" >
+                            style="min-height:50px;background: blue" (click)="enterTxt('0')">
                                 0
                             </button>
                         </td>
                         <td>
                             <button type="button" class="btn btn-sm btn-block text-white m-0 p-0" 
-                            style="min-height:50px;background: red" > 
+                            style="min-height:50px;background: red" (click)="exitBtn()" > 
                                 Exit
                             </button>
                         </td>

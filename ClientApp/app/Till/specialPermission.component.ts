@@ -8,8 +8,45 @@ import { Router } from "@angular/router";
 })
 export class SpecialPermissionComponent{
     constructor(private trepo:TillRepository,private router:Router) {}
-    ngOnInit(){}
-    
+    ngOnInit(){
+        this.focusTxt="";
+        this.userId="";
+        this.password="";
+    }
+    get specialTag():string{
+        return this.trepo.specialTag;
+    }
+    focus(id:string){
+        this.focusTxt=id;
+    }
+    enterTxt(val:string){
+        if(this.focusTxt=="userId"){
+            this.userId=this.userId+val;
+        }else if(this.focusTxt=="password"){
+            this.password=this.password+val;
+        }
+    }
+    enterBtn(){
+        if(this.userId==""){
+            this.focusTxt="userId";
+            document.getElementById("username").focus();
+        }else if(this.password==""){
+            this.focusTxt="password";
+            document.getElementById("userpassword").focus();
+        }
+    }
+    exitBtn(){
+        this.router.navigateByUrl("/till");
+    }
+    clearBtn(){
+        if(this.focusTxt=="userId"){
+            this.userId="";
+            document.getElementById("username").focus();
+        }else if(this.focusTxt=="password"){
+            this.password="";
+            document.getElementById("userpassword").focus();
+        }
+    }
     get UserId():string{
         return this.userId;
     }
@@ -25,4 +62,6 @@ export class SpecialPermissionComponent{
     private userId?:string;
     private password?:string;
     showError: boolean = false;
+    private focusTxt?:string;
+    
 }

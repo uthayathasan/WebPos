@@ -28,7 +28,7 @@ namespace WebPos.DataAccess{
                         try{m.BootstrapButton=reader.GetString(0);}catch{}
                         try{m.Colour=reader.GetString(1);}catch{}
                         try{m.HtmlColour=reader.GetString(2);}catch{}
-                        try{m.Description=reader.GetString(3);}catch{}
+                        try{m.Description=reader.GetString(3).ToUpper();}catch{}
                         try{m.MenuId=reader.GetString(4);}catch{}
                         try{m.PriorityNo=reader.GetInt32(5);}catch{}
                         try{m.HotlineNo=reader.GetInt32(6);}catch{}

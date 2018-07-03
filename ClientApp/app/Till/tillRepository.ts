@@ -200,4 +200,5 @@ export class TillRepository {
     selectedTableLine:TableStatus;
     takeawayStatus:TakeawayStatus[];
     selectedTakeawayLine:TakeawayStatus;
+    specialTag?:string;
 }
