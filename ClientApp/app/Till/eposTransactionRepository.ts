@@ -399,7 +399,7 @@ export class EposTransactionRepository{
                                 this.cart.transType=0;
                                 this.cart.isError=false;
                                 this.cart.journalText="";
-                                this.cart.posting="Posted";
+                                this.cart.posting="POSTED";
                             }
                         });
                     }
@@ -541,7 +541,7 @@ export class EposTransactionRepository{
                                 this.cart.transType=0;
                                 this.cart.isError=false;
                                 this.cart.journalText="";
-                                this.cart.posting="Posted";
+                                this.cart.posting="POSTED";
                             }
                         });
                     }

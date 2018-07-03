@@ -139,6 +139,10 @@ export class FunctionKeyComponent{
                         }
                     }
                 }
+                else if(line.job.toUpperCase()=="VOID ALL")
+                {
+                    this.router.navigateByUrl("/specialPermission");
+                }
             }
         }
     }

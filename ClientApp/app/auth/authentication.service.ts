@@ -30,6 +30,7 @@ export class AuthenticationService {
             {
                 this.authenticated = false;
             }
+            logedInStaff.length=0;
         }
     }
 
