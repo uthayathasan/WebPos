@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,NgZone } from '@angular/core';
 import { ErrorHandlerService } from "./errorHandler.service";
 import { Router } from "@angular/router";
 
@@ -12,9 +12,9 @@ import { Device } from './models/device.model';
 })
 export class AppComponent {
   private lastError: string[];
-  constructor(private repo:Repository,private router:Router,private authService: AuthenticationService,errorHandler: ErrorHandlerService){
+  constructor(private repo:Repository,private router:Router,private authService: AuthenticationService,errorHandler: ErrorHandlerService,ngZone:NgZone){
     errorHandler.errors.subscribe(error => {
-      this.lastError = error;
+      ngZone.run(()=>this.lastError = error);
       });
   }
   

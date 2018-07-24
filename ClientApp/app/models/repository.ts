@@ -7,7 +7,6 @@ import { Http, RequestMethod, Request, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import { Filter } from "./configClasses.repository";
-import { promise } from "selenium-webdriver";
 import { ErrorHandlerService, ValidationError } from "../errorHandler.service";
 import "rxjs/add/operator/catch";
 
@@ -133,12 +132,14 @@ export class Repository {
                     try {
                         jsonData = errorResponse.json();
                     } catch (e) {
-                        throw new Error("Network Error");
+                        //throw new Error("Network Error");
+                        throw new Error(errorResponse.toString());
                     }
                     let messages = Object.getOwnPropertyNames(jsonData).map(p => jsonData[p]);
                     throw new ValidationError(messages);
                 }
-                throw new Error("Network Error");
+                //throw new Error("Network Error");
+                throw new Error(errorResponse.toString());
             });
         }
     ChangeScreenSize(){

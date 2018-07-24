@@ -116,6 +116,13 @@ namespace WebPos.DataAccess
             return postSalesDa.PostSales(ConnectionString,CustomerId,StoreId,TillId,SlipNo);
         }
         #endregion PostSales
+        #region Void All
+        public int VoidAll(string CustomerId,string StoreId,string TillId,int SlipNo)
+        {
+            VoidAllDA voidAllDa=new VoidAllDA();
+            return voidAllDa.VoidAll(ConnectionString,CustomerId,StoreId,TillId,SlipNo);
+        }
+        #endregion Void ALL
         #region Select Order Table Takeaway 
         public List<TableStatus> GetTableStatus(string CustomerId,string StoreId,string TillId)
         {

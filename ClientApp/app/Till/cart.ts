@@ -279,7 +279,27 @@ export class Cart{
             return 50;
         }
     }
+    setNextTransaction(){
+        this.trepo.eposTransLines.length=0;
+        this.trepo.eposTransaction=null;
+        this.mod="Start";
 
+        this.trepo.selectedTableLine=null;
+        this.trepo.selectedTakeawayLine=null;
+        this.orderTypeText="";
+        this.orderType=0;
+        this.orderNo=0;
+        this.tableId=0;
+        this.tableName="";
+        this.seates="";
+        this.takeawayId=0;
+        this.deliveryId=0;
+        this.customerId==0;
+        this.slipNo=0;
+        this.transType=0;
+        this.isError=false;
+        this.journalText="";
+    }
     header?:string;
     salesAmount?:number;
     noOfitems?:number;

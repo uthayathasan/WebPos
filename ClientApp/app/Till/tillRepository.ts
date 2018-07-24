@@ -130,28 +130,7 @@ export class TillRepository {
         this.selectedEposTransLine=line;
     }
 
-    /*
-    testEsp(){
-        let val;
-        let url="http://192.168.1.104/gpio/1";
-        this.repo.sendRequest(RequestMethod.Post, url)
-        .subscribe(response=>{
-            val=response;
-            console.log(val);
-        });
-    }
-    */
-     /*
-    insertEposTransLine(line:EposTransLine){
-        let result=0;
-        let url=eposTransLinesUrl;
-        url +="?customerId="+this.repo.filter.customerId;
-        url +="&storeId="+this.repo.filter.storeId;
-        url +="&tillId="+this.repo.filter.tillId;
-        this.repo.sendRequest(RequestMethod.Post, url, line).subscribe(response => {
-            result = response;});
-    }
-    */
+   
     getTables(){
         this.apiBusy=true;
         let url=tablesUrl+"?customerId="+this.repo.filter.customerId;

@@ -4,6 +4,7 @@ import { Cart } from './cart';
 import {FunctionKey} from "../models/functionKey.model";
 import { TillRepository } from './tillRepository';
 import{Repository} from "../models/repository";
+import{QzTrayService} from "../models/QzTrayService";
 import { AuthenticationService } from "../auth/authentication.service";
 @Component({
     selector: "function-key",
@@ -11,7 +12,9 @@ import { AuthenticationService } from "../auth/authentication.service";
     styleUrls: ['./functionKey.component.css']
 })
 export class FunctionKeyComponent{
-    constructor(private repo:Repository,private trepo:TillRepository,private cart: Cart,private router:Router,private authService: AuthenticationService) {}
+    constructor(private repo:Repository,private trepo:TillRepository,private cart: Cart,private router:Router,
+        private authService: AuthenticationService,private qzprinter:QzTrayService) {}
+
     ngOnInit(){}
     get functionKeys1(): FunctionKey[]{
         if( this.trepo.functionKeys!=null){
@@ -58,7 +61,6 @@ export class FunctionKeyComponent{
                     }
                     this.cart.journalText="";
                     this.cart.isError=false;
-                    //this.trepo.testEsp();
                     this.trepo.getTables();
                     this.trepo.selectedTableLine=null;
                     this.router.navigateByUrl("/tables");
@@ -78,31 +80,16 @@ export class FunctionKeyComponent{
                 else if(line.job.toUpperCase()=="LOG OFF"){
                     this.authService.logout();
                 }
+                else if(line.job.toUpperCase()=="PRINT LAST"){
+                    let pr=this.qzprinter.getPrinters();
+                    console.log(pr);
+                }
             }
             else if(line.mod.toUpperCase()=="SALES")
             {
                 if(line.job.toUpperCase()=="MAIN")
                 {
-                    this.trepo.eposTransLines.length=0;
-                    this.trepo.eposTransaction=null;
-
-                    this.cart.mod="Start";
-                    
-                    this.trepo.selectedTableLine=null;
-                    this.trepo.selectedTakeawayLine=null;
-                    this.cart.orderTypeText="";
-                    this.cart.orderType=0;
-                    this.cart.orderNo=0;
-                    this.cart.tableId=0;
-                    this.cart.tableName="";
-                    this.cart.seates="";
-                    this.cart.takeawayId=0;
-                    this.cart.deliveryId=0;
-                    this.cart.customerId==0;
-                    this.cart.slipNo=0;
-                    this.cart.transType=0;
-                    this.cart.isError=false;
-                    this.cart.journalText="";
+                    this.cart.setNextTransaction();
                 }
                 else if(line.job.toUpperCase()=="VOID LINE")
                 {
@@ -141,8 +128,11 @@ export class FunctionKeyComponent{
                 }
                 else if(line.job.toUpperCase()=="VOID ALL")
                 {
-                    this.trepo.specialTag="VOID ALL";
-                    this.router.navigateByUrl("/specialPermission");
+                    if(this.cart.slipNo>0)
+                    {
+                        this.trepo.specialTag="VOID ALL";
+                        this.router.navigateByUrl("/specialPermission");
+                    }
                 }
             }
         }

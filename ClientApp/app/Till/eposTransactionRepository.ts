@@ -14,6 +14,7 @@ const itemsUrl = "/api/items";
 const eposTransactionsUrl="/api/eposTransactions";
 const eposTransLinesUrl="/api/eposTransLines";
 const postSalesUrl="/api/postSales";
+const voidSalesUrl="/api/voidSales";
 @Injectable()
 export class EposTransactionRepository{
     constructor(private repo:Repository,private tRepo:TillRepository,private cart:Cart,private router:Router){}
@@ -380,25 +381,7 @@ export class EposTransactionRepository{
                             result = response;
                             this.apiBusy=false;
                             if(result>0){
-                                this.tRepo.eposTransLines.length=0;
-                                this.tRepo.eposTransaction=null;
-                                this.cart.mod="Start";
-                    
-                                this.tRepo.selectedTableLine=null;
-                                this.tRepo.selectedTakeawayLine=null;
-                                this.cart.orderTypeText="";
-                                this.cart.orderType=0;
-                                this.cart.orderNo=0;
-                                this.cart.tableId=0;
-                                this.cart.tableName="";
-                                this.cart.seates="";
-                                this.cart.takeawayId=0;
-                                this.cart.deliveryId=0;
-                                this.cart.customerId==0;
-                                this.cart.slipNo=0;
-                                this.cart.transType=0;
-                                this.cart.isError=false;
-                                this.cart.journalText="";
+                                this.cart.setNextTransaction();
                                 this.cart.posting="POSTED";
                             }
                         });
@@ -522,25 +505,7 @@ export class EposTransactionRepository{
                             result = response;
                             this.apiBusy=false;
                             if(result>0){
-                                this.tRepo.eposTransLines.length=0;
-                                this.tRepo.eposTransaction=null;
-                                this.cart.mod="Start";
-                    
-                                this.tRepo.selectedTableLine=null;
-                                this.tRepo.selectedTakeawayLine=null;
-                                this.cart.orderTypeText="";
-                                this.cart.orderType=0;
-                                this.cart.orderNo=0;
-                                this.cart.tableId=0;
-                                this.cart.tableName="";
-                                this.cart.seates="";
-                                this.cart.takeawayId=0;
-                                this.cart.deliveryId=0;
-                                this.cart.customerId==0;
-                                this.cart.slipNo=0;
-                                this.cart.transType=0;
-                                this.cart.isError=false;
-                                this.cart.journalText="";
+                                this.cart.setNextTransaction();
                                 this.cart.posting="POSTED";
                             }
                         });
@@ -550,6 +515,21 @@ export class EposTransactionRepository{
                 this.cart.price=0;
                 this.cart.journalInput="";
             }
+        });
+    }
+    voidAll(){
+        this.repo.apiBusy=true;
+        let result=0;
+        let url=voidSalesUrl;
+        url +="?customerId="+this.repo.filter.customerId;
+        url +="&storeId="+this.repo.filter.storeId;
+        url +="&tillId="+this.repo.filter.tillId;
+        url +="&slipNo="+this.cart.slipNo;
+        this.repo.sendRequest(RequestMethod.Post, url).subscribe(response => {
+            result=response;
+            this.repo.apiBusy=false;
+            this.cart.setNextTransaction();
+            this.router.navigateByUrl("/till");
         });
     }
     get apiBusy():boolean{

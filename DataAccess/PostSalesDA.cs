@@ -39,7 +39,7 @@ namespace WebPos.DataAccess
 
                 PostedSalesLineDA postedSalesLineDa =new PostedSalesLineDA();
                 PostedTransactionDA postedTransactionDa =new PostedTransactionDA();
-
+                VoidedTransLineDA voidedTransLineDa=new VoidedTransLineDA();
                 #region EposTransLines
 
                 EposTransLineDA eposTransLineDa=new EposTransLineDA();
@@ -96,6 +96,64 @@ namespace WebPos.DataAccess
                     else
                     {
                         #region Epos_Trans_Line To Void Line
+                        VoidedTransLine voided_trans_line=new VoidedTransLine();
+                        #region Fill
+                        voided_trans_line.Amount=epos_trans_line.Amount;
+                        voided_trans_line.Barcode=epos_trans_line.Barcode;
+                        voided_trans_line.BarPrint=epos_trans_line.BarPrint;
+                        voided_trans_line.BarPrinted=epos_trans_line.BarPrinted;
+                        voided_trans_line.BarPrintedTime=epos_trans_line.BarPrintedTime;
+                        voided_trans_line.DepartmentId=epos_trans_line.DepartmentId;
+                        voided_trans_line.Description=epos_trans_line.Description;
+                        voided_trans_line.DiscountAmount=epos_trans_line.DiscountAmount;
+                        voided_trans_line.Discountable=epos_trans_line.Discountable;
+                        voided_trans_line.DiscountPercentage=epos_trans_line.DiscountPercentage;
+                        voided_trans_line.EntryType=epos_trans_line.EntryType;
+                        voided_trans_line.FreeText=epos_trans_line.FreeText;
+                        voided_trans_line.IsCharge=epos_trans_line.IsCharge;
+                        voided_trans_line.IsChange=epos_trans_line.IsChange;
+                        voided_trans_line.IsModifier=epos_trans_line.IsModifier;
+                        voided_trans_line.IsRefund=epos_trans_line.IsRefund;
+                        voided_trans_line.ItemGroup=epos_trans_line.ItemGroup;
+                        voided_trans_line.ItemSubGroup=epos_trans_line.ItemSubGroup;
+                        voided_trans_line.KitchenPrint=epos_trans_line.KitchenPrint;
+                        voided_trans_line.KitchenPrinted=epos_trans_line.KitchenPrinted;
+                        voided_trans_line.KitchenPrintedTime=epos_trans_line.KitchenPrintedTime;
+                        voided_trans_line.LineNo=epos_trans_line.LineNo;
+                        voided_trans_line.LineStatus=epos_trans_line.LineStatus;
+                        voided_trans_line.LinkedOfferId=epos_trans_line.LinkedOfferId;
+                        voided_trans_line.MainItemNo=epos_trans_line.MainItemNo;
+                        voided_trans_line.Mandatory=epos_trans_line.Mandatory;
+                        voided_trans_line.NetAmount=epos_trans_line.NetAmount;
+                        voided_trans_line.Number=epos_trans_line.Number;
+                        voided_trans_line.OfferID=epos_trans_line.OfferID;
+                        voided_trans_line.OfferQuantity=epos_trans_line.OfferQuantity;
+                        voided_trans_line.OfferTrigger=epos_trans_line.OfferTrigger;
+                        voided_trans_line.OrderType=epos_trans_line.OrderType;
+                        voided_trans_line.PaymentType=epos_trans_line.PaymentType;
+                        voided_trans_line.Price=epos_trans_line.Price;
+                        voided_trans_line.PrintGroup=epos_trans_line.PrintGroup;
+                        voided_trans_line.Quantity=epos_trans_line.Quantity;
+                        voided_trans_line.Scale=epos_trans_line.Scale;
+                        voided_trans_line.Scanned=epos_trans_line.Scanned;
+                        voided_trans_line.Served=epos_trans_line.Served;
+                        voided_trans_line.SplitGroup=epos_trans_line.SplitGroup;
+                        voided_trans_line.StaffId=epos_trans_line.StaffId;
+                        voided_trans_line.StoreId=epos_trans_line.StoreId;
+                        voided_trans_line.TempItem=epos_trans_line.TempItem;
+                        voided_trans_line.TillId=epos_trans_line.TillId;
+                        voided_trans_line.TotalCost=epos_trans_line.TotalCost;
+                        voided_trans_line.TransDate=epos_trans_line.TransDate;
+                        voided_trans_line.TransId=last_trans_no;
+                        voided_trans_line.UnitCost=epos_trans_line.UnitCost;
+                        voided_trans_line.VatAmount=epos_trans_line.VatAmount;
+                        voided_trans_line.VatCode=epos_trans_line.VatCode;
+                        voided_trans_line.VatRate=epos_trans_line.VatRate;
+                        voided_trans_line.ShiftReportId="";
+                        voided_trans_line.ZReportID="";
+                        voided_trans_line.IsVoidLine=true;
+                        #endregion Fill
+                        voidedTransLineDa.InsertVoidedLine(connectionString,CustomerId,StoreId,voided_trans_line);
                         #endregion Epos_Trans_Line To Void Line
                     }
                     DateTime TransDate =Convert.ToDateTime(epos_trans_line.TransDate);

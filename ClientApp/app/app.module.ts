@@ -7,7 +7,7 @@ import { ModelModule } from './models/model.module';
 
 import {RoutingConfig}from "./app.routing";
 import {TillModule} from "./Till/till.module";
-import {TillComponent}from "./Till/till.component";
+
 import { AuthModule } from "./auth/auth.module";
 
 import { ErrorHandler } from "@angular/core";
