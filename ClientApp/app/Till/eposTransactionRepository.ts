@@ -1,6 +1,5 @@
 import{ EposTransaction } from "../models/eposTransaction.model";
 import{EposTransLine} from "../models/eposTransLine.model";
-
 import{Repository} from "../models/repository";
 import{TillRepository} from "./tillRepository";
 import { Cart } from './cart';
@@ -19,6 +18,7 @@ const voidSalesUrl="/api/voidSales";
 export class EposTransactionRepository{
     constructor(private repo:Repository,private tRepo:TillRepository,private cart:Cart,private router:Router){}
     busy?:boolean;
+
     createTransactionAndinsertTransLineFromItemNo(id:string){
         let m=new EposTransaction();
         m.counterPrint=false;

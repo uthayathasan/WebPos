@@ -1,4 +1,5 @@
 import {Component,OnInit} from "@angular/core";
+import { Router } from "@angular/router";
 import { AuthenticationService } from "./authentication.service";
 import { Repository } from "../models/repository";
 import{Device} from "../models/device.model";
@@ -6,10 +7,12 @@ import{Device} from "../models/device.model";
     templateUrl: "authentication.component.html"
     })
     export class AuthenticationComponent {
-        constructor(private authService: AuthenticationService,private repo: Repository) { }
+        constructor(private authService: AuthenticationService,private repo: Repository,private router:Router) { }
         ngOnInit(){
             if(this.repo.staffs==null){
-            this.repo.getStaffs();
+                if(this.repo.device!=null){
+                    this.repo.getStaffs();
+                }
             }
         }
         showError: boolean = false;
@@ -24,7 +27,9 @@ import{Device} from "../models/device.model";
                 this.repo.makeFullScreen();
             }
         }
-        
+        claerDevice(){
+            this.router.navigateByUrl("clear");
+        }
         get Device():Device{
             return this.repo.device;
         }

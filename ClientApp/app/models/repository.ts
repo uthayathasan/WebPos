@@ -10,6 +10,8 @@ import { Filter } from "./configClasses.repository";
 import { ErrorHandlerService, ValidationError } from "../errorHandler.service";
 import "rxjs/add/operator/catch";
 
+import { LocalStorage } from '@ngx-pwa/local-storage';
+
 const devicesUrl="/api/devices";
 const staffUrl="/api/account/login";
 const authorizationUrl="/api/authorizations";
@@ -19,8 +21,15 @@ export class Repository {
     
     private filterObject = new Filter();
 
-    constructor(private http: Http){
-        this.apiBusy=false;
+    constructor(private http: Http,private localStorage: LocalStorage){
+        this.apiBusy=true;
+        this.getDevice().subscribe(responce=>{
+            this.setDevice(responce);
+            if(responce!=null){
+                this.getStaffs();
+            }
+            this.apiBusy=false;
+        });
     }
 
     get currentDateTime():string{
@@ -32,18 +41,11 @@ export class Repository {
     get minDate():string{
         return "1900-01-01 00:00:00";
     }
-    setDevice(response:any){
-        if(response!=null){
-            if(response.DeviceId!="")
+    setDevice(device:Device){
+        if(device!=null){
+            if(device.deviceId!="")
             {
-                this.device =new Device;
-                this.device.deviceId=response.DeviceId;
-                this.device.customerId=response.CustomerId;
-                this.device.storeId=response.StoreId;
-                this.device.tillId=response.TillId;
-                this.device.storeName=response.StoreName;
-                this.device.userId=response.UserId;
-                this.device.password=response.Password;
+                this.device=device;
                 this.filter.customerId=this.device.customerId;
                 this.filter.storeId=this.device.storeId;
                 this.filter.tillId=this.device.tillId; 
@@ -69,17 +71,7 @@ export class Repository {
             this.device=null;
         }
     }
-    clearDevices(){
-        this.device.deviceId="";
-        this.device.customerId="";
-        this.device.storeId="";
-        this.device.tillId="";
-        this.device.storeName="";
-        this.device.userId="";
-        this.device.password="";
-        this.storeSessionData('device',this.device);
-        this.device=null;
-    }
+
     getStaffs(){
         let url=staffUrl;
         url +="?customerId="+this.filter.customerId;
@@ -114,14 +106,16 @@ export class Repository {
         }
         return result;
     }
-    storeSessionData(dataType: string, data: any) {
-        return this.sendRequest(RequestMethod.Post, "/api/session/" + dataType, data)
-        .subscribe(response => { });
+    //Ref: https://www.npmjs.com/package/@ngx-pwa/local-storage
+    storeDevice(device:Device){
+        this.localStorage.setItem('device', device).subscribe(() => {});
     }
-    getSessionData(dataType: string): Observable<any> {
-        return this.sendRequest(RequestMethod.Get, "/api/session/" + dataType);
+    getDevice():Observable<any>{
+        return this.localStorage.getItem<Device>('device');
     }
-
+    clearDevice(){
+        this.localStorage.removeItem('device').subscribe(() => {});
+    }
     public sendRequest(verb: RequestMethod, url: string,data?: any): Observable<any> {
         return this.http.request(new Request({
             method: verb, url: url, body: data})).map(response =>{

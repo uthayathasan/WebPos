@@ -19,23 +19,21 @@ export class AppComponent {
   }
   
   ngOnInit(){
-    this.repo.getSessionData("device").subscribe(response =>{
-      if(response!=null){
-          this.repo.setDevice(response);
-          if((response.UserId!="")&&(response.Password!=""))
-          {
-            this.authService.userId=response.UserId;
-            this.authService.password=response.Password;
-          }
+    this.repo.getDevice().subscribe(responce=>{
+      this.repo.setDevice(responce);
+      if(this.repo.device!=null){
+        if((this.repo.device.userId!="")&&(this.repo.device.password!="")){
+          this.authService.userId=this.repo.device.userId;
+          this.authService.password=this.repo.device.password;
+        }
+      }
+      if((this.repo.device!=null)&&(!this.authService.authenticated)){
+        this.router.navigateByUrl("/login");
+      }
+      if(this.repo.device==null){
+        this.router.navigateByUrl("");
       }
     });
-    if((this.repo.device!=null)&&(!this.authService.authenticated)){
-      this.router.navigateByUrl("/login");
-    }
-    if(this.repo.device==null){
-      this.router.navigateByUrl("");
-    }
-   
   }
   get apiBusy(){
     return this.repo.apiBusy;
@@ -46,6 +44,7 @@ export class AppComponent {
   clearError() {
     this.repo.apiBusy=false;
     this.lastError = null;
+    location.reload();
   }
   get Device():Device{
     return this.repo.device;

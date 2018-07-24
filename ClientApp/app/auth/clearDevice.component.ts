@@ -10,8 +10,8 @@ import { Location } from '@angular/common';
   export class ClearDeviceComponent{
     constructor(private repo:Repository,private location: Location,private router:Router){}
     claerDevice(){
-        this.repo.clearDevices();
-        
+        this.repo.clearDevice();
+        location.reload();
       }
     Back(){
       if(this.repo.device==null){
