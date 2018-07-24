@@ -19,6 +19,7 @@ export class AppComponent {
   }
   
   ngOnInit(){
+    this.router.navigateByUrl("");
     this.repo.getDevice().subscribe(responce=>{
       this.repo.setDevice(responce);
       if(this.repo.device!=null){
