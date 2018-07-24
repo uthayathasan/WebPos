@@ -11,10 +11,12 @@ import { Location } from '@angular/common';
     constructor(private repo:Repository,private location: Location,private router:Router){}
     claerDevice(){
         this.repo.clearDevice();
+        this.router.navigateByUrl("");
         location.reload();
       }
     Back(){
       if(this.repo.device==null){
+        this.router.navigateByUrl("");
         location.reload();
       }else{
         this.router.navigateByUrl("");

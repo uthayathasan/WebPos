@@ -44,6 +44,7 @@ export class AppComponent {
   clearError() {
     this.repo.apiBusy=false;
     this.lastError = null;
+    this.router.navigateByUrl("");
     location.reload();
   }
   get Device():Device{

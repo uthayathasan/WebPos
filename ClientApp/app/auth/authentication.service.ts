@@ -43,6 +43,7 @@ export class AuthenticationService {
         this.password="";
         this.repo.storeDevice(this.repo.device);
         this.repo.exitFullScreen();
+        this.router.navigateByUrl("");
         location.reload();
     }
 }
